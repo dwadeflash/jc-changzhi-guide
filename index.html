@@ -25,6 +25,7 @@ body{
   font-family:"PingFang SC","Noto Sans SC","Microsoft YaHei",-apple-system,sans-serif;
   background:var(--paper); color:var(--ink);
   font-size:16px; line-height:1.7;
+  -webkit-text-size-adjust:100%;text-size-adjust:100%;
   background-image:
     repeating-linear-gradient(0deg,rgba(120,100,60,.022) 0 1px,transparent 1px 5px),
     repeating-linear-gradient(90deg,rgba(120,100,60,.018) 0 1px,transparent 1px 5px);
@@ -74,7 +75,7 @@ a{color:inherit;text-decoration:none}
 .mini-hero .stat span{font-size:11px;color:var(--ink2);letter-spacing:.1em}
 
 /* Top nav */
-.topnav{position:sticky;top:0;z-index:50;display:flex;gap:4px;overflow-x:auto;
+.topnav{position:sticky;top:0;z-index:50;display:flex;gap:4px;overflow-x:auto;justify-content:center;
   padding:8px 12px calc(8px + env(safe-area-inset-top));
   background:rgba(243,236,217,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);scrollbar-width:none}
@@ -149,12 +150,56 @@ table.route .td-h{white-space:nowrap;color:var(--ink2)}
 .cls-scenic{background:#f0e8de;color:#6a4f2c;border:1px solid #dccdb4}
 .stop-meta{font-size:12.5px;color:var(--ink2);margin-top:5px;letter-spacing:.02em}
 .stop-note{margin-top:7px;font-size:14px;color:#453c31;line-height:1.75}
-.stop-actions{display:flex;gap:8px;margin-top:11px}
-.btn{display:inline-flex;align-items:center;gap:6px;border-radius:9px;padding:9px 14px;font-size:14px;font-weight:600}
+.stop-actions{display:flex;flex-wrap:wrap;gap:8px;row-gap:8px;margin-top:11px}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:9px;padding:9px 12px;font-size:13.5px;
+  font-weight:600;white-space:nowrap}
 .btn-nav{background:linear-gradient(180deg,#b54330,#8f3023);color:#fff;
   box-shadow:0 2px 0 #6d2217, 0 3px 8px rgba(160,60,40,.25)}
 .btn-nav:active{transform:translateY(1px);box-shadow:0 1px 0 #6d2217}
 .btn-loc{background:#fff;color:var(--teal);border:1px solid #c2d4cd}
+.btn-intro{background:#fff;color:#7c5a1e;border:1px solid var(--gold)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,25,20,.55);z-index:90;display:none;
+  align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);width:100%;max-width:720px;max-height:88vh;border-radius:16px 16px 0 0;
+  overflow:hidden;display:flex;flex-direction:column;box-shadow:0 -6px 30px rgba(0,0,0,.3);
+  animation:sheetUp .28s ease}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.modal-head{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line);background:#f2e9d1}
+.modal-title{font-family:"Songti SC",SimSun,serif;font-weight:800;font-size:17px;flex:1;line-height:1.4}
+.modal-close{flex:0 0 auto;width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);
+  font-size:15px;cursor:pointer;color:var(--ink);line-height:1}
+.modal-body{overflow-y:auto;padding:16px 18px calc(26px + env(safe-area-inset-bottom));font-size:14px;
+  line-height:1.8;color:#3d362b}
+.modal-body .f{color:var(--vermilion);font-weight:700;letter-spacing:.1em;margin:10px 0 2px;font-size:13px}
+.modal-body .f:first-child{margin-top:0}
+.modal-body b{color:var(--vermilion-d)}
+
+/* Docs */
+.doc{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+.doc summary{cursor:pointer;font-family:"Songti SC",SimSun,serif;font-weight:800;font-size:15.5px;color:var(--ink);
+  padding:13px 16px;list-style:none;display:flex;align-items:center;gap:8px}
+.doc summary::-webkit-details-marker{display:none}
+.doc summary i{font-style:normal;background:var(--vermilion);color:#fff;border-radius:999px;
+  font-size:11px;padding:1px 8px;font-weight:400}
+.doc .doc-desc{font-size:12px;color:var(--ink2);padding:0 16px 8px}
+.doc[open] summary{border-bottom:1px solid var(--line)}
+.doc-body{padding:10px 16px 18px;font-size:13.5px;line-height:1.85;color:#3d362b}
+.doc-body h1{font-size:19px;margin:18px 0 8px;font-family:"Songti SC",SimSun,serif;color:var(--ink);
+  border-bottom:1px solid var(--line);padding-bottom:6px}
+.doc-body h2{font-size:16px;margin:16px 0 6px;color:var(--vermilion-d);font-family:"Songti SC",SimSun,serif}
+.doc-body h3{font-size:14px;margin:12px 0 4px;color:var(--teal)}
+.doc-body p{margin:6px 0}
+.doc-body ul,.doc-body ol{margin:6px 0 6px 20px}
+.doc-body li{margin:3px 0}
+.doc-body table{border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px}
+.doc-body th,.doc-body td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}
+.doc-body th{background:#efe6cf}
+.doc-body blockquote{border-left:3px solid var(--gold);margin:8px 0;padding:6px 12px;background:#f7f0de;color:var(--ink2)}
+.doc-body mark{background:#f3e3b0;color:inherit;padding:0 3px;border-radius:3px}
+.doc-body code{background:#efe6cf;border-radius:4px;padding:1px 5px;font-size:12px}
 
 /* Alts */
 details.alts{margin-top:6px}
@@ -224,7 +269,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
   <button class="tab" data-tab="D5">D5</button>
   <button class="tab" data-tab="D6">D6</button>
   <button class="tab" data-tab="food">美食</button>
-  <button class="tab" data-tab="stay">住宿</button>
+  <button class="tab" data-tab="material">资料</button>
 </nav>
 
 <main>
@@ -262,19 +307,6 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
     </div>
     <p class="g-note"><b>五天合计约 599km</b>，每天 80-160km / 2.5-3.5h，节奏可控 ✅（不含返程）。初秋河谷早晚凉，出行备薄外套。</p>
 
-    <div class="sec-head" style="margin-top:34px"><span class="no">三</span><h2>怎么用</h2><span class="en">HOW TO USE</span></div>
-    <p class="g-note" style="margin-top:12px">📍 顶部 <b>tab 栏切换天数</b>；每个景点点 <b>「高德导航」</b> 会唤起手机高德 APP 直接驾车导航，「看位置」在地图上确认地点。各 Day 内按时间顺序从上往下点即可。</p>
-
-    <section class="sec install" id="install">
-      <h3>📱 添加到手机桌面 · 快捷打开</h3>
-      <ol>
-        <li><b>iPhone（Safari）</b>：右上角「分享」→ <code>添加到主屏幕</code> → 确认。之后桌面图标一键打开本攻略。</li>
-        <li><b>Android（Chrome）</b>：右上角「⋮」→ <code>添加到主屏幕</code> → 确认。</li>
-        <li>本文件为<b>单文件自包含</b>，复制/保存后离线也能看，长期留存不失效。</li>
-      </ol>
-      <p class="tip">💡 点「高德导航」会自动唤起手机上已安装的高德地图；未安装则打开网页版高德。</p>
-      <p class="tip" style="padding-bottom:16px">数据来源：V02 攻略 + 高德实测</p>
-    </section>
   </section>
 
   <section class="panel" id="panel-D0">
@@ -300,7 +332,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">落地 12-14 点弹性<br>出关取行李约 40min</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.856808,34.528476,%E9%83%91%E5%B7%9E%E6%96%B0%E9%83%91%E5%9B%BD%E9%99%85%E6%9C%BA%E5%9C%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.856808,34.528476&name=%E9%83%91%E5%B7%9E%E6%96%B0%E9%83%91%E5%9B%BD%E9%99%85%E6%9C%BA%E5%9C%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -316,7 +348,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">寄存行李<br>往返博物院打车约 14.5km / 20min</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.779558,34.759081,%E9%83%91%E5%B7%9E%E4%B8%9C%E7%AB%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.779558,34.759081&name=%E9%83%91%E5%B7%9E%E4%B8%9C%E7%AB%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -332,7 +364,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note"><b>免费 · 须提前 5 天公众号实名预约</b>（每日 17:00 放票）<br>常规 17:00 闭馆（延时至 20:30）<br>📜 中原文明总纲——贾湖骨笛 / 莲鹤方壶九大镇馆之宝</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.672097,34.788263,%E6%B2%B3%E5%8D%97%E5%8D%9A%E7%89%A9%E9%99%A2&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.672097,34.788263&name=%E6%B2%B3%E5%8D%97%E5%8D%9A%E7%89%A9%E9%99%A2&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -348,7 +380,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">郑太高铁约 1h15-1h30，每日约 19 趟<br>车次以 12306 为准</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.983555,35.534277,%E6%99%8B%E5%9F%8E%E4%B8%9C%E7%AB%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.983555,35.534277&name=%E6%99%8B%E5%9F%8E%E4%B8%9C%E7%AB%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -364,7 +396,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">房价 <b>¥210.88</b> · ★4.7<br>泽州路 4339 号 · ☎0356-2566777<br>晋城东→酒店约 16km / 24min（约 ¥40）<br>或公交 19 路→33 路</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.852743,35.517504,%E5%BE%B7%E6%BA%90%E5%A4%A7%E9%85%92%E5%BA%97%EF%BC%88%E6%B3%BD%E5%B7%9E%E8%B7%AF%E5%BA%97%EF%BC%89&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.852743,35.517504&name=%E5%BE%B7%E6%BA%90%E5%A4%A7%E9%85%92%E5%BA%97%EF%BC%88%E6%B3%BD%E5%B7%9E%E8%B7%AF%E5%BA%97%EF%BC%89&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -380,7 +412,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">白马寺山南麓城市公园<br>⚠️ 灯会为冬春季活动，9 月以公园夜景为主</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.845228,35.541935,%E9%BE%99%E9%A9%AC%E6%B9%96&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.845228,35.541935&name=%E9%BE%99%E9%A9%AC%E6%B9%96&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul>
@@ -408,7 +440,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>凤台东街 1263 号 · 国家一级博物馆<br>📜 全行程总纲：72 处国保的木构+彩塑+琉璃先在此拆解</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.868894,35.491082,%E6%99%8B%E5%9F%8E%E5%8D%9A%E7%89%A9%E9%A6%86&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.868894,35.491082&name=%E6%99%8B%E5%9F%8E%E5%8D%9A%E7%89%A9%E9%A6%86&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d1_bwg" data-name="晋城博物馆">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -424,7 +456,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>金村镇东南村<br>最古老二仙塑像 + 木雕天宫楼阁<br>📜 二仙=乐氏姐妹孝感升仙；天宫楼阁为全国宋金 3 座之一</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.972667,35.499791,%E5%B0%8F%E5%8D%97%E6%9D%91%E4%BA%8C%E4%BB%99%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.972667,35.499791&name=%E5%B0%8F%E5%8D%97%E6%9D%91%E4%BA%8C%E4%BB%99%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d1_xnc" data-name="小南村二仙庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -440,7 +472,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · <b>需提前预约</b>（风雅晋城公众号）<br>金村镇府城村<br>元代二十八星宿彩塑，《黑神话》亢金龙取景地<br>📜 几百年工匠用泥土重造了整片天空</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.94314,35.545898,%E5%BA%9C%E5%9F%8E%E7%8E%89%E7%9A%87%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.94314,35.545898&name=%E5%BA%9C%E5%9F%8E%E7%8E%89%E7%9A%87%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d1_yhm" data-name="府城玉皇庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -456,7 +488,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>紧邻玉皇庙，步行 0.6km<br>📜 清代滚龙柱 + 三义殿人物柱=石雕巅峰</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.948856,35.54284,%E5%BA%9C%E5%9F%8E%E5%85%B3%E5%B8%9D%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.948856,35.54284&name=%E5%BA%9C%E5%9F%8E%E5%85%B3%E5%B8%9D%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d1_gdm" data-name="府城关帝庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -472,7 +504,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">人均 30 元<br>府城关帝庙 1km 内<br>实测多家川菜馆，无需绕路</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.945,35.544,%E5%8D%88%E9%A4%90%20%C2%B7%20%E9%87%91%E6%9D%91%E9%95%87%E5%B7%9D%E8%8F%9C%E9%A6%86&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.945,35.544&name=%E5%8D%88%E9%A4%90%20%C2%B7%20%E9%87%91%E6%9D%91%E9%95%87%E5%B7%9D%E8%8F%9C%E9%A6%86&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -488,7 +520,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>崇文镇井坡村<br>二仙“真泽宫”，金代东西梳妆楼<br>⚠️ 午休 12-14 点，14 点后开放<br>📜 金代梳妆楼=中国古代楼阁代表作</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.255681,35.764898,%E8%A5%BF%E6%BA%AA%E4%BA%8C%E4%BB%99%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.255681,35.764898&name=%E8%A5%BF%E6%BA%AA%E4%BA%8C%E4%BB%99%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d1_xx" data-name="西溪二仙庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -504,7 +536,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">房价 <b>¥312/晚</b>（两晚共 ¥623.76）· ★4.9<br>长平西街 42 号 · ☎0356-5244877<br>可选夜游喜镇苏庄（9.7km/22min）</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.925523,35.798585,%E9%AB%98%E5%B9%B3%E5%A4%A7%E9%85%92%E5%BA%97&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.925523,35.798585&name=%E9%AB%98%E5%B9%B3%E5%A4%A7%E9%85%92%E5%BA%97&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul>
@@ -532,7 +564,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>陈区镇舍利山<br>北宋壁画 88㎡ 真迹仅门缝可看、展示为临摹<br>⚠️ 午休 12-15 点，<b>09:10 前到</b><br>📜 北宋壁画比《清明上河图》早约 20 年</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.04371,35.870389,%E5%BC%80%E5%8C%96%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.04371,35.870389&name=%E5%BC%80%E5%8C%96%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_khs" data-name="开化寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -548,7 +580,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>米山镇大粮山（七佛山南麓）<br>⚠️ 上午 09:00-12:00、午休 12-14:30，10:31 到午休前游完<br>📜 元代莲花藻井=山西孤例+明代《地狱十王图》</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.980773,35.780995,%E5%AE%9A%E6%9E%97%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.980773,35.780995&name=%E5%AE%9A%E6%9E%97%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_dls" data-name="定林寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -564,7 +596,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · <b>需公众号预约</b><br>米山镇<br>《黑神话》取景地，二十四诸天明代铁线彩塑<br>📜 铁丝为骨、怒相为魂——上党冶铁智慧入彩塑</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.974645,35.765698,%E7%B1%B3%E5%B1%B1%E9%93%81%E4%BD%9B%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.974645,35.765698&name=%E7%B1%B3%E5%B1%B1%E9%93%81%E4%BD%9B%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_tfs" data-name="米山铁佛寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -580,7 +612,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">人均约 30 元 · ⚠️现场核实<br>米山镇米西村丁字路口，距铁佛寺 0.5km · ★4.5</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.969838,35.767267,%E5%8D%88%E9%A4%90%20%C2%B7%20%E7%91%9E%E6%82%A6%E6%98%8C%E9%A5%AD%E5%BA%97%EF%BC%88%E7%B1%B3%E5%B1%B1%E9%95%87%EF%BC%89&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.969838,35.767267&name=%E5%8D%88%E9%A4%90%20%C2%B7%20%E7%91%9E%E6%82%A6%E6%98%8C%E9%A5%AD%E5%BA%97%EF%BC%88%E7%B1%B3%E5%B1%B1%E9%95%87%EF%BC%89&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -596,7 +628,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>宋代“断梁”结构 · 路况较差注意慢行<br>📜 全国唯一“断梁”：两根短梁拼大梁千年不坠</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.015144,35.714369,%E5%B4%87%E6%98%8E%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.015144,35.714369&name=%E5%B4%87%E6%98%8E%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_cms" data-name="崇明寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -612,7 +644,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>市区南·河西镇 · 北宋古刹，顺路打卡<br>📜 北宋淳化元年（990）创寺，五铺作批竹昂</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.935663,35.73983,%E6%B8%B8%E4%BB%99%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.935663,35.73983&name=%E6%B8%B8%E4%BB%99%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_yxs" data-name="游仙寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -628,7 +660,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">连住第二晚 · <b>¥312/晚</b><br>长平西街 42 号 · ☎0356-5244877</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.925523,35.798585,%E9%AB%98%E5%B9%B3%E5%A4%A7%E9%85%92%E5%BA%97&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.925523,35.798585&name=%E9%AB%98%E5%B9%B3%E5%A4%A7%E9%85%92%E5%BA%97&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -644,7 +676,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">夜游 · <b>免费</b>（门票待查）<br>河西镇苏庄村 · 婚俗古村夜景<br>游客中心营业至 21:00 · ☎0356-3902111<br>📜 北魏太武帝亲临赏连理树，“喜”名由此</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.944636,35.727795,%E5%96%9C%E9%95%87%E8%8B%8F%E5%BA%84%EF%BC%88%E5%A4%9C%E6%B8%B8%EF%BC%89&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.944636,35.727795&name=%E5%96%9C%E9%95%87%E8%8B%8F%E5%BA%84%EF%BC%88%E5%A4%9C%E6%B8%B8%EF%BC%89&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d2_sz" data-name="喜镇苏庄（夜游）">📖 介绍</button>
           </div>
         </div>
       </li></ul>
@@ -663,7 +695,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">古战场遗址 · <b>免费</b> · 约 1h<br>紧邻定林寺 1.1km，可并入定林寺段登顶，几乎零绕路<br>📜 前 260 年廉颇“以沙代粮”智谋</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.974172,35.776495,%E5%A4%87%E9%80%89%20%C2%B7%20%E9%95%BF%E5%B9%B3%E4%B9%8B%E6%88%98%E5%A4%A7%E7%B2%AE%E5%B1%B1%E6%99%AF%E5%8C%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.974172,35.776495&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E9%95%BF%E5%B9%B3%E4%B9%8B%E6%88%98%E5%A4%A7%E7%B2%AE%E5%B1%B1%E6%99%AF%E5%8C%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="alt_dls" data-name="备选 · 长平之战大粮山景区">📖 介绍</button>
           </div>
         </div>
       </li></ul></details>
@@ -690,7 +722,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 建议电话确认<br>伯方村<br>唐玄宗泰山封禅壁画（国内罕见帝王封禅题材）<br>⚠️ 9 点开门避开午休</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.859769,35.845703,%E4%BB%99%E7%BF%81%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.859769,35.845703&name=%E4%BB%99%E7%BF%81%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_xwm" data-name="仙翁庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -706,7 +738,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>10 元</b><br>寺庄镇王报村<br>全国最早金代戏台（1183 年）<br>⚠️ 无固定开放时间，找村委/文保员开门 · ☎0356-5222501</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.859961,35.865145,%E7%8E%8B%E6%8A%A5%E4%BA%8C%E9%83%8E%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.859961,35.865145&name=%E7%8E%8B%E6%8A%A5%E4%BA%8C%E9%83%8E%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_wb" data-name="王报二郎庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -722,7 +754,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>门票 15 元</b>（60 岁以上免费）<br>慈林镇翠云山<br>“宋塑之冠”十二圆觉菩萨 + 唐舍利塔 + 燃灯塔<br>📜 菩萨的慈悲目光，比照片里温柔一百倍</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.912908,35.98449,%E6%B3%95%E5%85%B4%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.912908,35.98449&name=%E6%B3%95%E5%85%B4%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_fxs" data-name="法兴寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -738,7 +770,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">人均 25 元<br>法兴寺周边（兴旺梨苑等）<br>确认有饭店即可，预留 20min 找饭</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.912908,35.98449,%E5%8D%88%E9%A4%90%20%C2%B7%20%E6%B3%95%E5%85%B4%E5%AF%BA%E5%91%A8%E8%BE%B9&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.912908,35.98449&name=%E5%8D%88%E9%A4%90%20%C2%B7%20%E6%B3%95%E5%85%B4%E5%AF%BA%E5%91%A8%E8%BE%B9&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -754,7 +786,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>25 元</b>（联票含三嵕庙）<br>色头镇紫云山<br>北宋千佛殿 + “宋塑之冠”十八罗汉<br>三嵕庙（后羿庙）相距约 500m · 含爬山 20min<br>📜 千佛殿 1016；十八罗汉为最早纪年宋塑罗汉（1079）</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.965947,35.980325,%E5%B4%87%E5%BA%86%E5%AF%BA%20%2B%20%E4%B8%89%E5%B5%95%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.965947,35.980325&name=%E5%B4%87%E5%BA%86%E5%AF%BA%20%2B%20%E4%B8%89%E5%B5%95%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_cqs" data-name="崇庆寺 + 三嵕庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -770,7 +802,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>丹朱镇下霍村<br>金代大殿 · 17:00 闭馆前充足<br>📜 金大定 1184 正殿；灵贶王=后羿（徽宗封），非李靖</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.939916,36.07848,%E4%B8%8B%E9%9C%8D%E6%8A%A4%E5%9B%BD%E7%81%B5%E8%B4%B6%E7%8E%8B%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.939916,36.07848&name=%E4%B8%8B%E9%9C%8D%E6%8A%A4%E5%9B%BD%E7%81%B5%E8%B4%B6%E7%8E%8B%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_xh" data-name="下霍护国灵贶王庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -786,7 +818,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 建议电话确认<br>丹朱镇南大街<br>金代中殿+后殿减柱造 · 营业至 21:00 无闭馆风险<br>📜 减柱造=晋东南金构标志技术</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.881133,36.117149,%E5%A4%A9%E7%8E%8B%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.881133,36.117149&name=%E5%A4%A9%E7%8E%8B%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_tws" data-name="天王寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -802,7 +834,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">房价 <b>¥248</b> · ★4.9<br>城隍庙商圈·西大街 21 号 LOOK 长城园区 · ☎0355-7165555<br>距上党门 0.85km</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.109,36.184021,%E9%94%A6%E6%BD%9E%C2%B7%E7%91%9E%E6%9C%8B%E9%85%92%E5%BA%97&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.109,36.184021&name=%E9%94%A6%E6%BD%9E%C2%B7%E7%91%9E%E6%9C%8B%E9%85%92%E5%BA%97&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -818,7 +850,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b><br>府坡街 · 隋代上党郡署大门 · 24 小时开放<br>酒店步行约 30min（或打车约 10min）<br>📜 李隆基任潞州别驾发迹地</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.106939,36.18737,%E4%B8%8A%E5%85%9A%E9%97%A8%EF%BC%88%E5%A4%9C%E6%99%AF%EF%BC%89&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.106939,36.18737&name=%E4%B8%8A%E5%85%9A%E9%97%A8%EF%BC%88%E5%A4%9C%E6%99%AF%EF%BC%89&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d3_sdm" data-name="上党门（夜景）">📖 介绍</button>
           </div>
         </div>
       </li></ul>
@@ -837,7 +869,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 约 40min<br>长子县慈林镇 · 宋金古建<br>崇庆寺→布村 4km / 8min</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=112.939678,36.007641,%E5%A4%87%E9%80%89%20%C2%B7%20%E5%B8%83%E6%9D%91%E7%8E%89%E7%9A%87%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=112.939678,36.007641&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E5%B8%83%E6%9D%91%E7%8E%89%E7%9A%87%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="alt_bc" data-name="备选 · 布村玉皇庙">📖 介绍</button>
           </div>
         </div>
       </li></ul></details>
@@ -864,7 +896,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>5 元</b><br>东街庙道巷 · ☎0355-3033159<br>规模最大城隍庙古建群（中轴线 408m）<br>📜 元代中殿；明嘉靖八年升府庙；“阴阳两衙门”制度标本</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.116378,36.183586,%E6%BD%9E%E5%AE%89%E5%BA%9C%E5%9F%8E%E9%9A%8D%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.116378,36.183586&name=%E6%BD%9E%E5%AE%89%E5%BA%9C%E5%9F%8E%E9%9A%8D%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_cm" data-name="潞安府城隍庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -880,7 +912,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">博物馆 · <b>免费</b> · 凭身份证登记<br>太行西街迎宾大街 9 号 · ☎0355-3553682<br>“上党从来天下脊”展，馆藏 6 万件</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.071467,36.217466,%E9%95%BF%E6%B2%BB%E5%B8%82%E5%8D%9A%E7%89%A9%E9%A6%86&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.071467,36.217466&name=%E9%95%BF%E6%B2%BB%E5%B8%82%E5%8D%9A%E7%89%A9%E9%A6%86&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_czb" data-name="长治市博物馆">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -896,7 +928,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">人均 25 元 · 云步街<br>博物馆→五凤楼顺路</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.12777,36.191335,%E5%8D%88%E9%A4%90%20%C2%B7%20%E9%95%BF%E5%AD%90%E7%82%92%E9%A5%BC&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.12777,36.191335&name=%E5%8D%88%E9%A4%90%20%C2%B7%20%E9%95%BF%E5%AD%90%E7%82%92%E9%A5%BC&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -912,7 +944,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>15 元</b> · 现场确认开放<br>南宋镇南宋村（玉皇观山门）<br>世界仅存三座五凤楼之一，荆木大梁桑木独梯<br>📜 元代“明五暗四”，形制源唐洛阳应天门</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.145703,35.964273,%E7%8E%89%E7%9A%87%E8%A7%82%E4%BA%94%E5%87%A4%E6%A5%BC&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.145703,35.964273&name=%E7%8E%89%E7%9A%87%E8%A7%82%E4%BA%94%E5%87%A4%E6%A5%BC&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_wfl" data-name="玉皇观五凤楼">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -928,7 +960,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>荫城镇 · 元代古建，距五凤楼约 10km<br>📜 宋代梁架（六椽栿三柱/叉手/驼峰）</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.130213,35.971784,%E9%95%BF%E6%98%A5%E7%8E%89%E7%9A%87%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.130213,35.971784&name=%E9%95%BF%E6%98%A5%E7%8E%89%E7%9A%87%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_ccy" data-name="长春玉皇庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -944,7 +976,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">历史文化名镇 · <b>免费</b><br>荫城镇 · 明清最大铁货集散地，第七批中国历史文化名镇<br>📜 “日进斗金”千年铁府（年销 2000 万斤）</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.118238,35.953168,%E8%8D%AB%E5%9F%8E%E5%8F%A4%E9%95%87&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.118238,35.953168&name=%E8%8D%AB%E5%9F%8E%E5%8F%A4%E9%95%87&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_yc" data-name="荫城古镇">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -960,7 +992,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · 票价现场核实（网传 20 元）· 建议电话确认<br>北社乡东河村 · 北宋圣母殿<br>夏季至 19:00<br>📜 九天圣母=九天玄女+送子功能叠合</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.343962,36.225048,%E4%B9%9D%E5%A4%A9%E5%9C%A3%E6%AF%8D%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.343962,36.225048&name=%E4%B9%9D%E5%A4%A9%E5%9C%A3%E6%AF%8D%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_jt" data-name="九天圣母庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -976,7 +1008,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保（第七批）· <b>免费</b> · 需电话确认<br>北社乡北社村，同村两庙打包（相距百米）<br>三嵕庙祀后羿（射日传说源头上党）；大禹庙 ⚠️高德标注暂停开放，可看外观<br>📜 石碣刻“羿射九乌之神地”</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.306317,36.255298,%E5%8C%97%E7%A4%BE%E4%B8%89%E5%B5%95%E5%BA%99%20%2B%20%E5%A4%A7%E7%A6%B9%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.306317,36.255298&name=%E5%8C%97%E7%A4%BE%E4%B8%89%E5%B5%95%E5%BA%99%20%2B%20%E5%A4%A7%E7%A6%B9%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d4_bs" data-name="北社三嵕庙 + 大禹庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -992,7 +1024,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">房价 <b>¥316</b> · ★4.5<br>北耽车乡实会村南 · ☎0355-8893666<br>紧邻大云院/原起寺<br>晚餐：324 省道辛安桥 5km 内农家饭店 / 辛安服务区</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.444475,36.355975,%E5%8D%8A%E5%B1%B1%E7%AA%91%E6%B4%9E%E5%BA%A6%E5%81%87%E5%BA%84%E5%9B%AD&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.444475,36.355975&name=%E5%8D%8A%E5%B1%B1%E7%AA%91%E6%B4%9E%E5%BA%A6%E5%81%87%E5%BA%84%E5%9B%AD&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul>
@@ -1011,7 +1043,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · ¥10 · ⚠️<b>高德标注暂停开放</b> · 出行前确认<br>梁家庄村 · 明代悬塑殿堂<br>📜 “海内悬塑之冠”；三教祖师并坐</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.141,36.221,%E5%A4%87%E9%80%89%20%C2%B7%20%E9%95%BF%E6%B2%BB%E8%A7%82%E9%9F%B3%E5%A0%82&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.141,36.221&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E9%95%BF%E6%B2%BB%E8%A7%82%E9%9F%B3%E5%A0%82&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="alt_gyt" data-name="备选 · 长治观音堂">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1027,7 +1059,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 约 40min<br>市区东北 · 元明清古建<br>⚠️ 与主线方向相反，需折返约 8km / 16min</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.157847,36.218435,%E5%A4%87%E9%80%89%20%C2%B7%20%E5%85%B3%E6%9D%91%E7%82%8E%E5%B8%9D%E5%BA%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.157847,36.218435&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E5%85%B3%E6%9D%91%E7%82%8E%E5%B8%9D%E5%BA%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="alt_gc" data-name="备选 · 关村炎帝庙">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1043,7 +1075,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保（金-明）· <b>免费</b>⚠️ · 约 40min<br>上党区苏店镇看寺村 · 村庙文保点，可能锁门——到门口找文保员<br>⚠️ 位于主线西侧，绕路较远</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.017947,36.11608,%E5%A4%87%E9%80%89%20%C2%B7%20%E6%AD%A3%E8%A7%89%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.017947,36.11608&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E6%AD%A3%E8%A7%89%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="alt_zjs" data-name="备选 · 正觉寺">📖 介绍</button>
           </div>
         </div>
       </li></ul></details>
@@ -1070,7 +1102,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>10 元</b><br>北耽车乡王曲村<br>一殿一碑五代木构 · 大门常闭需文保员，锁门看外观即值<br>📜 五代后唐 929/933；曾列“唐构四座”，墨书改断五代</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.405178,36.383467,%E5%A4%A9%E5%8F%B0%E5%BA%B5&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.405178,36.383467&name=%E5%A4%A9%E5%8F%B0%E5%BA%B5&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_tta" data-name="天台庵">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1086,7 +1118,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 建议电话确认<br>黄牛蹄乡 · 宋殿+青龙宝塔 · 小庙锁门看外观<br>📜 传唐天宝 747 玄宗敕建镇“女主之祸”</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.432526,36.353448,%E5%8E%9F%E8%B5%B7%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.432526,36.353448&name=%E5%8E%9F%E8%B5%B7%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_yqs" data-name="原起寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1102,7 +1134,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>20 元</b> · 售票必进细看<br>北耽车乡实会村<br>全国唯一五代壁画（约 940 年）<br>📜 五代木构全国仅 7 座占其一</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.443453,36.358899,%E5%A4%A7%E4%BA%91%E9%99%A2&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.443453,36.358899&name=%E5%A4%A7%E4%BA%91%E9%99%A2&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_dyy" data-name="大云院">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1118,7 +1150,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>阳高乡车当村<br>宋殿+元代 24 诸天壁画 36㎡ · 开门可 +15min<br>📜 四角塑韩信周瑜庞涓罗成“才高命短”警世</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.582363,36.357823,%E4%BD%9B%E5%A4%B4%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.582363,36.357823&name=%E4%BD%9B%E5%A4%B4%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_fts" data-name="佛头寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1134,7 +1166,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>阳高乡阳高村 · 金殿+石经幢，殿门常闭看外观<br>📜 金殿宋幢；龙门寺下院</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.592674,36.353046,%E6%B7%B3%E5%8C%96%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.592674,36.353046&name=%E6%B7%B3%E5%8C%96%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_chs" data-name="淳化寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1150,7 +1182,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">人均 35 元<br>阳高村（淳化寺同村）<br>午休前用餐</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.593177,36.352338,%E5%8D%88%E9%A4%90%20%C2%B7%20%E8%81%9A%E4%B8%B0%E6%BA%90%E5%86%9C%E5%AE%B6%E5%B0%8F%E9%99%A2&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.593177,36.352338&name=%E5%8D%88%E9%A4%90%20%C2%B7%20%E8%81%9A%E4%B8%B0%E6%BA%90%E5%86%9C%E5%AE%B6%E5%B0%8F%E9%99%A2&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li>
@@ -1166,7 +1198,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>20 元</b> · 售票午间开放<br>石城镇源头村<br>“中国古建博物馆”六朝同框<br>📜 全国唯一六朝同框；西配殿为唯一五代悬山顶</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.62925,36.390099,%E9%BE%99%E9%97%A8%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.62925,36.390099&name=%E9%BE%99%E9%97%A8%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_lms" data-name="龙门寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1182,7 +1214,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>阳高乡侯壁村 · 金代单殿<br>⚠️ 14:30 开门，早到河谷休整<br>📜 蝉肚实拍拱=民间孤本</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.616841,36.346585,%E5%9B%9E%E9%BE%99%E5%AF%BA&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.616841,36.346585&name=%E5%9B%9E%E9%BE%99%E5%AF%BA&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_hls" data-name="回龙寺">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1198,7 +1230,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">国保 · <b>免费</b> · 需电话确认<br>阳高乡侯壁村 · 元代正殿+须弥座 · 与回龙寺同村<br>📜 元至元 1336；鲧禹治漳传说在地</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.61781,36.345295,%E5%A4%8F%E7%A6%B9%E7%A5%9E%E7%A5%A0&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.61781,36.345295&name=%E5%A4%8F%E7%A6%B9%E7%A5%9E%E7%A5%A0&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_xysc" data-name="夏禹神祠">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1214,7 +1246,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">传统村落 · <b>免费</b><br>虹梯关乡虹霓村 · 悬崖古村落+80m 瀑布<br>⚠️ 返程绕行约 25min（非顺路，时间紧可砍）<br>📜 五代明惠大师塔</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.634925,36.234725,%E8%99%B9%E9%9C%93%E6%9D%91&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.634925,36.234725&name=%E8%99%B9%E9%9C%93%E6%9D%91&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            <button class="btn btn-intro" data-poi="d5_hnc" data-name="虹霓村">📖 介绍</button>
           </div>
         </div>
       </li>
@@ -1230,7 +1262,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">房价 <b>¥354</b> · ★4.9<br>府后西街·还车点旁，先入住再还车（23:00 前）</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.096345,36.196766,%E9%95%BF%E6%B2%BB%E6%BD%9E%E5%B7%9E%E5%B8%8C%E5%B0%94%E9%A1%BF%E6%AC%A2%E6%9C%8B%E9%85%92%E5%BA%97&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.096345,36.196766&name=%E9%95%BF%E6%B2%BB%E6%BD%9E%E5%B7%9E%E5%B8%8C%E5%B0%94%E9%A1%BF%E6%AC%A2%E6%9C%8B%E9%85%92%E5%BA%97&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul>
@@ -1249,7 +1281,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">传统村落·历史文化名村<br>村落<b>免费</b>；赤壁悬流景区门市 ¥68、线上约 ¥45<br>大禹治水传说在地村：村南“错錾沟”即“鲧错凿沟”<br>明清古建 200 余处 + 刘家大院（8 院落）<br>📜 第二批中国传统村落 + 第三批中国历史文化名村</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.564162,36.359054,%E5%A4%87%E9%80%89%20%C2%B7%20%E5%A5%A5%E6%B2%BB%E6%9D%91&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.564162,36.359054&name=%E5%A4%87%E9%80%89%20%C2%B7%20%E5%A5%A5%E6%B2%BB%E6%9D%91&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul></details>
@@ -1276,7 +1308,7 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
           <div class="stop-note">高铁返程（长治东→郑州东约 1.5h）<br>D5 晚已还车</div>
           <div class="stop-actions">
             <a class="btn btn-nav" href="https://uri.amap.com/navigation?to=113.163628,36.229623,%E9%95%BF%E6%B2%BB%E4%B8%9C%E7%AB%99&mode=car&policy=1&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3l-6 8h6v10l6-10h-6z"/></svg>高德导航</a>
-            <a class="btn btn-loc" href="https://uri.amap.com/marker?position=113.163628,36.229623&name=%E9%95%BF%E6%B2%BB%E4%B8%9C%E7%AB%99&src=jcguide" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>看位置</a>
+            
           </div>
         </div>
       </li></ul>
@@ -1290,9 +1322,1161 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
     <p style="font-size:12px;color:var(--ink2);margin-top:12px">📚 来源：《人说山西好味道》（山西卫视）、《山西长治十大封神》（椰青冰-）、《长治必吃榜》（爱吃的小yoo）</p>
   </section>
 
-  <section class="panel" id="panel-stay">
-    <div class="sec-head"><span class="no">五</span><h2>住宿</h2><span class="en">STAY</span></div>
-    <div class="stay-grid"><div class="stay-card"><div class="stay-top"><span class="stay-day">D0</span><b>德源大酒店（泽州路店）</b><span class="stay-area">晋城市区</span></div><div class="stay-info">泽州路 4339 号，距龙马湖 11min / 博物馆 13min，☎0356-2566777</div><div class="stay-bot"><span class="stay-star">★4.7</span><span class="stay-price">¥210.88</span></div></div><div class="stay-card"><div class="stay-top"><span class="stay-day">D1-D2</span><b>高平大酒店</b><span class="stay-area">高平市区</span></div><div class="stay-info">长平西街 42 号，☎0356-5244877</div><div class="stay-bot"><span class="stay-star">★4.9</span><span class="stay-price">¥623.76/2晚</span></div></div><div class="stay-card"><div class="stay-top"><span class="stay-day">D3</span><b>锦潞·瑞朋酒店</b><span class="stay-area">长治城隍庙商圈</span></div><div class="stay-info">西大街 21 号 LOOK 长城园区，距上党门 0.85km，☎0355-7165555</div><div class="stay-bot"><span class="stay-star">★4.9</span><span class="stay-price">¥248</span></div></div><div class="stay-card"><div class="stay-top"><span class="stay-day">D4</span><b>平顺半山窑洞度假庄园</b><span class="stay-area">平顺河谷</span></div><div class="stay-info">北耽车乡实会村南，紧邻大云院/原起寺，☎0355-8893666</div><div class="stay-bot"><span class="stay-star">★4.5</span><span class="stay-price">¥316</span></div></div><div class="stay-card"><div class="stay-top"><span class="stay-day">D5</span><b>长治潞州希尔顿欢朋酒店</b><span class="stay-area">长治潞州</span></div><div class="stay-info">府后西街·还车点旁，先入住再还车（23:00 前）</div><div class="stay-bot"><span class="stay-star">★4.9</span><span class="stay-price">¥354</span></div></div></div>
+  <section class="panel" id="panel-material">
+    <div class="sec-head"><span class="no">五</span><h2>资料</h2><span class="en">REFERENCE</span></div>
+    <p style="font-size:13.5px;color:var(--ink2);margin-top:10px">📚 两篇资料全文内嵌，点开即可阅读（离线可用）。</p>
+    <details class="doc"><summary>📜 景点历史背景解读 <i>全文 45531 字</i></summary><p class="doc-desc">总纲五部分 + 各 Day 景点四字段（年代 · 看点 · 文化典故 · 理解要点）+ 勘误</p><div class="doc-body"><h1>JINCHENG · CHANGZHI · 晋城 · 长治 —— 景点历史背景解读</h1>
+<blockquote>
+<p><strong>配套文档</strong>：<a href="20260806-晋城长治5天-古建深度-V02.md">20260806-晋城长治5天-古建深度-V02.md</a>
+<strong>用途</strong>：辅助理解沿途古建的「历史背景与朝代要事」。<strong>使用顺序</strong>：先读【总纲】建立坐标（地望→神话→古建→匠作→风土），再按【每日行程】读景点，最后看【勘误】。每处景点统一四字段：<strong>年代</strong>（始建/现存）· <strong>看点</strong>（看什么）· <strong>文化典故</strong> · <strong>理解要点</strong>（一句话为什么重要）。
+<strong>信息来源</strong>：按本地《历史-文物-古籍-检索资源索引》优先使用官方渠道（山西文物局、市县文旅/政府网、博物馆），辅以学术文章与识典古籍/ctext 典籍原文核证。凡存在两说或宣传口径处已如实标注；「史料」与「传说/解读」均作区分。</p>
+</blockquote>
+<h2>目录</h2>
+<ul>
+<li><strong><a href="#总纲一--上党地望与太行山">总纲一 · 上党地望与太行山</a></strong>：地名本义 · 名句考证 · 太行山小史 · 行政沿革 · 长治vs晋城 · 历史地位演变 · 帝王发家地</li>
+<li><strong><a href="#总纲二--神话之乡">总纲二 · 神话之乡</a></strong>：五大神话 · 为何在此</li>
+<li><strong><a href="#总纲三--古建之密">总纲三 · 古建之密</a></strong>：五因 · 皇权×民间上下同频（澶渊之盟）</li>
+<li><strong><a href="#总纲四--匠作速查">总纲四 · 匠作速查</a></strong>：构架/屋顶/装饰/材料/布局 · 雕塑壁画的作用</li>
+<li><strong><a href="#总纲五--风土人情">总纲五 · 风土人情</a></strong>：饮食八样 · 民俗八项</li>
+<li><strong><a href="#day-1--泽州">Day 1 泽州</a></strong> · <strong><a href="#day-2--高平">Day 2 高平</a></strong> · <strong><a href="#day-3--高平长子长治">Day 3 高平→长子→长治</a></strong> · <strong><a href="#day-4--长治上党平顺">Day 4 长治→上党→平顺</a></strong> · <strong><a href="#day-5--浊漳河谷">Day 5 浊漳河谷</a></strong></li>
+<li><strong><a href="#勘误与提醒">勘误与提醒</a></strong> · <strong><a href="#主要参考来源">主要参考来源</a></strong></li>
+</ul>
+<hr />
+<h1>总纲一 · 上党地望与太行山</h1>
+<h2>地名本义：「上党从来天下脊」</h2>
+<p>上党即"地势极高、与天为党"。《释名》：「党，所也，在于山上，其所最高，故曰上党。」方志称其"居太行之颠，地形最高，与天为党"。上党就是太行山巅的最高处，是整个华北平原的"屋脊"。</p>
+<p><strong>名句出处（重点考证）</strong>：<strong>「上党从来天下脊」出自苏轼词《浣溪沙·送梅庭老赴上党学官》</strong>：「门外东风雪洒裾。山头回首望三吴。不应弹铗为无鱼。上党从来天下脊，先生元是古之儒。时平不用鲁连书。」而"天下之脊"意象更早：战国纵横家<strong>张仪</strong>已称上党为"天下之脊"，唐<strong>杜牧</strong>《贺中书门下平泽潞启》引「战国时，张仪以为天下之脊；建中日，田悦名曰腹中之眼」（"建中"为唐德宗年号）。<strong>不存在"明代兵部侍郎"作此句之说</strong>，属误传。</p>
+<h2>太行山小史：从地质成山到民族脊梁</h2>
+<p><strong>① 地质成山</strong>：主体隆起于中生代<strong>燕山运动</strong>（约1.4亿-6500万年前），新生代<strong>喜马拉雅运动</strong>（约2500万年以来）进一步抬升，与华北平原落差上千米——浊漳河谷悬崖、虹霓瀑布即此切出；中国第二/第三级阶梯分界线。
+<strong>② 名称流变</strong>：《山海经·北山经》"太行之山"→《列子·愚公移山》作"<strong>太形</strong>、王屋二山"→张仪称上党"天下之脊"→汉代《河图括地象》"<strong>太行，天下之脊</strong>"（"天下脊"最直接出处）→《淮南子》高诱注"五行之山，今太行山也"——<strong>"五行山"为太行古名（早见《淮南子》"武王欲筑宫于五行之山"、《水经》"五行之异名也"），非王莽所改</strong>。
+<strong>③ "行"字（读 háng，不读 xíng）四说</strong>：
+- <strong>陉道说（清人考证，与"太行八陉"直接互证）</strong>——"行"通"陉"：陉＝山脉中断处的凹口、天然通道（《尔雅·释山》"山绝，陉"、《说文》"陉，山绝坎也"）。清·吴承志《山海经地理今释》：「行可通作徑，則陘亦得通作行，大陘謂大連山」「凡大山中必有陘，落而復起，支脊雖絶，幹脉仍連」——故"大行（太行）"即"大陉"，指一座被众多天然通道贯穿的大山。<strong>太行因"山中多陉、可从山间凹处穿行"而得名</strong>，"太行八陉"（轵关/太行/白陉/滏口/井陉/飞狐/蒲阴/军都）即其名实体。
+- <strong>太形通假说</strong>——"山形特大"，"形""行"音近通假（《列子》作"太形"作证）。
+- <strong>五行山说</strong>——《淮南子》高诱注、《水经》"考太行一名五行山"。
+- <strong>行列说（民俗通解）</strong>——山势南北纵贯约400公里、如行列排列。</p>
+<p><strong>历代太行山的角色（朝代 × 使用与作用）</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>时代</th>
+<th>太行山的使用与作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>先秦</strong></td>
+<td><strong>神话与战争的舞台</strong>——愚公移山（《列子》）；神话之乡五大传说全在山间（炎帝/精卫/羿射/女娲）；长平之战（前260年，今高平）在此爆发</td>
+</tr>
+<tr>
+<td><strong>战国—秦汉</strong></td>
+<td><strong>军事命脉·分界基准</strong>——韩赵魏争上党；"白起攻韩南阳，太行道绝之"（太行道为晋豫命脉）；"山东/山西/山南/山北"以山为界（划分四方的基准轴）；韩信井陉之战（前204年）</td>
+</tr>
+<tr>
+<td><strong>汉唐</strong></td>
+<td><strong>商道八陉·藩镇咽喉</strong>——太行八陉（轵关/太行/白陉/滏口/井陉/飞狐/蒲阴/军都）贯通晋冀豫，曹操《苦寒行》"北上太行山，艰哉何巍巍"；滏口陉为东魏北齐邺城—晋阳御道；唐代泽潞设昭义军节度使驻潞州，与河朔藩镇鼎足</td>
+</tr>
+<tr>
+<td><strong>宋金元</strong></td>
+<td><strong>兵燹屏障</strong>——靖康后金据山西、泽潞成拉锯线；太行腹地"躲在山坳"的古建（龙门寺、天台庵）即在兵燹中幸存（详见 Day 5）</td>
+</tr>
+<tr>
+<td><strong>明清</strong></td>
+<td><strong>商路动脉</strong>——晋商崛起，太行古道成盐铁茶货商路（上党"铁与绸"出山）；虹梯关古道"五十四盘"</td>
+</tr>
+<tr>
+<td><strong>近现代</strong></td>
+<td><strong>抗战中枢</strong>——太行山根据地为华北敌后抗战中心，八路军总部驻太行山中（左权县原名辽县）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>归结</strong>：晋东南就坐在太行山南段上党台地——上党门、浊漳河谷、虹梯关、长平古战场全是这条"天下脊"的产物；看懂太行山，就拿到了整条线路的钥匙。</p>
+<h2>行政沿革：上党→潞州→潞安府（长治线）</h2>
+<ul>
+<li><strong>先秦</strong>：商为黎国（《尚书·西伯戡黎》），后为赤狄潞子国，晋灭潞氏。战国初韩置上党郡，控扼太行要道。</li>
+<li><strong>长平之战</strong>：前262年秦攻韩上党，上党守冯亭以上党降赵，引秦赵对峙；前260年白起大破赵军于长平（今高平）——"争上党"即引爆战国最大战役（完整脉络见 Day 2 大粮山）。</li>
+<li><strong>秦汉</strong>：秦置上党郡（三十六郡之一），治长子；两汉沿之（东汉末移治壶关）。</li>
+<li><strong>隋唐</strong>：北周宣政元年（578）始置潞州；隋开皇三年（583）移潞州治壶关，大业初复改上党郡——<strong>上党门即隋代上党郡署门</strong>。唐武德复潞州、设昭义军节度使（泽潞镇）。<strong>李隆基曾任潞州别驾</strong>，开元间潞州升大都督府。</li>
+<li><strong>宋金元</strong>：宋升<strong>隆德府</strong>，金元复潞州。</li>
+<li><strong>明</strong>：<strong>嘉靖八年（1529）因"青羊盗起"（陈卿起义）升潞州为潞安府，析置长治县（附郭，"长治久安"之意）、平顺县</strong>，领八县——"潞安""长治""平顺"三名皆自此始。清沿明制，1913年废府。</li>
+</ul>
+<h2>行政沿革：建州→泽州→晋城（晋城线）</h2>
+<ul>
+<li><strong>泽州</strong>：隋开皇三年（583）改建州为泽州，<strong>因境内濩泽水得名</strong>（《读史方舆纪要》引《元和志》）；历经唐五代宋金元沿用，清雍正六年（1728）升<strong>泽州府</strong>，辖凤台、高平、阳城、陵川、沁水五县——行程中"泽州县""泽州古建"即此古州名。</li>
+<li><strong>晋城</strong>：县名始见于<strong>唐武德三年（620）置晋城县</strong>，贞观元年（627）泽州治所迁此。《太平寰宇记》记其得名"以三国分晋地，后封晋君于此，故曰晋城"；另说追溯至春秋末晋静公被韩赵魏废迁端氏邑（今沁水）安置。<strong>"晋城"是唐代以后的地名</strong>，更长久的历史身份是"泽州"。</li>
+<li><strong>早期沿革</strong>：春秋属晋（士会平定此地，设高都、泫氏、端氏、濩泽四邑）；战国属韩上党郡、后属赵（长平之战）；秦汉四县分属上党、河东郡；北魏永安二年（529）置建州；1985年设地级晋城市。</li>
+</ul>
+<h2>长治 vs 晋城：为什么行政地位长期分高下</h2>
+<table>
+<thead>
+<tr>
+<th>时代</th>
+<th>长治</th>
+<th>晋城</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>秦汉</td>
+<td><strong>上党郡治</strong>（长子）→壶关</td>
+<td>高都县（属县）</td>
+</tr>
+<tr>
+<td>北朝—隋唐</td>
+<td><strong>潞州</strong>＋昭义军节度驻地</td>
+<td>建州→泽州</td>
+</tr>
+<tr>
+<td>宋</td>
+<td><strong>隆德府</strong></td>
+<td>泽州</td>
+</tr>
+<tr>
+<td>明清</td>
+<td><strong>潞安府</strong>（领8县）</td>
+<td>泽州府（领5县）</td>
+</tr>
+<tr>
+<td>近现代</td>
+<td><strong>晋东南专区行署驻地</strong></td>
+<td>晋城县（专区辖县）</td>
+</tr>
+<tr>
+<td>1985</td>
+<td>长治地级市</td>
+<td>晋城地级市（才独立）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心原因：盆地中枢 ＞ 门户南口。</strong> 长治＝浊漳河谷交汇处的上党最大盆地（农业好、人口密、居中可辐射全境——中枢要的"腹地"）；晋城＝丹沁河谷南端、太行陉/白陉晋豫孔道的南口（"门户"，宜设关隘驿站、不宜设中枢）。<strong>长治是"里"，晋城是"口"</strong>。再加三层：①路径依赖——汉代上党郡治长子一锤定音，长子→壶关→潞州→潞安府两千年不换窝；②辖域——潞安府领8县、泽州府领5县；③当代转折——1985年晋城靠<strong>无烟煤经济</strong>独立设地级市，上党历史上首次在行政上追平长治（翻身靠煤，不靠历史）。</p>
+<h2>历史地位演变：军事咽喉 → 商路腹地 → 文化目的地</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>长治/晋城地位</th>
+<th>原因</th>
+<th>行程对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>先秦—秦汉</td>
+<td><strong>军事巅峰</strong>："天下之脊"，兵家必争</td>
+<td>太行屏障＋晋豫孔道</td>
+<td>长平古战场、上党门</td>
+</tr>
+<tr>
+<td>魏晋南北朝</td>
+<td>割据逐鹿场：西燕都长子、后赵石勒籍上党</td>
+<td>山河险固＋农业自给</td>
+<td>—</td>
+</tr>
+<tr>
+<td>隋唐</td>
+<td><strong>龙兴地＋藩镇"腹中之眼"</strong>：唐玄宗潞州别驾、昭义军</td>
+<td>中央与河北叛藩的缓冲带</td>
+<td>上党门、法兴寺</td>
+</tr>
+<tr>
+<td>五代</td>
+<td>军阀反复争夺：李克用/李存勖据潞州</td>
+<td>山河可守可攻</td>
+<td>—</td>
+</tr>
+<tr>
+<td>宋金元</td>
+<td>拉锯前线，地位回落</td>
+<td>政治中心东移，边角化</td>
+<td>河谷古建借此幸存</td>
+</tr>
+<tr>
+<td>明清</td>
+<td><strong>经济高光</strong>：潞绸＋铁货"日进斗金"，升潞安府/泽州府</td>
+<td>和平期经济取代军事</td>
+<td>荫城古镇、虹梯关</td>
+</tr>
+<tr>
+<td>近现代</td>
+<td>资源城市＋抗战根据地</td>
+<td>煤炭支柱＋太行根据地</td>
+<td>—</td>
+</tr>
+<tr>
+<td>当代</td>
+<td><strong>文化觉醒</strong>："中国古建博物馆"（晋城国保72/长治73）</td>
+<td>煤衰转文旅＋高铁＋《黑神话》</td>
+<td>全程</td>
+</tr>
+</tbody>
+</table>
+<p><strong>归结</strong>：上党的历史地位，就是"军事咽喉 → 商路腹地 → 文化目的地"的演变——<strong>武器变商品、商品变资源、资源变遗产</strong>。</p>
+<h2>附：上党为何是帝王"发家地"</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>人物</th>
+<th>与上党的关系</th>
+<th>行程对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>盛世蓄势</strong></td>
+<td>唐玄宗李隆基</td>
+<td>任潞州别驾（707-709）蓄势两年半，登基后三返潞州、建飞龙宫</td>
+<td><strong>上党门</strong>（D3）、法兴寺（唐高祖第十三子李元懿任潞州刺史建舍利塔）</td>
+</tr>
+<tr>
+<td><strong>乱世争霸</strong></td>
+<td>后唐庄宗李存勖、明宗李嗣源</td>
+<td>据河东，在潞州城下破后梁围城军（夹城/三垂冈之战）</td>
+<td>潞州（今长治）沿线</td>
+</tr>
+<tr>
+<td><strong>草根起家</strong></td>
+<td>后赵石勒</td>
+<td>上党武乡人，从奴隶到开国皇帝</td>
+<td>—（武乡不在本线）</td>
+</tr>
+<tr>
+<td><strong>偏安建都</strong></td>
+<td>西燕慕容永</td>
+<td>建都长子（386-394，九年）</td>
+<td><strong>长子县</strong>（D3）</td>
+</tr>
+<tr>
+<td><strong>传说附会</strong></td>
+<td>唐玄宗"敕建"原起寺、仙翁庙封禅壁画</td>
+<td>民间把帝王发迹地神化、寺庙攀附皇权名分</td>
+<td>原起寺（D5）、仙翁庙（D3）</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>📚 <strong>来源与边界</strong>：李隆基潞州别驾、慕容永都长子、石勒籍上党、李存勖潞州之战为史实；原起寺"玄宗敕建"、仙翁庙封禅图"纪念玄宗"含民间附会。<strong>机制</strong>：太行山给了上党"能攻能守能自养"的根据地资本——天然城墙（退可守、进可出八陉）、农业养兵、煤铁造器、枢纽咽喉，故"发家地"密集出现在王朝兴替的乱世期，盛世则只作储君蓄势地。</p>
+</blockquote>
+<hr />
+<h1>总纲二 · 神话之乡</h1>
+<p>上党是华夏上古神话传说的高密度原产地（2004年获"中国魅力城市"颁奖词：「女娲补天，精卫填海，后羿射日，神农尝百草，一座小城，竟然奢侈地拥有那么多中国史前时期的传说版权」）：</p>
+<ul>
+<li><strong>神农尝百草</strong>——老顶山（百谷山）、羊头山（长治·长子·高平交界，百里内近百处炎帝遗迹）。</li>
+<li><strong>精卫填海</strong>——《山海经·北三经》「发鸠之山……是炎帝之少女名曰女娃」，发鸠山在长子县西。</li>
+<li><strong>羿射九日</strong>——《淮南子·本经训》「尧时十日并出……尧乃命羿仰射十日」，其地在屯留三嵕山（今老爷山），宋徽宗封羿为"护国灵贶王"。</li>
+<li><strong>女娲补天</strong>——太行山系多处遗存（长子、黎城等地有娲皇庙/娲皇窟）。</li>
+<li><strong>愚公移山</strong>——太行、王屋二山正在上党地界。</li>
+</ul>
+<p><strong>为何是这里——神话高密度的四重成因</strong>：
+1. <strong>环境触发（生存困境→英雄叙事）</strong>：上党居太行山巅、旱涝雹灾频发——"十日并出，焦禾稼"很可能是大旱灾的集体记忆神话化；浊漳水患催生"鲧禹治漳"（夏禹神祠）与"精卫填海"（发鸠山）。<strong>哪里灾害最狠，哪里英雄神话最多</strong>。
+2. <strong>人群与农业土壤（有人才讲得动）</strong>：晋城沁水下川遗址（旧石器晚期，碳14 距今约2.3万-1.6万年）证明早期人类聚居；丹河、沁河、浊漳河流域新石器聚落密集，上党正处中国北方<strong>粟黍旱作农业起源带</strong>——"神农尝百草、教民稼穑"本质是农业起源的传说化。
+3. <strong>文献锚定（先秦典籍先写到"这里"）</strong>：《山海经·北三经》已记发鸠山、炎帝少女女娃；《淮南子》记羿射十日于三嵕山；《帝王世纪》记羊头山炎帝——地名在先秦文本中即"在场"，后世引证有据。
+4. <strong>仪式活态维系（庙会演神，传说不散）</strong>：每座神山配一座庙（三嵕庙、炎帝庙、娲皇庙、夏禹神祠），庙会、社赛、唱戏年年重演——神话是"年年演的神戏"（详见总纲五·民俗），故持续千年。</p>
+<blockquote>
+<p>📚 <strong>说明</strong>：下川遗址及发鸠山/羊头山/三嵕山见于《山海经》《淮南子》等为事实与文献依据；"灾害触发""农业传说化""仪式维系"为神话学通行解释。</p>
+</blockquote>
+<hr />
+<h1>总纲三 · 古建之密</h1>
+<p>晋城国保 72 处（居全国地级市第四）、宋金以前木结构 58 处约占全国三分之一；长治元代以前木构约 162 处、占全国约 28%、居全国地级市首位（<strong>山西全省</strong>元以前木构 495 座约占全国 85%，勿与长治混淆）。原因五重：</p>
+<ol>
+<li><strong>经济基础</strong>：上党"居万山之中，所产无几"，能换钱的只有<strong>铁与绸</strong>（《潞安府志》）。煤铁伴生、冶铁史逾三千年，明清荫城铁货"日进斗金"，白银转为两大开支——修宅院、修庙宇。</li>
+<li><strong>信仰传统</strong>：旱涝雹灾频发催生密集乡土神祇（玉皇、三嵕羿神、九天圣母、大禹、关帝……），朝廷（宋真宗、徽宗崇玉皇，封后羿为灵贶王）与地方社赛上下互动，庙宇被推到高规格营造。</li>
+<li><strong>宋代崇道国策</strong>：真宗上玉皇圣号（大中祥符七年，1014；一说八年，1015）、徽宗再上"昊天玉皇上帝"（1116），把道教玉皇与国家祭天合流——府城玉皇庙等正是这一热潮的产物。</li>
+<li><strong>地理封闭</strong>：太行腹地躲过大规模战火与城市化，干燥少雨、木构不易朽。</li>
+<li><strong>营造传统延续</strong>：民间持续的修葺传统（"只落架重修、不推倒重来"）＋金代以来减柱造等地方手法代代相传。</li>
+</ol>
+<p><strong>🔗 上下如何同频：皇权崇道 × 民间建庙（古建之密的真正引擎）</strong></p>
+<p>这一线"古建密"的真正引擎，是<strong>皇权与民间两股力量在北宋中后期同时发力</strong>：</p>
+<p><strong>上：皇权为何崇道——"澶渊之盟之耻"与"天命对冲"。</strong> 宋真宗景德元年（1004）与辽订澶渊之盟，岁输银十万两、绢二十万匹，王钦若斥为"城下之盟，春秋所耻"（史实）。天子靠岁币买和平，损伤的不是面子而是"天命"——统治合法性源于"天"，而天命要靠祥瑞证明。真宗遂以三步"天命对冲"：大中祥符元年（1008）伪造天书 → 泰山封禅 → 大中祥符七年（1014；一说八年，1015）上玉皇尊号"太上开天执符御历含真体道玉皇大天帝"，并把道教玉皇与国家祭天的昊天上帝合流（尊号与合流为史实；"对冲"为学界通行解读）。用更高规格的神学动作覆盖政治失败，同时把皇权与"天"彻底绑定。</p>
+<p><strong>中：上尊号的潜台词——玉皇即天、皇帝即天的代理人。</strong> 上尊号本是臣子加于皇帝的礼仪，真宗以此礼"封"玉皇，等于宣称玉皇是更高一级的"天帝"、人间皇帝是天帝授权的管理者（礼制推演）。此后宋徽宗再加"昊天"二字——皇帝敬神＝敬自己的权力来源。</p>
+<p><strong>下：民众为何热衷建庙——功能性需求，非奉命而为。</strong> ①生存需要：旱涝雹灾频发，敬后羿（致雨司雹）、二仙（祛病送子）、九天圣母（护佑）等，庙是"防灾设施"；②名分催化：皇帝赐额封号（二仙"真泽"额、后羿"灵贶王"封），把民间神升格为"国家认证正神"，建庙热情随之释放；③经济支撑：煤铁财富流向"修宅院＋修庙宇"；④社区功能：庙会社赛唱戏集市皆在庙中，建庙是村落集体认同（北社、西社等"社"字村名源于社赛）。</p>
+<p><strong>归结一句</strong>：皇权要"神道治民"（维稳），民间要"神道御灾"（生存）——皇帝给名分，民间出银子，两个方向一碰上，就是"中国古建博物馆"。</p>
+<blockquote>
+<p>📚 <strong>来源说明</strong>：澶渊之盟条款、天书/封禅/玉皇尊号、赐额封号、集资建庙碑（法兴寺27村186人）、《潞安府志》铁绸为史料/碑刻实锤；"天命对冲""上尊号潜台词""建庙四因"为学界通行解读与通识推演。<strong>"澶渊之盟"完整背景以上段为准</strong>，长春玉皇庙处不再重复（详见 Day 4）。</p>
+</blockquote>
+<hr />
+<h1>总纲四 · 匠作速查</h1>
+<blockquote>
+<p>速查格式：<strong>术语</strong>＝作用/朝代差异/→行程对应景点。朝代差异是核心——同一构件在不同朝代做法不同，正是判断古建年代的钥匙。</p>
+</blockquote>
+<p><strong>A. 承重构架</strong>
+- <strong>枓栱</strong>（斗栱）：屋檐与柱间层层承重构件，把屋顶荷载分散传到柱墙、出挑承檐。差异：唐硕大雄健（高约柱高1/2）→宋《营造法式》规范比例（约1/3）→明清变小变密、偏装饰。→崇明寺/开化寺（宋）、府城关帝庙（清）。
+- <strong>普拍枋</strong>：柱顶承托枓栱的横向枋木，加强柱头整体性。差异：唐无此构件（枓栱直坐柱头）→五代后晋大云院为全国最早实例→宋后通行。→龙门寺西配殿（无，唐式）、大云院（有，最早）。
+- <strong>昂</strong>：殿内自内向外下倾的长木，杠杆——后尾压殿内梁架、前端挑檐。差异：唐宋真昂（有结构作用，批竹昂/琴面昂）→金元后多假昂（昂嘴装饰化）→明清纯装饰。→崇明寺/淳化寺（真昂）、天王寺/下霍庙（金式）。
+- <strong>减柱造/移柱造</strong>：抽减或移动殿内部分柱子，腾出开阔礼佛/演戏空间。差异：宋多满堂柱→金代盛行（晋东南标志）→元代更自由大胆。→天王寺中后殿、下霍庙正殿。
+- <strong>断梁</strong>：两根短材对接成一根承重梁，因材设计、小材大用。→崇明寺（全国唯一）。
+- <strong>彻上露明造</strong>：殿内不设吊顶、梁架全部外露。宋金常见。→开化寺、崇明寺、回龙寺。</p>
+<p><strong>B. 屋顶与柱</strong>
+- <strong>屋顶等级</strong>：庑殿顶（四面坡，最高）→歇山顶（四面坡＋山花）→悬山顶（两坡出山墙）→硬山顶（两坡不出山，明清民居多）。→九天圣母庙元献殿（庑殿）、龙门寺西配殿（悬山，全国唯一五代悬山顶）。
+- <strong>山花向前</strong>：歇山顶侧面山花朝前。金代戏台标志形制。→王报二郎庙（1183）。
+- <strong>侧脚/升起/卷杀</strong>：柱微内倾/角柱渐高/柱头削圆，结构更稳＋视觉生动。宋《营造法式》系统规定（唐已有）。→崇明寺（"宋构唐制"）。
+- <strong>梭柱</strong>：中粗两端细的梭形柱。宋式。→小南村二仙庙正殿。</p>
+<p><strong>C. 装饰与小木作</strong>
+- <strong>藻井</strong>：殿内顶部穹窿状天花，象征天穹、抬高礼制中心。差异：元代朴素雄健→明清彩绘繁密。→定林寺元代莲花藻井（山西元代孤例）。
+- <strong>须弥座</strong>：束腰高基座（佛台/月台），抬高神像、礼制装饰。宋元常见。→崇庆寺千佛殿佛坛、夏禹神祠元代月台。
+- <strong>经幢</strong>：刻经文的八角石柱，镇护道场、刻经积功德。唐创始、宋金多。→原起寺唐幢、淳化寺北宋幢、龙门寺后汉幢。
+- <strong>天宫楼阁</strong>：小木作制成的楼阁模型（佛道帐），模拟天界宫阙。全国宋金仅存3座。→小南村二仙庙。
+- <strong>悬塑/壁塑</strong>：依附墙壁的立体彩塑群，满壁造像。明代巅峰。→观音堂（500余尊）、崇庆寺地藏殿、铁佛寺诸天。</p>
+<p><strong>D. 材料工艺</strong>
+- <strong>琉璃</strong>：施釉陶质屋饰（脊兽、瓦、吻），防水＋等级（黄蓝绿）＋装饰。山西明清最盛。→五凤楼明代琉璃、关村炎帝庙明嘉靖大吻。
+- <strong>铁线彩塑</strong>：以铁丝塑造须发飘带，上党冶铁智慧入彩塑。→铁佛寺（明嘉靖）。</p>
+<p><strong>E. 布局单体</strong>
+- <strong>献殿/拜亭</strong>：正殿前敞开式祭祀空间，摆供品、行祭礼。→下霍庙、北社三嵕庙。
+- <strong>倒座戏台</strong>：坐南朝北、正对正殿的戏台，以戏酬神。金已有、元明流行。→王报二郎庙、夏禹神祠、北社三嵕庙。</p>
+<p><strong>附：雕塑与壁画的作用（为什么庙里要塑像、画画）</strong>
+- <strong>彩塑＝神明的"身体"</strong>：①可拜对象（祈雨/求子/祛病）；②宗教教育的"具象教材"（让不识字者"看见"神性）；③规格等级反映封神敕封。→府城玉皇庙二十八宿、法兴寺十二圆觉、铁佛寺诸天。
+- <strong>壁画＝神明的"故事"</strong>：①以图说法（开化寺北宋《华严经变》）；②纪念历史/功德（仙翁庙封禅图）；③营造"满殿天界"氛围（佛头寺二十四诸天、大云院五代壁画）。→开化寺、大云院、佛头寺。
+- <strong>一句话</strong>：雕塑是"神的身"，壁画是"神的故事"——一近一远，共同把一座殿变成"神明在场的宇宙"。</p>
+<hr />
+<h1>总纲五 · 风土人情</h1>
+<blockquote>
+<p>顺治《潞安府志》点破上党生计：「上党居万山之中，商贾罕至，且土瘠民贫，所产无几，其奔走什一者，独铁与绸耳。」——<strong>旱作农业决定"吃什么"，煤铁经济决定"吃得起的程度"，山区封闭决定"民俗多古老"</strong>。饮食是物产表达，民俗是信仰表达，二者共享同一根。</p>
+</blockquote>
+<h2>一、饮食：旱作农业 + 煤铁经济 + 商路 →「小米面食 + 羊肉汤水 + 宴席水席」</h2>
+<p><strong>总特征</strong>：旱作农业给底子（小米面食），煤铁经济与山区畜牧给里子（油厚肉足、羊驴成席），商路给活水（传播调味）。</p>
+<table>
+<thead>
+<tr>
+<th>饮食</th>
+<th>起源/历史（区分史料与传说）</th>
+<th>文化逻辑</th>
+<th>行程对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>十大碗（水席）</strong></td>
+<td>高平：炎帝祭/长平之战两说；晋城市区：祈雨祭祀说；清代定型。省非遗</td>
+<td>旱区缺菜，"以汤代菜、一肉多吃"的宴席智慧</td>
+<td>D2 高平十大碗（分清高平席/晋城席）</td>
+</tr>
+<tr>
+<td><strong>长子炒饼</strong></td>
+<td>清光绪年间已有记载，起源无文字记载（有冯士翘传说）</td>
+<td>"主食+菜+汤"一体，随泽潞商路流传晋冀鲁豫</td>
+<td>D4 长子炒饼</td>
+</tr>
+<tr>
+<td><strong>潞城驴肉甩饼</strong></td>
+<td>根在立春春饼（《潞安府志》"春盘春饼"），清末定型，省非遗+地理标志</td>
+<td>驴油烙、卷腊驴肉=太行驮运经济＋"潞安府三宝"</td>
+<td>D5/返程</td>
+</tr>
+<tr>
+<td><strong>壶关羊汤</strong></td>
+<td>曹操《苦寒行》羊肠坂背景（"亲尝羊汤"属传说），山西羊汤三大流派</td>
+<td>山区畜牧+严寒，"全羊入汤、老汤七月不断火"</td>
+<td>⚠️ 时令约中秋—清明</td>
+</tr>
+<tr>
+<td><strong>荫城猪汤</strong></td>
+<td>明末清初铁货贸易繁荣期兴起，省非遗</td>
+<td>铁货工匠"开工前的体力早餐"（凌晨3点备料、5:30-11:00营业）</td>
+<td>D4 荫城（须上午前往）</td>
+</tr>
+<tr>
+<td><strong>沁州黄小米</strong></td>
+<td>康熙赐名（沁州籍大学士吴琠荐米，人事有据；"御赐"属宣传口径），巴拿马金奖</td>
+<td>粟黠旱作农业起源带，"金珠不换沁州黄"</td>
+<td>D4 小米</td>
+</tr>
+<tr>
+<td><strong>阳城烧肝</strong></td>
+<td>郝氏三兄弟"烧肝（甘）"讽贪官/抗金忠义两传说，省非遗</td>
+<td>猪下水变废为宝＋蒜香压腥</td>
+<td>可作伴手礼</td>
+</tr>
+<tr>
+<td><strong>晋城肉丸方便面</strong></td>
+<td>90年代豫竹方便面沿太行陉北上×陵川牛肉丸</td>
+<td>煤城经济＋豫晋商路在当代餐桌的回响</td>
+<td>D1 晋城早餐</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2>二、民俗：以神为心、以庙为核的乡土生活</h2>
+<p><strong>总特征</strong>：庙（空间之核）＋神诞（时间之核）＋乐戏（酬神手段）＋冶铁（经济之根）四要素交织——"村村有庙，庙庙有台"，神住在村中央的庙里，人围着庙唱戏赶会。</p>
+<table>
+<thead>
+<tr>
+<th>民俗</th>
+<th>起源/史料（区分史料与传说）</th>
+<th>核心逻辑</th>
+<th>行程对应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>迎神赛社</strong></td>
+<td>宋始称"赛社"；潞城贾村明代抄本《迎神赛社礼节传簿》（万历二年）为文本实据；首批国家级非遗</td>
+<td>仿宋宫廷圣节供盏礼制，"以戏酬神"；队戏只演宋以前故事=戏剧活化石</td>
+<td>D4 北社（"社"字村名源于社赛）</td>
+</tr>
+<tr>
+<td><strong>上党八音会</strong></td>
+<td>唐源、元明成型、明清极盛，首批国家级非遗</td>
+<td>宫廷鼓吹乐随乐户流落民间，庙会婚丧标配</td>
+<td>各庙会/演出</td>
+</tr>
+<tr>
+<td><strong>上党梆子</strong></td>
+<td>明末清初成型，昆梆罗卷黄五腔同台，首批国家级非遗</td>
+<td>"村村有庙庙庙有台"，戏演给神看</td>
+<td>各古戏台</td>
+</tr>
+<tr>
+<td><strong>打铁花</strong></td>
+<td>明清已盛（清朱樟《铁花行》等诗证），源于冶铁业祭祀</td>
+<td>铁匠祭老君/火神，"打花打花，越打越发"</td>
+<td>元宵节（9月看不到，了解即可）</td>
+</tr>
+<tr>
+<td><strong>庙会</strong></td>
+<td>三嵕山庙会明清曾与北京妙峰山等并称"华北四大庙会"</td>
+<td>春祈秋报＋给神过生日：敬神+看戏+赶集+相亲</td>
+<td>D3 三嵕庙、D4 北社</td>
+</tr>
+<tr>
+<td><strong>婚俗</strong></td>
+<td>北魏太武帝拓跋焘亲临泫氏赏连理树（《高平县志》）</td>
+<td>"结婚于昏"黄昏迎娶；土、火、谷、镜镇邪祈福</td>
+<td>D2 喜镇苏庄夜游</td>
+</tr>
+<tr>
+<td><strong>节祭</strong></td>
+<td>四月初八炎帝祭（高平）、五月十三关帝磨刀/荫城铁货会、四月十五二仙升天日</td>
+<td>"神历"=农事节律与神诞一一对应</td>
+<td>相关庙宇</td>
+</tr>
+<tr>
+<td><strong>多神信仰</strong></td>
+<td>后羿、二仙、九天玄女、崔府君、骷髅大王庙皆晋东南独有</td>
+<td>山高皇帝远＋靠天吃饭，古老信仰封闭冻结</td>
+<td>全程</td>
+</tr>
+</tbody>
+</table>
+<h2>三、一句话收束</h2>
+<p><strong>饮食是上党"独铁与绸"经济的物产表达，民俗是同一土壤的信仰表达</strong>——十大碗的汤水、甩饼的驴油、赛社的神戏、打铁花的星火，都是同一套"山高皇帝远、靠天吃饭、以神为心"的乡土生活在味觉与仪式上的回声。</p>
+<hr />
+<h1>Day 1 · 泽州</h1>
+<blockquote>
+<p>区域主题：泽州（治今晋城）地处太行山南麓、晋豫孔道，煤铁起家的泽州商帮财力雄厚；宋真宗、徽宗两朝崇道，把玉皇、二十八星宿抬进国家信仰。晋城博物馆是读懂全程的总纲。</p>
+</blockquote>
+<h2>晋城博物馆</h2>
+<ul>
+<li><strong>年代</strong>：现代博物馆（2002年开馆），非古建。一主馆二分馆：晋城博物馆＋玉皇庙彩塑壁画博物馆＋青莲寺古建艺术博物馆。</li>
+<li><strong>看点</strong>：常设展《太行自古天下脊》；镇馆之宝有时大彬紫砂壶；古建展按《营造法式》拆解斗拱榫卯；馆藏与行程直接相关的有府城玉皇庙殿顶<strong>二十八星宿琉璃构件原件</strong>、天宫楼阁小木作、开化寺壁画复制品。</li>
+<li><strong>文化典故</strong>：—（现代公共博物馆，无传统祭祀典故）。</li>
+<li><strong>理解要点</strong>：先看博物馆再进庙——把分散在太行山里的72处国保的"木构+彩塑+琉璃"先集中读懂。</li>
+</ul>
+<h2>小南村二仙庙（晋城二仙庙）</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋绍圣四年（1097）五月，政和七年（1117）秋竣工（碑记确凿）；现存<strong>正殿为宋代遗构</strong>，余多为明清。</li>
+<li><strong>看点（三宝）</strong>：①宋代木构大殿（减柱造、梭柱，具断代标准）；②<strong>天宫楼阁小木作</strong>——全国现存宋金三座之一（凹字形佛道帐，见总纲四·C）；③<strong>宋代二仙彩塑</strong>——晋东南现存年代最早、全国唯一宋塑乐氏二仙像。原装16尊90年代遭盗仅余6尊。</li>
+<li><strong>文化典故</strong>：供奉晋东南特有的<strong>二仙</strong>——乐氏二姐妹（传为商微子后裔），孝感动天、黄龙携升仙，是严格的地方性女神（庙宇几乎全在晋东南，国保群6处）。</li>
+<li><strong>理解要点</strong>："小而满"——建筑、小木作、彩塑三样同代真迹齐全的宋代殿堂孤例。</li>
+</ul>
+<h2>府城玉皇庙</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋熙宁九年（1076），元至元初大规模重修（现有格局基本保持元大修时样貌）。现存<strong>玉皇殿北宋遗构</strong>、成汤殿金代、三垣殿/四圣殿/二道山门元代、献亭/钟鼓楼/头道山门明代。</li>
+<li><strong>看点</strong>：<strong>二十八星宿彩塑</strong>（后院西庑）——二十八尊人像＋动物化身组合，被誉为"海内孤品"、中国道教艺术巅峰。创作年代主流<strong>元代</strong>说（像高约1.8米），作者或传元代宫廷雕塑家（刘元/刘銮有争议，也可能出自本地无名高手）。</li>
+<li><strong>文化典故</strong>：<strong>玉皇信仰＋二十八星宿道教</strong>的全国最高级别实物。玉皇信仰在北宋达顶峰（真宗上圣号、徽宗加"昊天"，详见总纲三"上下同频"）；庙内还有成汤殿（祈雨农神汤帝并祀）。<strong>亢金龙</strong>——《西游记》第六十五回以角钻破黄铙救孙悟空，是《黑神话·悟空》"亢金星君"原型；"室火猪"的猪被雕在房梁上（星君持匕首如屠夫，猪"架云逃走"），庙里最著名细节。</li>
+<li><strong>二十八宿如何从"天文坐标"升为"国家正祀"（四步接力）</strong>：①汉代司马迁《史记·天官书》把28宿纳入四宫体系、配职司灾祥与分野，天文走向占星神学；②隋末唐初星占家袁天罡等把28宿各配灵兽并缀五行，成"角木蛟、亢金龙"三字名号（此说见于命理文献/地方介绍，学界对袁天罡是否亲为存疑）；③道教纳入神仙谱，成天庭"二十八宿星君"护法神将；④北宋真宗、徽宗崇道，玉皇被抬为国家最高神，二十八宿随之升格国家正祀——本庙即此链条实物（北宋始建、元代塑像）。</li>
+<li><strong>理解要点</strong>：全国唯一完整保存二十八星宿彩塑群的道教庙宇——"把整个星空搬进庙里"的巅峰。</li>
+</ul>
+<h2>府城关帝庙</h2>
+<ul>
+<li><strong>年代</strong>：相传南宋庆元元年（1195）始建；现存关帝殿、三义殿等均为<strong>清代</strong>建筑（乾隆年间重修）。</li>
+<li><strong>看点</strong>：以石雕取胜——关帝殿前廊四根<strong>滚龙柱</strong>（十余条盘龙＋八仙风伯电母雷公雨师＋圆雕石狮）、三义殿前廊四根<strong>人物故事石柱</strong>（浓缩周至唐三百多个历史人物）。三义殿四图：武王伐纣、郭子仪祝寿（满床笏）、瓦岗英雄、张公艺九世同居（"忍"字传家）——皆归结于一个"义"字。</li>
+<li><strong>文化典故</strong>：关羽信仰是中国覆盖最广的民间-官方合流信仰。神格升格链：宋徽宗封"崇宁真君"→"义勇武安王"→元"英济王"→明万历"三界伏魔大帝"→清顺治"忠义神武关圣大帝"，与孔子并称武圣。晋商奉其为财神——泽州商帮兴盛是此庙规模的经济背景。</li>
+<li><strong>理解要点</strong>：紧邻玉皇庙的"石雕艺术博物馆"，清代顶级盘龙柱＋人物柱的立体连环画。</li>
+</ul>
+<h2>西溪二仙庙（真泽宫）</h2>
+<ul>
+<li><strong>年代</strong>：始建两说——唐乾元年间（758-760）或北宋中晚期；金皇统二年（1142）扩建形成今日格局。现存<strong>正殿、东梳妆楼为金代</strong>，西梳妆楼民国重修但保留金代形制，余为明清。</li>
+<li><strong>看点</strong>：<strong>东西梳妆楼</strong>——两座二层三重檐歇山顶楼阁，一层副阶周匝、二层平座斗栱挑出回廊，琴面真昂，专家称"中国古代楼阁式建筑的代表作"。</li>
+<li><strong>文化典故</strong>：二仙信仰"总本山"之一（"总本山"原为日本佛教用语，指一宗派中地位最高、作为发源中枢的祖庭本寺；借用于此指二仙信仰的中心祖庙，以本庙与壶关真泽宫为祖庭）。宋徽宗崇宁四年（1105）赐"真泽"庙额、政和元年（1111）敕封冲惠、冲淑真人。<strong>元好问</strong>青少年在陵川求学，多次游西溪留诗，其诗碑为庙内人文核心；金正隆状元赵安时撰《重修真泽二仙庙碑》（1165）。</li>
+<li><strong>理解要点</strong>：金代楼阁＋帝王敕封＋状元碑＋元好问诗碑，"建筑+文学"双绝。</li>
+</ul>
+<hr />
+<h1>Day 2 · 高平</h1>
+<blockquote>
+<p>区域主题：高平古称<strong>泫氏</strong>（春秋，因泫水得名）、战国称<strong>长平</strong>（长平之战）、北魏至今称高平；同时是<strong>炎帝故里</strong>——神农镇羊头山有神农城、神农井、五谷畦等40余处遗迹（唐《羊头山清化寺碑》"此山炎帝之所居也"），庄里村<strong>炎帝陵</strong>俗称"皇坟"，墓前明万历三十九年"炎帝陵"碑为全国最早有明确记载的炎帝陵碑记石刻（传说炎帝在此误食毒草身亡）。高平以22处国保、古庙约2000座居全国县域前列。北宋大儒程颢曾任泽州晋城令、兴办乡学。</p>
+</blockquote>
+<h2>开化寺</h2>
+<ul>
+<li><strong>年代</strong>：始建北齐武平二年（571）；现存<strong>大雄宝殿为北宋原构</strong>（熙宁六年，1073年重建），殿内壁画北宋元祐七年至绍圣三年（1092-1096）绘，观音阁金元遗构，余明清。</li>
+<li><strong>看点（三绝）</strong>：建筑、彩绘、壁画三件北宋原物同室共存的全国孤例。殿内梁枋彩绘与《营造法式》"彩画作"高度一致。<strong>壁画</strong>东、西、北三壁约88㎡，为现存规模最大、艺术水平最高的北宋寺观壁画真迹——东壁《华严经变》、西壁《大方便佛报恩经变》、北壁《弥勒上生经变》，900余人物含宫殿市井织机耕牛，被誉为"北宋社会风俗的画卷"，与《清明上河图》并提（比后者早约二十年）。</li>
+<li><strong>文化典故</strong>：画匠<strong>郭发</strong>——题记"丙子六月十五日粉此西壁画匠郭发记"（1096），宋代壁画中罕见的"有名有姓"之作。</li>
+<li><strong>理解要点</strong>：一殿看尽《营造法式》真本——比《清明上河图》早约二十年的北宋生活画卷。⚠️ 真迹通常仅门缝/复制品可看；午休12-15点。</li>
+</ul>
+<h2>米山铁佛寺</h2>
+<ul>
+<li><strong>年代</strong>：现存最早可考金大定七年（1167）铸铁佛、重修寺殿（铁佛后融毁仅余寺名）；<strong>现存为明代遗构</strong>——嘉靖元年（1522）塑主尊，嘉靖十五年（1536）彩塑完工开光。2019年第八批国保。</li>
+<li><strong>看点</strong>：仅约72㎡殿内，中央释迦一佛二菩萨＋四周<strong>二十四诸天</strong>（两壁各十二尊，高2-3米）＋四角天王共30余尊，密度全国罕见。塑像以<strong>铁线、铁丝塑造须发飘带冠饰铠甲鳞片</strong>，形成"木骨铁魂"的立体线条美——上党冶铁重镇的地域产业智慧入彩塑，故称<strong>明代铁线彩塑</strong>（见总纲四·D）。</li>
+<li><strong>文化典故</strong>：《黑神话·悟空》美术总监杨奇大学时被画册震撼，因殿窄无法实景扫描、手工逐笔还原。游戏"赤尻马猴"面具原型为西侧散脂大将、"四将"原型菩提树神、"魔像"原型多闻天王、"金刚"原型崇宁真君。铁佛寺2024年8月24日才因游戏热潮有限开放，每日预约限500人。</li>
+<li><strong>理解要点</strong>：72㎡里看中国彩塑"最张扬的一次爆发"，上党煤铁文明与佛教造像结合的孤品。</li>
+</ul>
+<h2>游仙寺</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋淳化元年（990）；现存<strong>毗卢殿为宋代原构</strong>（五铺作双抄偷心造、批竹式昂，典型"小材大用"），三佛殿金代遗物，余明清。</li>
+<li><strong>看点</strong>：北宋原构毗卢殿——五铺作双抄偷心造、批竹式昂，梁架彻上露明造，是"小材大用"的北宋早期歇山小殿标本（见总纲四·A枓栱/昂）。</li>
+<li><strong>文化典故</strong>：—（未获确证典故）。</li>
+<li><strong>理解要点</strong>：高平宋寺环线最"顺路"一站，一殿毗卢即可读透北宋早期歇山小殿的营造法式（见总纲四·A枓栱/昂）。</li>
+</ul>
+<h2>崇明寺</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋开宝年间（968-976）；现存<strong>中佛殿为宋代早期原物</strong>（开宝四年，971年建），是高平现存最早的宋代建筑。太平兴国年间得宋太宗敕赐寺名。</li>
+<li><strong>看点（断梁）</strong>：殿内不设内柱、仅靠斗栱层托屋顶；承重主梁由<strong>两根同径同长的短材对接而成</strong>，断缝正中下方以顺栿串承托——古代匠师"因材设计、小材大用"的创举，<strong>全国现存唯一"断梁"实例</strong>（见总纲四·A）。</li>
+<li><strong>技术地位</strong>：双杪双下昂七铺作斗栱与佛光寺东大殿（唐）柱头斗栱一致，斗栱与柱高比近1:1，学界视为唐、宋营造技艺的"活化石"。</li>
+<li><strong>文化典故</strong>：寺名得宋太宗太平兴国年间敕赐；"断梁"承载"因材设计、小材大用"的匠作哲学——不因材劣而弃，反以巧思成千古孤例。</li>
+<li><strong>理解要点</strong>：用两根短梁拼出一根大梁、千年不坠，是古代工匠最硬核的力学智慧。⚠️ 进寺路况较差，需慢行。</li>
+</ul>
+<h2>定林寺</h2>
+<ul>
+<li><strong>年代</strong>：原名永德寺，至迟唐代已著名（因"定林泉"更名）；现存<strong>山门与雷音殿为元代遗存</strong>，地藏殿元代，集金元明清历代建筑。</li>
+<li><strong>看点</strong>：山门二楼的<strong>元代莲花头垂花柱藻井</strong>——中央圆形莲花头垂花假柱下垂、八组斗拱如花瓣向四周辐射，如悬空盛开的莲花，<strong>山西现存元代藻井中的孤例</strong>（见总纲四·C）；明代壁画（地藏殿《地狱十王图》，嘉靖四年，1525年）；金代"腾龙金松"。</li>
+<li><strong>文化典故</strong>：旁有大粮山七佛山石窟（北魏开凿）与瘟神洞（宋雍熙二年创建，奉五瘟神）。传说"丹娘化蝶"。</li>
+<li><strong>理解要点</strong>："一寺看尽元明清"——元代藻井、明代壁画、金代古松同框。⚠️ 午休12-14:30，午后开门。</li>
+</ul>
+<h2>长平之战大粮山景区（备选）</h2>
+<ul>
+<li><strong>年代</strong>：战国晚期（前260年长平之战期间，廉颇驻军屯粮处）；古战场遗址为省保。</li>
+<li><strong>看点</strong>：登顶俯瞰丹河谷古战场全貌；廉颇"以沙代粮"假粮仓遗迹；周边谷口村（骷髅王庙）、围城村等战史地名。</li>
+<li><strong>文化典故</strong>：长平之战"粮道即胜负手"——大粮山即廉颇屯粮两载的枢纽（完整脉络见下）。</li>
+<li><strong>长平之战完整脉络</strong>（前260年，秦赵倾国之战）：
+  1. <strong>起因</strong>：秦攻韩克野王（前262年），上党太守冯亭不愿降秦、献上党十七城予赵，秦赵矛盾激化。
+  2. <strong>廉颇相持</strong>：赵以老将廉颇帅兵驻长平，依托空仓岭防线、丹河防线、百里石长城三道防线，在大粮山屯兵积粮两载。「廉颇坚壁以待秦，秦数挑战，赵兵不出」（《史记·白起王翦列传》）。
+  3. <strong>反间易将</strong>：范雎行反间计，「秦之所恶，独畏马服君赵奢之子赵括为将耳」。赵王以"纸上谈兵"的<strong>赵括</strong>代廉颇，蔺相如谏"胶柱而鼓瑟"、括母泣谏皆不听；秦军秘密改任<strong>白起</strong>为上将军。
+  4. <strong>合围坑杀</strong>：赵括西渡丹河全线出击，白起佯败诱敌，以「奇兵二万五千人绝赵军后，又一军五千骑绝赵壁间」，大粮山粮道一断，赵军"不得食四十六日"，赵括突围被射杀。四十万降卒被"挟诈而尽阬杀之"（《史记》）。永录村一号尸骨坑（1995年发掘）证实大规模屠杀战俘。
+  5. <strong>成语与地名</strong>："纸上谈兵""旷日持久"；高平遍地战史地名：丹河（传降卒血染丹水）、谷口村（古杀谷/省冤谷，唐建骷髅王庙）、围城村、赵庄村、空仓岭、光狼城。</li>
+<li><strong>廉颇的"以沙代粮"</strong>：用芦席牛皮裹山上的黄砂搭建假粮仓，以假乱真迷惑秦军——大粮山即"粮仓枢纽"，粮道即胜负手。</li>
+<li><strong>理解要点</strong>：站上廉颇屯粮的山顶俯瞰丹河谷，就是读懂长平之战最直观的方式（此役背景亦见总纲一·行政沿革）。</li>
+</ul>
+<h2>喜镇苏庄（夜游）</h2>
+<ul>
+<li><strong>年代</strong>：明中叶贾、杨二姓迁入后形成清中前期建筑为主的民居集群（明清古院落24座）。2010年中国历史文化名村、2012年传统村落。</li>
+<li><strong>看点</strong>：明清古院落24座、砖雕木构保存完好；夜游实景中式婚礼《小二黑结婚》是最大看点。</li>
+<li><strong>文化典故</strong>：据《高平县志》，<strong>北魏太武帝拓跋焘公元445年亲临泫氏县观赏连理树</strong>，苏庄村即连理树所在地，"喜镇苏庄"由此得名。当地保留"结婚于昏"（黄昏迎娶）礼俗（见总纲五·民俗婚俗），实景剧《小二黑结婚》改编自赵树理小说。</li>
+<li><strong>理解要点</strong>：夜游明清古院、看一场实景中式婚礼，用一场婚礼把砖雕木构、上党民俗串成可体验的文化现场。</li>
+</ul>
+<hr />
+<h1>Day 3 · 高平→长子→长治</h1>
+<p><strong>上午：高平→长子（唐的典礼 · 金的剧场 · 宋的造像）</strong></p>
+<blockquote>
+<p>高平→长子正是古泽州→潞州的上党古道，是唐玄宗任潞州别驾、封禅往返的必经之路。一天上午的三站，恰好是一部浓缩的中国古代艺术史：<strong>唐的典礼（仙翁庙）、金的剧场（王报戏台）、宋的造像（法兴寺）</strong>。</p>
+</blockquote>
+<h2>仙翁庙（高平伯方村）</h2>
+<ul>
+<li><strong>年代</strong>：始建年代不详（碑记推定唐宋时已建）；现存正殿为明代遗构、梁架斗拱多存<strong>元代营造手法</strong>（"建筑存元制"），壁画多绘于明代。2013年第七批国保。</li>
+<li><strong>看点（壁画核心）</strong>：<strong>唐玄宗泰山封禅图</strong>——全国现存唯一以皇帝封禅为题材的壁画。玄宗开元十三年（725）泰山封禅，"往"与"归"两大场面分列东西两壁，北壁道教朝元图，共绘约125位真人大小人物。这是一幅<strong>明代画师为"纪念"一位唐代帝王而作的"历史画"</strong>。</li>
+<li><strong>文化典故</strong>：主神八仙之一<strong>张果老</strong>（道教宫观）。创修逻辑与唐玄宗直接相关——李隆基登基前以临淄王任潞州别驾（707-709），在上党居住约两年半；登基后三次重返潞州，曾巡视长平古战场；他又特别崇信张果老（张果老确有其人，屡拒太宗高宗武后征召）。封禅背景：《旧唐书·礼仪志》载玄宗封禅制《纪太山铭》御书勒石。</li>
+<li><strong>理解要点</strong>：看这堵墙时记住两件事——①全国唯一帝王封禅题材壁画；②它是明代画师为"纪念"一位唐代帝王而作——因为那位皇帝曾在潞州做过两年半的别驾。</li>
+</ul>
+<h2>王报二郎庙（高平王报村）</h2>
+<ul>
+<li><strong>年代</strong>：<strong>金代戏台建于金大定二十三年（1183）</strong>，全国现存最早有明确纪年的古戏台实物；现存正殿等多为明清建筑。2006年第六批国保。</li>
+<li><strong>看点</strong>：面阔进深各一间（约5米）的方形亭式结构，单檐歇山顶<strong>山花向前</strong>（金代戏台标志性形制，见总纲四·B），<strong>不用梁架、纯以斗拱直接撑起屋面</strong>，三面厚墙围合形成天然扩音——至今庙会演上党梆子无需麦克风。</li>
+<li><strong>文化典故</strong>：<strong>断代铁证</strong>——戏台须弥座束腰石刻铭文「时大定二十三年岁次癸卯秋十有三日」及「石匠赵显、赵志刊」，2002年前后山西师大戏曲文物研究所从荒草中辨识出铭文，一举改写中国戏曲史"现存最早戏台"实物年表。二郎神信仰源出镇水之神（李冰之子/赵昱/杨戬三说，庙内塑三像），庙址紧邻丹河"以庙镇水"。</li>
+<li><strong>理解要点</strong>：中国戏曲"形成于宋、成熟于元"正是被这座1183年的亭式小台"钉死"的实物坐标（戏曲史背景见总纲五·民俗上党梆子）。</li>
+</ul>
+<h2>法兴寺（长子翠云山）</h2>
+<ul>
+<li><strong>年代</strong>：始建后凉神鼎元年（401），初名慈林寺；唐上元年间赐名广德寺；北宋治平年间更名法兴寺。现存：<strong>唐石舍利塔</strong>（咸亨四年，673）、<strong>唐燃灯塔</strong>（大历八年，773）、<strong>圆觉殿</strong>（北宋元丰三至四年，1080-1081）、<strong>十二圆觉彩塑</strong>（北宋政和元年至二年，1111-1112）。1988年第三批国保。</li>
+<li><strong>看点</strong>：①<strong>唐石舍利塔</strong>——唐高祖第十三子郑惠王李元懿任潞州刺史时建，砂石"回"字形套筒结构、似塔似殿似楼似堡，为唐塔孤例；②<strong>唐燃灯塔</strong>——青石雕造高约2.58米，国内现存三座唐代燃灯塔中保存最完整、做工最精的一座；③<strong>十二圆觉（"宋塑之冠"落点）</strong>——据《新修圣像碑记》塑于<strong>政和元年（1111）</strong>，出资者<strong>27村186人</strong>，<strong>明确署名"塑匠人冯宗本""画匠人陈道荣、吕荣"</strong>，有确切纪年与匠师署名的宋代彩塑极为罕见。⚠️ <strong>名号小考</strong>：有研究据寺内 1112 年《造十二大菩萨碑》认为所祀实为"十地菩萨＋等觉妙觉"，"十二圆觉"为通行称呼——名号之争不影响造像价值，通行说法仍作"十二圆觉"。</li>
+<li><strong>文化典故</strong>：<strong>"宋塑之冠"的来历</strong>——并非古人称谓，而是20世纪以钱绍武为代表的雕塑家建立的价值坐标（"写实能力、世俗化程度、人文关怀"为尺度）。钱绍武盛赞其"非常端庄、非常关心人、非常大度"，称一尊托腮沉思像为"东方维纳斯"。<strong>重要沿革</strong>：1970年代末原址因煤矿采空下陷，1984-1996年整寺原构件迁建翠云山现址。</li>
+<li><strong>理解要点</strong>：看唐代的塔、唐代的灯、北宋的菩萨——宗教造像世俗化人文化的最高峰。</li>
+</ul>
+<p><strong>午后：长子（丹朱封地 + 后羿射日 + 金代木构）</strong></p>
+<blockquote>
+<p>长子是晋东南最古老的城邑之一：秦汉四百年为上党郡治，东晋十六国慕容永据长子建西燕国都（见总纲一·发家地）；炎帝神农遗迹、发鸠山精卫填海皆在此地。</p>
+</blockquote>
+<h2>崇庆寺（长子紫云山）</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋大中祥符九年（1016）；现存<strong>千佛殿为北宋原构</strong>（1016年创建梁架主体犹存），天王殿/地藏殿/十帝殿明代，余清代。1996年第四批国保。</li>
+<li><strong>看点</strong>：①<strong>千佛殿</strong>——面宽三间、进深六椽、平面近方形，斗栱单杪单下昂五铺作偷心造，手法尚袭唐五代遗风，"北宋早期小型歇山顶木构建筑的典范之作"；②<strong>十八罗汉</strong>——出自北宋元丰二年（1079），是目前已知最早有明确纪年的十八罗汉造像，钱绍武誉之为"宋塑之冠"，与青莲寺、长清灵岩寺、甪直保圣寺、苏州紫金庵并称国内五堂著名宋塑罗汉。</li>
+<li><strong>文化典故</strong>：元丰二年（1079）十八罗汉——已知最早有明确纪年的罗汉造像，"宋塑之冠"落点；千佛殿（1016）亦为北宋原构，两朝彩塑集于一庙（见总纲四·C悬塑）。</li>
+<li>⚠️ <strong>关键提示</strong>：三大士原塑1991年遭盗贼推倒粉碎，今像系依图像资料重塑；<strong>"宋塑之冠"的落点是罗汉，不是三大士</strong>。地藏殿明代悬塑（地藏+十殿阎王+六曹判官）亦佳（见总纲四·C悬塑）。</li>
+<li><strong>理解要点</strong>：千佛殿（北宋木构）＋十八罗汉（最早纪年宋塑罗汉）是双璧——"一座宋构、两朝彩塑"。</li>
+</ul>
+<h2>三嵕庙（紫云山，崇庆寺联票"前寺"）</h2>
+<ul>
+<li><strong>年代</strong>：始建北宋宣和四年（1122，庙存创建碑）；现存正殿（护国灵贶王殿）、后殿为明代遗构，余清代。</li>
+<li><strong>看点</strong>：主神后羿（三嵕神/灵贶王）、两侧属神风伯雨师雷公电母。<strong>传说地理</strong>：相传后羿射日用十只五色箭，射落九日后将系紫带一支插在此山前坡，箭化紫云山、又化白皮松林——故山名"紫云"。庙前白皮松数十株、树龄五百余年。</li>
+<li><strong>文化典故</strong>：<strong>三嵕信仰源流</strong>——射日神话文本源头：《山海经·海外东经》"十日所浴"宇宙图景、《淮南子·本经训》"尧使羿上射十日而下杀猰貐"；学界区分"尧时射师之羿"（嫦娥之夫）与夏代"有穷后羿"，三嵕信仰所祀是前者。射日之地传说在上党屯留三嵕山（今老爷山）。<strong>注意区分</strong>：本组有两个"护国灵贶王庙"——紫云山三嵕庙（明构，崇庆寺联票"前寺"）与下霍护国灵贶王庙（金代正殿，独立国保），同在长子、同祀后羿（灵贶王考证详见下条）。</li>
+<li><strong>理解要点</strong>：看"后羿射日落地成山"的传说地理与明代殿宇格局。</li>
+</ul>
+<h2>下霍护国灵贶王庙（长子丹朱镇）</h2>
+<ul>
+<li><strong>年代</strong>：始建无确证；现存<strong>正殿为金代遗构</strong>（大殿檐柱有金大定甲辰，1184年施柱题记、门枕石金明昌五年，1194年题记），献殿/山门/戏台清代（康熙四十一年，1702年重修）。2013年第七批国保。</li>
+<li><strong>看点</strong>：大殿梁架厅堂造、四椽栿对前乳栿用三柱，六铺作单杪双下昂、龙形耍头，形制近宋《营造法式》而具晋东南金代典型特征（见总纲四·A）。殿内塑后羿嫦娥像，东西山墙绘《护国灵贶王行云布雨图》。农历二月十二"迎神赛社"，白云山庙会曾号称华北四大庙会之一。</li>
+<li><strong>文化典故（灵贶王考证结论＝后羿，重点）</strong>：《山西通志》明载：「屯留有三嵏山，宋崇宁间赐庙额，封羿神为灵贶王，岁以六月六日，有司致祭。」北宋徽宗崇宁年间（1102-1106）敕封射日之羿为"灵贶王"（主司防旱祈雨），明代复封"三嵕之神"入国家正祀。后羿由射日英雄演化为"致雨司雹"的农神。<strong>所谓"李靖"之误</strong>，当是把天王寺所祀毗沙门天王（托塔天王，民间与唐将李靖形象合流）错安到灵贶王头上。</li>
+<li><strong>理解要点</strong>：金代正殿（大定题记）是全庙价值核心；"灵贶王即后羿"把这座庙与三嵕山射日传说、宋代敕封制度串成一条完整信仰链（北社三嵕庙同祀后羿，见 Day 4）。</li>
+</ul>
+<h2>天王寺（长子县城南大街）</h2>
+<ul>
+<li><strong>年代</strong>：始建唐永徽年间（650-655）；现存<strong>中殿、后殿均为金代遗构</strong>。2006年第六批国保。</li>
+<li><strong>看点</strong>：<strong>金代减柱造</strong>——中殿、后殿均抽去部分前内柱、以梁栿通搭（中殿六椽栿通达前后檐），扩大殿内礼佛空间；中殿单杪单下昂五铺作计心造，被推为"现存金代建筑的典型之作"（见总纲四·A）。</li>
+<li><strong>文化典故</strong>：主神唐宋"军神"北方<strong>毗沙门天王</strong>（多闻天王）——崇拜源自唐天宝元年（742）安西城被围、毗沙门天王显圣解围的传说，唐玄宗遂命诸道州府设像供养，宋代军中设天王堂。长治地区此类毗沙门寺观仅此一例。</li>
+<li><strong>理解要点</strong>：减柱造是金代晋东南木构的标志技术——"抽柱扩堂"换礼佛空间，上承宋《营造法式》、下启元代更自由做法。</li>
+</ul>
+<h2>布村玉皇庙（备选）</h2>
+<ul>
+<li><strong>年代</strong>：始建无碑刻题记可断代；现存<strong>中殿为北宋晚期遗构</strong>（北大徐怡涛团队考定不晚于北宋宣和元年，1119年；另有"唐中期或更早"说，主流折中为五代至北宋早期），后殿金代、后殿东朵殿元代，余清代民国。2013年第七批国保。</li>
+<li><strong>看点</strong>：中殿北宋晚期原构、后殿金代、东朵殿元代——一庙集宋金元三朝木构；1960年代曾作粮站、白灰裹身，反使木构侥幸留存。</li>
+<li><strong>文化典故</strong>：乡村玉皇庙——玉皇信仰背景见总纲三·宋代崇道国策；"无字断代"因无碑刻题记，断代全靠木构形制分析。</li>
+<li><strong>理解要点</strong>：一座"无字断代"的宋金玉皇庙——中殿断代争议（唐/五代/北宋）本身即是看点，代表晋东南乡村道教庙宇与宋金建筑断代学的前沿现场。</li>
+</ul>
+<p><strong>晚 · 长治城（上党府城 + 明代信仰制度）</strong></p>
+<blockquote>
+<p>长治即潞安府附郭"长治县"，上党门见千年衙署沿革、城隍庙见明代升府与国家信仰、博物馆见通史坐标。</p>
+</blockquote>
+<h2>上党门（潞安府衙）</h2>
+<ul>
+<li><strong>年代</strong>：始建隋开皇年间（581-600）；现存<strong>明洪武三年（1370）重建</strong>，钟鼓楼建于洪武末及天顺、成化年间，清代、1932年多次重修——现存主体为明代遗构。2006年第六批国保。</li>
+<li><strong>看点</strong>：现存大门、钟楼（匾"风驰"）、鼓楼（匾"云动"）、府二堂，重檐歇山、楼高门低，象征官署威严。</li>
+<li><strong>文化典故</strong>：隋代上党郡署大门，唐代为潞州治所正门。<strong>唐景龙元年（707）临淄王李隆基任潞州别驾</strong>即居此衙署，潞州是其"发迹之地"；<strong>开元十一年（723）玄宗北巡途经潞州，将旧宅改建"飞龙宫"、免潞州赋税五年</strong>，张说撰《上党旧宫述圣颂》勒石。明嘉靖八年潞州升潞安府，遂为潞安府衙大门。<strong>误记提示</strong>：玄奘为洛州缑氏人，与上党门无直接关系；与潞州佛缘相关的是唐高祖第十三子李元懿（法兴寺建舍利塔者）。</li>
+<li><strong>理解要点</strong>：一座门楼浓缩了隋代建郡、李隆基发迹、明代升府三段上党史——"长治＝潞安府＝上党"千年沿革的物理原点。</li>
+</ul>
+<h2>潞安府城隍庙（长治市区）</h2>
+<ul>
+<li><strong>年代</strong>：始建元至元二十二年（1285）；现存<strong>中大殿（弘仁殿）与角殿为元代原构</strong>（减柱法、用材硕大），寝宫/戏楼/玄鉴楼明代，廊庑耳殿清代，<strong>六龙壁始建于清康熙三十三年（1694）</strong>。2001年第五批国保。</li>
+<li><strong>看点</strong>：占地12229㎡、<strong>中轴线长408米</strong>（全国府城隍庙中最长者）。各殿黄蓝绿三色琉璃饰顶，寝宫正脊黑釉行龙为明代原物。每年农历四月十五庙会（始于元代，逾700年）。</li>
+<li><strong>文化典故</strong>：<strong>明代城隍制度</strong>——城隍源于周代蜡祭"水庸"（城墙与护城河），唐代列入国家祀典，<strong>明代极盛</strong>：朱元璋洪武元年大封天下城隍，府城隍封"监察司民城隍威灵公"（正二品），令城隍庙规制同官署正衙，形成"阴阳两衙门"制度，新官到任须先谒城隍立誓。<strong>明嘉靖八年（1529）潞州升潞安府，州庙升格为"府城隍庙"</strong>。</li>
+<li><strong>理解要点</strong>：明代国家借助城隍信仰实现"阴司监察、阳衙治民"双轨治理的实物标本（呼应总纲三"神道稳定黄泉"）。</li>
+</ul>
+<h2>长治市博物馆（长治市区）</h2>
+<ul>
+<li><strong>年代</strong>：1960年成立；<strong>新馆2026年1月试运行开放</strong>，展陈约1.7万㎡，"天圆地方"设计理念。国家二级博物馆，馆藏6万余件、珍贵文物1200余件，居山西全省第二。</li>
+<li><strong>看点</strong>：常设展"上党从来天下脊——长治历史基本陈列"四单元：光启漳水（史前）→王畿重郡（商周至秦汉）→盛世潞州（唐宋）→繁华潞安（明清）。代表文物：春秋兽面蟠螭纹铜鼎（分水岭出土）、唐三彩抱鸭壶女俑、南涅水石刻造像群（北魏至北宋，上党民间佛教艺术）、辽千佛座铜鎏金卢舍那佛坐像、明代珐华罐。</li>
+<li><strong>文化典故</strong>：—（现代公共博物馆，无传统祭祀典故；展名"上党从来天下脊"出自苏轼词，见总纲一·名句考证）。</li>
+<li><strong>理解要点</strong>：建立"上党/潞州/潞安"通史坐标再看古迹会更有纵深——"先总后分"的最佳起点。</li>
+</ul>
+<h2>长治观音堂（⚠️备选，暂停开放）</h2>
+<ul>
+<li><strong>年代</strong>：始建明万历十年（1582）；现存正殿为明代遗构、殿内悬塑为明代原物；万历十一年门楣挂兵部侍郎<strong>郜钦</strong>（上党人）题"观音堂"鎏金匾。2001年第五批国保。是《黑神话·悟空》36处取景地之一。</li>
+<li><strong>看点</strong>：<strong>明代悬塑</strong>——不足40-60㎡的三间大殿内汇<strong>500余尊</strong>描金彩绘泥塑，被誉为"海内悬塑之冠"。塑像大的约2米、小的仅2厘米，分四层：十八罗汉（自觉）→二十四诸天（觉他）→十二元觉（功德圆满）→道教群仙；南壁道神、北壁孔子七十二弟子；<strong>殿顶祥云中释迦牟尼、老子、孔子三教祖师并坐</strong>——明末"三教合一"社会思潮的立体呈现，百姓称之"全神庙"（见总纲四·C悬塑）。</li>
+<li><strong>文化典故</strong>：三教祖师并坐=明末"三教合一"思潮的立体呈现；万历十一年兵部侍郎郜钦（上党人）题"观音堂"鎏金匾（见上）。</li>
+<li><strong>理解要点</strong>："海内悬塑之冠"——不足40-60㎡的殿内密布500余尊悬塑，长治悬塑艺术的天花板。</li>
+<li>⚠️ <strong>开放状态</strong>：2026年6月中旬起又因文物维护闭馆（截至2026年8月中未公告复开）。出发前务必通过"长治市观音堂"公众号确认，备选稳妥。</li>
+</ul>
+<h2>关村炎帝庙（⚠️备选，需折返）</h2>
+<ul>
+<li><strong>年代</strong>：始建无考；现存<strong>正殿为元代建筑</strong>、东耳殿明代、香亭清代，国保定级"元、清至民国"。2013年第七批国保。</li>
+<li><strong>看点</strong>：庙内东西山墙满绘<strong>炎帝故事壁画约40㎡</strong>（沥粉贴金），在长治众多炎帝庙中大幅炎帝故事图极为少见；正殿屋顶明代琉璃（正脊大吻为明嘉靖三十八年，1559年烧造）。</li>
+<li><strong>文化典故</strong>：炎帝（神农氏）信仰庙宇。<strong>老顶山（百谷山）就在关村背后的市区东北</strong>，《太平寰宇记》载「昔神农尝百草于此」，现存滴谷寺、神农洞、神农泉等遗迹；北齐武平四年（573）已在百谷山建神农庙（炎帝信仰背景见总纲二·神话之乡）。</li>
+<li><strong>理解要点</strong>：老顶山（百谷山）就在村后——炎帝"尝百草"的信仰地标与村庙在地理上直接相连。</li>
+<li>⚠️ 方向冲突：位于市区东北，与 D4 主线（西→南）方向相反，需折返约8km，时间紧可砍。</li>
+</ul>
+<h2>正觉寺（⚠️备选，位置已校准）</h2>
+<ul>
+<li><strong>年代</strong>：始建唐大和年间（827-835）；现存<strong>后殿为金代原构</strong>（亦有"宋金原构"说）、东西配殿元代、过殿明代，国保定级"金至明"。2001年第五批国保。</li>
+<li><strong>看点</strong>：后殿面阔五间（约20米）、单檐悬山顶，梁架简洁规整、用材敦厚肥硕，被誉为现存宋金木构的典型代表作。上世纪曾改作粮库，反使木构完好保存（院内保留三座圆柱形土黄粮仓）。</li>
+<li><strong>文化典故</strong>："看寺"村名即因寺得名；曾改作粮库反而庇护了木构——村庙与农耕生产相依的见证。</li>
+<li><strong>理解要点</strong>：五间悬山后殿、梁架敦厚肥硕——现存宋金木构"教科书级"的代表作。</li>
+<li>⚠️ <strong>位置更正（已校准）</strong>：宋金遗构正觉寺位于<strong>上党区苏店镇看寺村</strong>（山西省文物局官网确认，"看寺"村名即因寺得名），<strong>非攻略原记"北天河村东"</strong>（高德上"北天河村东"另有同名非国保"正觉寺"POI 误导坐标抓取）。攻略 V02 与 map.html 坐标已校准。村庙文保点可能锁门，需提前联系当地文保员。</li>
+</ul>
+<hr />
+<h1>Day 4 · 长治→上党→平顺</h1>
+<blockquote>
+<p>区域主题：荫城铁货+冶铁经济 与 玉皇/后羿/圣母民间信仰 双线并进。铁货的财富是"因"，多神信仰与高规格庙宇是"果"，长治久安的地理与历史充当"保鲜剂"。</p>
+</blockquote>
+<h2>玉皇观五凤楼（上党区南宋村）</h2>
+<ul>
+<li><strong>年代</strong>：玉皇观相传始建宋代；现存<strong>五凤楼为元代建筑</strong>（一说宋末元初始建、元末明初风格），东配殿元代，献亭/凌霄宝殿/钟鼓楼多为明清。2006年第六批国保（断代"元至清"）。</li>
+<li><strong>看点</strong>：五凤楼是玉皇观的<strong>山门</strong>——把道教宫观的山门做成皇宫正门的楼阁形制，是"宫观仿宫廷"的典型。正面五重飞檐、侧面四层，即"<strong>明五暗四</strong>"；楼身四角翼飞，寓意"五凤展翅"。楼内"五大奇观"：荆木大梁、桑木独梯、八卦藻井、一根断梁、七拱十三踩。凌霄宝殿前檐"七铺作十三踩"斗拱，规制超过故宫太和殿的十一踩，被民间称为"天下第一玉皇观"。</li>
+<li><strong>文化典故</strong>：<strong>"五凤楼"名之源</strong>——源于隋唐洛阳宫城正门<strong>应天门</strong>（武则天避讳改应天门，晚唐天祐二年，905年改称五凤楼），形制为城门楼居中、两侧垛楼阙楼各一对、飞檐如凤翅。<strong>北京故宫午门明代亦称"五凤楼"</strong>。五凤楼与明堂同属天子礼制建筑体系。<strong>荆木大梁桑木独梯</strong>：两根荆木大梁长7.39米（荆木本为编筐灌木、极难成材）；桑木独梯高7.13米、由一整棵桑木雕成、树龄约500年。<strong>"世界仅存三座五凤楼"</strong>为当地文旅宣传口径（另两座指故宫午门、日本某寺门），形制并不完全相同，宜作参考不作定论；"木料出自昆仑山"无权威依据，属民间附会。</li>
+<li><strong>理解要点</strong>：把皇宫大门的"五凤楼"搬到玉皇大帝的道观山门——上党民间把国家礼制"挪作神用"的巅峰之作。</li>
+</ul>
+<h2>长春玉皇庙（荫城镇）</h2>
+<ul>
+<li><strong>年代</strong>：始建无考；现存<strong>大殿为正殿（早期宋式做法，一说金代）</strong>，前殿/过殿等明清，国保登记"北宋至清"。2019年第八批国保。</li>
+<li><strong>看点</strong>：正殿梁架"六椽栿通达前后檐用三柱"、脊檩施叉手、蜀柱下用驼峰、梁栿构件比例约3:2、金柱为石质方柱——研究晋东南早期厅堂构架的标本。2020年前后修缮时殿内<strong>意外发现一座穹隆顶地宫</strong>，内出四块刻铭文砖，年代与价值"有待专家进一步考证"。</li>
+<li><strong>文化典故</strong>：<strong>玉皇信仰源流</strong>——源于上古"昊天上帝"崇拜，魏晋道教渐有"玉皇"之名，南朝陶弘景《真灵位业图》著录；宋真宗为洗"澶渊之盟"之耻、神道设教、上玉皇尊号（大中祥符七年，1014；一说八年，1015），宋徽宗再加"昊天"二字，道教玉皇与国家祭天信仰就此合流，玉皇庙在宋代以后的北方乡村遍地开花（<strong>"澶渊之盟"完整背景见总纲三·上下同频</strong>）。正月初九玉皇诞。</li>
+<li><strong>理解要点</strong>：藏在荫城铁镇村庄里"不显山露水"的早期玉皇庙——宋式梁架＋殿内地宫砖铭待考。</li>
+</ul>
+<h2>荫城古镇</h2>
+<ul>
+<li><strong>年代</strong>：冶铁聚落可溯至<strong>春秋战国</strong>，汉代成上党冶铁中心、设铁官；现存明清格局与建筑为主体。2019年第七批中国历史文化名镇。</li>
+<li><strong>看点（千年铁府）</strong>：明洪武六年（1373）荫城列为全国13个铁冶所之一；明清鼎盛时"家家有铁炉、户户会打铁"，铁炉1800多座、工匠最多1.3万余人、铁货年销2000万斤、交易额达1000余万两白银，有"万里荫城、日进斗金"之誉，销往国内20余省并远销朝鲜、日本、俄国等国。农历五月十三"铁货会"与关羽磨刀传说结合（见总纲五·民俗节祭）。</li>
+<li><strong>文化典故</strong>：<strong>铁与绸</strong>——《潞安府志》"上党居万山之中……其奔走什一者，独铁与绸耳"，铁与潞绸是上党仅有的两大输出品，滋养出<strong>泽潞商帮</strong>（晋商两大帮派之一）。<strong>人文</strong>：元末明初"雄山三老"重振雄山书院，铁商"以儒经商"，门匾刻"日中而市"（《易经·系辞》）、"里仁为美"（《论语·里仁》）。</li>
+<li><strong>理解要点</strong>：荫城不是靠运气的集市，而是"煤+铁+工匠+商路"咬合的千年铁府——铁的火与墨的书，共同铸成古镇底色（上党经济背景见总纲三·经济基础）。</li>
+</ul>
+<h2>九天圣母庙（平顺东河村）</h2>
+<ul>
+<li><strong>年代</strong>：始建<strong>隋代</strong>（据庙内元元统二年，1334年重修碑记载"创建于隋"）；现存<strong>圣母殿为北宋遗构</strong>（建中靖国元年，1101年再修）、<strong>献殿元代</strong>（庑殿顶，祭祀奏乐起舞的"佾舞亭"）、梳妆楼明代——宋元明清四朝木构集于一庙。2001年第五批国保。</li>
+<li><strong>看点</strong>：圣母殿琴面插昂，是"铺作插昂造"最早实例之一，被认为是"宋代建筑向金代建筑转变的重要实物"。北宋建中靖国元年（1101）重修碑记"命良工再修北殿，创建舞楼"——舞楼系宋元符三年（1100）创建原构，国内极罕见的宋代"庙里建戏台"记载（呼应总纲五·民俗）。</li>
+<li><strong>文化典故（九天圣母到底是谁，考证）</strong>：主流指向<strong>九天玄女</strong>——道教经典《云笈七签》：「九天玄女者，黄帝之师、圣母元君弟子也」，助黄帝破蚩尤的兵法战神。与<strong>碧霞元君</strong>（泰山娘娘）有关联但<strong>不是同一神</strong>。本庙东西院设"广生殿""子孙殿"，说明她实际承担送子保育功能——<strong>以九天玄女为内核、兼容送子生育功能的上党地方女神</strong>。平顺北社一带"社"字村名即源于祭圣母的社赛庙会。</li>
+<li><strong>理解要点</strong>：隋源北宋建殿、集四朝木构于一身的山村大庙——"九天圣母"身兼战神（九天玄女）与送子娘娘两副面孔。</li>
+</ul>
+<h2>北社三嵕（zōng）庙（平顺北社村）</h2>
+<ul>
+<li><strong>年代</strong>：始建不详；现存<strong>正殿为元代遗构</strong>（四椽栿对前剳牵通檐用三柱、单檐悬山顶、五铺作双下昂——典型元代地方厅堂做法），其余山门戏楼/献殿/妆楼清代。2013年第七批国保。</li>
+<li><strong>看点</strong>：主祀<strong>后羿（羿神）</strong>，庙中石碣刻"羿射九乌之神地"——三嵕山（今屯留老爷山）为"羿射九日"神话发源地（射日信仰源流见 Day 3 三嵕庙、灵贶王考证见 Day 3 下霍庙）。<strong>北宋徽宗崇宁二年（1103）敕封羿神为"护国灵贶王"</strong>，明洪武年间又封"三嵕山之神"。上党地区三嵕庙列入各级文保的四五十座，为全国之最。</li>
+<li><strong>村落看点</strong>：北社村内三嵕庙与<strong>大禹庙</strong>（同为第七批国保）相距仅百米、格局近似——一个祀射日英雄、一个祀治水英雄，都管风雨，反映本土水神信仰在同一村落中的并存与"竞争"。民国元年平顺县第二高级小学校曾设庙内。</li>
+<li><strong>文化典故</strong>：三嵕信仰源流——"羿射九日"神话发源地（屯留三嵕山），宋徽宗崇宁二年敕封羿神"护国灵贶王"（完整考证见 Day 3 下霍庙）。</li>
+<li><strong>理解要点</strong>：把"射落九日"的羿神请进元代大殿，配上倒座戏楼和献殿，每年社赛演给神看——三嵕信仰是上党人对"天旱日烈"生存焦虑的古老应答。</li>
+</ul>
+<hr />
+<h1>Day 5 · 浊漳河谷</h1>
+<blockquote>
+<p>区域主题：浊漳河谷古建走廊——一条不足40公里的河谷，把"唐—五代—宋—金—元—明—清"七个时代压缩成步行可达的序列。核心价值在<strong>五代木构的稀缺</strong>：全国现存约7座五代木构、6座在山西，浊漳河谷一处即占3座（天台庵、大云院、龙门寺西配殿）。
+<strong>河谷保存下来的五重原因</strong>：①地理封闭、偏离主战场（呼应总纲三·地理封闭）；②宗教传承与民间信仰的连续性（"只落架重修、不推倒重来"）；③驿道商路的经济支撑；④干燥气候与优质木材；⑤近代发展滞缓（大殿多被改作粮库仓库，"抹灰"反而保护了内部壁画）。
+<strong>宋金元时期的历史背景（为何"躲在山坳"）</strong>：靖康二年（1127）金灭北宋，山西尽入金境，泽潞一带成为宋金拉锯前线；金元之际再遭兵燹。但真正的战火多沿平原通衢与驿道展开，太行腹地的河谷山村反而屡屡幸免——天台庵、龙门寺等五代至宋金木构，正是在这"偏离主战场"的深坳里躲过一次又一次浩劫。南宋以来平顺一带长期偏安，直到明嘉靖八年（1529）才因陈卿起义新设平顺县——更说明此地历代都属"边角安全区"。"躲在山坳里"不是巧合，而是河谷古建能五代至清层层叠压、一路存活的直接前提（呼应总纲一·太行山小史宋金元）。</p>
+</blockquote>
+<h2>天台庵（平顺王曲村）</h2>
+<ul>
+<li><strong>年代</strong>：始建五代后唐天成四年（929）"建创立"、长兴四年（933）创修大殿（依殿内墨书题记）；现存<strong>大佛殿（弥陀殿）为五代后唐原构</strong>，含零星盛唐、中唐旧木料。1988年第三批国保。</li>
+<li><strong>看点</strong>：大佛殿（弥陀殿）——单檐歇山顶五代小殿，殿内含零星盛唐、中唐旧木料，寺内"一殿一碑"格局。</li>
+<li>⚠️ <strong>断代方向更正</strong>：真实脉络是<strong>曾被定为唐代建筑（1956年普查后列入"中国现存四座唐代木构"之列）→ 2014年落架大修时发现墨书「长兴四年九月二日」「大唐天成四年建创立」等题记后，多数学者改断为五代后唐（929/933年）</strong>。学界至今"唐代说""五代说"并存，最稳妥表述：<strong>现存大佛殿主体为五代后唐遗构，去唐未远、保留浓厚唐风</strong>。</li>
+<li><strong>文化典故</strong>：寺名"天台庵"表明其属天台宗道场（智顗创于浙江天台山，中国最早本土化佛教宗派之一）。民间传说唐末灭佛时天台山僧人为保存法脉千里寻避祸之地，选中浊漳河谷。</li>
+<li><strong>理解要点</strong>：价值不在规模，而在它可能是中国现存最早天台宗建筑遗存之一——一段断代争论本身就是一部中国建筑史教科书。</li>
+</ul>
+<h2>原起寺（潞城辛安村）</h2>
+<ul>
+<li><strong>年代</strong>：始建<strong>唐天宝六年（747）</strong>，相传唐玄宗李隆基敕建（含传说成分，见总纲一·发家地）；现存<strong>大雄宝殿（宋代原构）、青龙宝塔（北宋元祐二年，1087）、唐天宝六年陀罗尼经幢（唐代）</strong>、享亭明代。2001年第五批国保。</li>
+<li><strong>看点</strong>：大雄宝殿与青龙宝塔两件宋代原构——宝塔为仿木构八角七层密檐砖塔，高约17米，底层砖雕直棂窗，研究宋代砖塔形制的实物；"雾迷塔影烟迷寺，暮听钟声夜听潮"石柱楹联值得驻足。</li>
+<li><strong>文化典故</strong>：寺名"原起"民间解释取"重起大唐江山"之意（⚠️ 官方介绍未载寺名含义，属民间说法）；与武周历史记忆相关——相传凤凰山"凤脉主贵"，唐玄宗即位后为防"女主之祸"重演（武则天曾建武周），敕建此寺镇脉（山西省文物局"原起秋声"专页载此传说）；宋代又有风水之说，宋哲宗（赵煦）遂于元祐二年敕建青龙宝塔镇脉（官方页载"天子赵煦下旨拨银建塔"）。</li>
+<li><strong>理解要点</strong>：小庙锁门看外观即值——"雾迷塔影烟迷寺"的河畔古刹。</li>
+</ul>
+<h2>大云院（平顺实会村）</h2>
+<ul>
+<li><strong>年代</strong>：始建<strong>五代后晋天福三年（938）</strong>，初名仙岩院；现存<strong>大佛殿（后晋天福五年，940，五代原构）、七宝塔（后周显德元年，954）</strong>，余清代。1988年第三批国保。</li>
+<li><strong>看点（两张王牌）</strong>：①<strong>全国现存唯一的五代寺观壁画</strong>——大佛殿内五代壁画约20余㎡，东壁《维摩变相》（维摩诘半卧锦帐与文殊对坐）、扇面墙背面西方净土变，承袭晚唐"焦墨薄彩"画风、施蓝绿赭三色、沥粉贴金，与莫高窟晚唐壁画同出一格（见总纲四·附雕塑壁画）；②<strong>中国现存木构建筑中在阑额上加施普拍枋的最早实例</strong>（大佛殿），驼峰种类多达8种（见总纲四·A普拍枋）。</li>
+<li><strong>文化典故</strong>：后晋天福年间（约940年）壁画——承袭晚唐"焦墨薄彩"画风、沥粉贴金，与莫高窟晚唐壁画同出一格；初名"仙岩院"（见上）。</li>
+<li>⚠️ <strong>壁画年代更正</strong>：壁画绘制于<strong>后晋天福年间（约940年前后），与大佛殿同期，而非后周显德年间</strong>。显德元年（954）对应的是<strong>寺外七宝塔</strong>年代，二者不可混淆。</li>
+<li><strong>理解要点</strong>：一寺集"五代木构＋五代壁画＋五代石塔"三宝于一身——全国唯一五代壁画＋最早普拍枋两张王牌。</li>
+</ul>
+<h2>佛头寺（平顺车当村）</h2>
+<ul>
+<li><strong>年代</strong>：始建不详（一般认为唐末五代始创）；现存<strong>正殿一座，宋代遗构</strong>（形制属宋金过渡风格），殿内<strong>元代壁画</strong>。2006年第六批国保。</li>
+<li><strong>看点</strong>：大殿柱头斗栱五铺作双下昂、当心间补间出45°斜拱、柱侧角升起显著，完整保存宋式做法。殿内2010年修缮时从石灰覆盖层下剥离出<strong>元代"二十四诸天"壁画约36㎡</strong>，沥粉堆金、工笔重彩，与大同善化寺、北京法海寺诸天像齐名——"宋构+元壁画"双宝。</li>
+<li><strong>文化典故</strong>：元代"二十四诸天"壁画——沥粉堆金、工笔重彩，与大同善化寺、北京法海寺诸天像齐名；四角塑韩信、周瑜、庞涓、罗成，寓"才高命短"警世（见下）。</li>
+<li><strong>趣味细节</strong>：殿角梁下塑葫芦宝瓶角神，四角分塑<strong>韩信、周瑜、庞涓、罗成</strong>四位历史人物，寓意"才高命短"以警世人。</li>
+<li><strong>理解要点</strong>：一殿看两代——宋代（宋金过渡）木构＋元代二十四诸天壁画，是浊漳河谷"小庙藏珍"的典型。⚠️ 上世纪六七十年代正殿被用作仓库、四壁刷白，反而使壁画幸存；非传统旅游景点，需联系文管员开门。</li>
+</ul>
+<h2>淳化寺（平顺阳高村）</h2>
+<ul>
+<li><strong>年代</strong>：始建北齐天保年间（550-559），初名龙门禅院，为<strong>龙门寺下院</strong>；北宋淳化二年（991）以年号改额"淳化寺"。现存<strong>正殿为金代原构</strong>、北宋开宝三年（970）石经幢两通。2001年第五批国保。</li>
+<li><strong>看点</strong>：金代正殿（四铺作单抄单下昂、批竹式昂、无补间斗栱、结构简练比例适度）＋两通北宋经幢（楷书阴刻《尊胜陀罗尼经》《金刚般若波罗密经》，由住持僧道贞书写）——"金殿宋幢"组合。</li>
+<li><strong>文化典故</strong>：金大定己丑（1169）题诗碑作者李晏，时任平顺县令。<strong>概念「上院/下院」</strong>：佛教寺院的"主寺—分寺"网络——<strong>下院</strong>＝附属于主寺的分支寺院；<strong>上院</strong>（主寺/本山/祖庭，一般不自称"上院"）＝法统中枢。下院住持由主寺派出或认可、法脉同源，但有独立殿产香火、可日后自立；本质是"法统与香火上的从属"，非行政隶属。对应日本"本山—末寺"体系。</li>
+<li><strong>理解要点</strong>：金殿宋幢＋龙门寺下院——把淳化寺放在龙门寺的传承脉络里看，才能理解浊漳河谷寺院网络的关系。寺门常年不开，多只能看外观。</li>
+</ul>
+<h2>龙门寺（平顺源头村）</h2>
+<ul>
+<li><strong>年代</strong>：始建北齐天保元年（550）前后，原名法华寺；现存<strong>五代西配殿、宋大雄宝殿、金天王殿（山门）、元燃灯佛殿、明东配殿、清建筑——六朝木构集于一寺</strong>，为中国现存古寺所仅见。1996年第四批国保。</li>
+<li><strong>文化典故</strong>：北齐天保年间始建、原名法华寺；"六朝同框"为中国现存古寺所仅见——五代至清的木构演变轨迹压缩于一寺。</li>
+<li><strong>看点（"中国古建博物馆"，中轴：山门天王殿→大雄宝殿→燃灯佛殿）</strong>：</li>
+<li><strong>西配殿（五代后唐同光三年，925至清泰二年，935）</strong>——面阔三间、单檐悬山顶，殿内无柱、四椽栿通达内外，柱头不施普拍枋、阑额不出头、栌斗直接坐柱头，<strong>中国现存已知唯一的五代时期悬山式木构建筑</strong>，保留浓厚唐代遗风。</li>
+<li>大雄宝殿（北宋绍圣五年，1098，依前檐石柱题记）——单檐歇山顶，殿内存工笔重彩壁画。</li>
+<li>天王殿（金代，山门）；燃灯佛殿（元代）——西山墙三椽栿极度弯曲，被称为"古建中最弯曲的大梁"；东配殿明代；余清代。</li>
+<li><strong>比较要点</strong>：前院东西配殿一对比，同时看到五代与明代两个时代——西配殿那不施普拍枋的栌斗直承柱头，是比大云院"最早普拍枋"更早一层的唐—宋过渡形态。</li>
+<li><strong>其他</strong>：五代后汉乾祐三年（950）陀罗尼经幢、宋金石塔4座、明清碑碣20余通；寺外山门古柏树龄相传千余年。</li>
+<li><strong>理解要点</strong>：六朝同框的意义，在于把中国木构千年的演变轨迹压缩在一座寺院里，可逐殿比对——"中国古建博物馆"之誉名副其实。</li>
+</ul>
+<h2>回龙寺（平顺侯壁村）</h2>
+<ul>
+<li><strong>年代</strong>：始建不详；现存<strong>正殿一座，金代遗构</strong>（碳十四+树轮校正为北宋晚期至金初），单檐悬山顶。2006年第六批国保。</li>
+<li><strong>看点</strong>：梁架三椽栿对前剳牵通檐用三柱，柱头不施普拍枋直接置栌斗、阑额至角柱不出头、前檐使用罕见的<strong>蝉肚实拍华拱与蝉肚实拍泥道拱</strong>——被北大专家称为"民间宋金木构孤本"。殿内存清代工笔淡彩壁画约53.7㎡，内容为《西游记》人物与四大天王，反映民间寺观壁画与通俗文学的关系。</li>
+<li><strong>文化典故</strong>：殿内《西游记》人物与四大天王壁画——民间寺观壁画与通俗文学关系的实物见证；"蝉肚实拍拱"等不合"标准宋式"的手法，是民间匠师因地制宜的自创。</li>
+<li><strong>发现史</strong>：殿宇残破，2001年由北京大学考古文博学院师生测绘实习时意外发现，其后评定为文保单位。</li>
+<li>⚠️ <strong>乡镇归属更正</strong>：回龙寺、夏禹神祠均在<strong>阳高乡侯壁村</strong>（非"石城镇"）；石城镇是源头村龙门寺的所在地。</li>
+<li><strong>理解要点</strong>：与同村夏禹神祠并称"一村两金元国保"——回龙寺的看点不在"金代"标签，而在悬山顶小庙里那些不合"标准宋式"的独特匠师手法。</li>
+</ul>
+<h2>夏禹神祠（平顺侯壁村）</h2>
+<ul>
+<li><strong>年代</strong>：始建<strong>元代"至元二年"</strong>（月台角柱题记；⚠️ 元代前后两度"至元"——前至元忽必烈 1264-1294、后至元顺帝 1335-1340，题记无干支，山西省文物局官方"无法确定公元纪年"；学界多推定<strong>后至元 1336</strong>）；现存正殿（元代原构）、须弥座月台（元代）、山门兼倒座戏台与廊庑（清代）。2006年第六批国保。</li>
+<li><strong>看点</strong>：正殿柱头与补间斗栱均四铺作单下昂、具典型元代特征；殿前青石须弥座月台高约1.3米，束腰浮雕飞龙舞凤卷草力士（惜多损坏）——"元代木构＋元代石雕"双珍（见总纲四·C须弥座）。</li>
+<li><strong>文化典故</strong>：<strong>鲧禹治漳</strong>传说地理链——侯壁村西约5公里奥治村存"错凿沟"（鲧误凿的废渠遗迹）。据《潞安府志》："土人传鲧治水欲浚漳河南流，凿山势逆水不下，被殛；禹乃改渠东流，始通。"当地因此建禹王庙镇水祈安澜。大禹治水核心文献《尚书·禹贡》《史记·夏本纪》、北魏郦道元《水经注·浊漳水》——后者正记载浊漳河谷"清崖如点黛，赤壁若朝霞"之景（⚠️ 此句通行归《水经注·浊漳水》，未能在典籍原文逐字核验，供参考）。</li>
+<li><strong>理解要点</strong>：浊漳河谷"大禹治水传说"最集中的物质载体；山门兼倒座戏台说明祭祀活动常年有戏剧酬神（呼应总纲五·民俗）。</li>
+</ul>
+<h2>虹霓村（返程绕行）</h2>
+<ul>
+<li><strong>年代</strong>：村落可溯至<strong>五代</strong>（村内明惠大师塔建于后唐长兴三年，932年，据此推断当时村落已具规模）；现存明惠大师塔（五代石塔）、清代关帝庙、虹梯古关（民国二年1913年重修）、明清古民居54处。2013年传统村落、第七批中国历史文化名村。</li>
+<li><strong>看点</strong>：<strong>明惠大师塔</strong>——五代方形单层亭阁式石塔，通高约6.5米，<strong>我国五代现存石塔中的孤例</strong>。虹霓峡自古为"上党八景"之一（"虹梯接汉"）。东侧虹霓瀑布落差80余米，夏秋水盛时水雾升腾成彩虹之景。</li>
+<li><strong>文化典故</strong>：<strong>虹梯关背景</strong>——为山西八大古关之一。<strong>明嘉靖八年（1529）凭险设关，起因是镇压陈卿起义后，朝廷升潞州为潞安府、割黎城潞城壶关之土新设平顺县，并在平顺设虹梯、玉峡二关</strong>（呼应总纲一·行政沿革）。古道为"五十四盘"之字形人工石梯，是明清晋豫商旅要道，乾隆五十五年（1790）由潞安、彰德两府商号捐资大修；1968年新修挂壁公路后古道废弃。</li>
+<li><strong>理解要点</strong>：看瀑布、走古关、观石村——一条完整的"古道+传统村落"景观带，补足河谷走廊的"古道"维度。</li>
+</ul>
+<hr />
+<h1>勘误与提醒</h1>
+<p>以下是对《20260806-晋城长治5天-古建深度-V02.md》的信息更正/补充，建议出行前核对：</p>
+<ol>
+<li><strong>正觉寺位置（已校准）</strong>：宋金古建国保位于<strong>上党区苏店镇看寺村</strong>（山西省文物局官网确认，时代"金-明"），非"北天河村东"。高德上"北天河村东"另有同名"正觉寺"POI（非国保，易误导坐标抓取）。攻略 V02 与 map.html 坐标已改至看寺村。</li>
+<li><strong>侯壁村乡镇</strong>：回龙寺、夏禹神祠位于<strong>阳高乡侯壁村</strong>，非"石城镇"（石城镇是龙门寺所在源头村所在地）。</li>
+<li><strong>天台庵断代</strong>：主流断代为<strong>五代后唐（929/933年）</strong>，此前曾被列为"中国四座唐构"之一，2014年落架大修墨书题记后改断——宜表述为"五代后唐遗构、保留浓厚唐风"。</li>
+<li><strong>大云院壁画年代</strong>：壁画绘制于<strong>后晋天福年间（约940年）</strong>与大佛殿同期；<strong>后周显德元年（954）是七宝塔年代</strong>，勿混淆。</li>
+<li><strong>灵贶王＝后羿</strong>：下霍护国灵贶王庙、三嵕庙、北社三嵕庙所祀"灵贶王"均为<strong>后羿</strong>（宋徽宗崇宁封，主司防旱祈雨），非李靖——"李靖"之误源自天王寺毗沙门天王与唐将李靖的民间合流。</li>
+<li><strong>"上党从来天下脊"出处</strong>：出自<strong>苏轼《浣溪沙·送梅庭老赴上党学官》</strong>；"天下脊"意象始自战国张仪（杜牧引）——非"明代兵部侍郎"。</li>
+<li><strong>崇庆寺彩塑</strong>：三大士像1991年盗损后重塑；<strong>"宋塑之冠"落点是十八罗汉（北宋元丰二年，1079年原物）</strong>。</li>
+<li><strong>五凤楼"世界仅存三座"</strong>：为当地文旅宣传口径（另两座故宫午门/日本寺门形制并不完全相同），宜作参考不作定论；"木料出自昆仑山"无权威依据。</li>
+<li><strong>观音堂开放状态</strong>：2026年6月中旬起又因文物维护闭馆（截至2026年8月中未公告复开）——出发前务必确认，备选稳妥。</li>
+<li><strong>仙翁庙</strong>：壁画为<strong>明代画师纪念唐代玄宗封禅</strong>的"历史画"（建筑存元制、壁画多绘于明代），全国唯一帝王封禅题材壁画——攻略 V02 描述准确。</li>
+<li><strong>法兴寺复建</strong>：1970年代末原址因煤矿采空下陷，1984-1996年<strong>整寺原构件迁建翠云山现址</strong>——现址为迁建，但构件多为原物。</li>
+<li><strong>西溪二仙庙始建</strong>：唐乾元年间/北宋中晚期两说并存；金皇统二年（1142）扩建形成今日格局——攻略 V02 描述合理。</li>
+<li><strong>夏禹神祠"至元二年"歧义</strong>：月台题记"至元二年"——元代前后两度"至元"（忽必烈/顺帝），题记无干支，山西省文物局官方称"无法确定公元纪年"；学界多推定后至元 1336，供参考。</li>
+</ol>
+<hr />
+<h1>主要参考来源</h1>
+<p>按本地《历史-文物-古籍-检索资源索引》优先采用：山西省文物局（山西古代建筑精华系列）、山西省政府及市县文旅/政府网（晋城、高平、长子、平顺、上党区）、国家文物局与省级国保名录、晋城/长治博物馆官网、山西师大戏曲文物研究所学术成果（车文明《中国古戏台调查研究》）、北大徐怡涛团队建筑断代研究、《山西通志》《潞州志》《潞安府志》《长子县志》等方志，以及识典古籍/ctext 所收《史记》《淮南子·本经训》《山海经》《列子》《旧唐书》《新唐书》《朱子语类》《水经注》《云笈七签》等典籍原文，并交叉核验《全国重点文物保护单位·第X批》名录信息。</p>
+<p>: 宋真宗颇具文学才能，他为了鼓励天下人读书考取功名，写下了著名的《励学篇》（又称《劝学诗》）。诗中“书中自有黄金屋，书中自有颜如玉”等通俗直白的诗句</p>
+<p>: 宋真宗颇具文学才能，他为了鼓励天下人读书考取功名，写下了著名的《励学篇》（又称《劝学诗》）。诗中“书中自有黄金屋，书中自有颜如玉”等通俗直白的诗句</p>
+<p>: 将这段整理为简介，30字以内，要快速了解这个食物的历史文化背景与渊源，晋城肉丸方便面（全称通常为“肉丸方便面荷包蛋”）不仅是一碗简单的早餐，更是晋城这座城市近三十年来经济发展、地缘交融与市井文化碰撞出的独特产物。它的历史文化背景可以从以下几个维度来解读：</p>
+<pre><code>时代背景：煤矿经济崛起与快节奏生活的契合
+上世纪八九十年代，晋城因煤矿产业的蓬勃发展而迎来了经济的快速腾飞，人们的生活节奏随之加快。然而，当时晋城的传统早餐文化相对单调，多以小米饭、饸饹面、豆腐脑等为主。在这个背景下，一种操作便捷、几分钟即可上桌的新型食物，完美契合了当时快节奏的现代生活需求，为这道美食的诞生提供了时代土壤。
+
+地缘交融：河南焦作方便面的“上山”传奇
+晋城地处山西东南大门，与河南焦作地缘相邻，自古便是豫晋两省人货流通的重要通道。1984年至1986年前后，河南焦作（利用其小麦主产区的优势）生产的一款粉红色包装的“豫竹牌”方便面跨越太行山进入晋城。
+这种方便、美味、耐储存的新兴食物，迅速震撼了吃腻了传统面食的晋城人，甚至一度成为当地极具面子的“硬通货”——在九十年代，十包豫竹方便面配一瓶汾酒，就是一份非常体面的新婚或新年伴手礼。
+
+文化融合：外来工业品与本土食材的碰撞
+晋城人并没有简单地“泡”方便面，而是将其进行了深度的本土化改造。他们将河南焦作生产的“豫竹”方便面，与晋城本地陵川县特产的油炸牛肉丸（红薯淀粉与牛肉混合，外酥里嫩）结合，再卧上荷包蛋，浇入牛骨熬制的高汤，并淋上山西人必不可少的老陈醋。
+这种“外来工业化食品+本土传统手工食材”的结合，打破了地域的界限，创造出了一种独树一帜的复合风味，成为了晋城人专属的早餐仪式。
+
+情感纽带：从“美食荒漠”到城市味觉图腾
+尽管晋城在历史上拥有极其厚重的文化底蕴（如皇城相府等大量明清古建筑），但在饮食多样性上曾被戏称为“美食荒漠”。肉丸方便面的出现，彻底颠覆了当地单一的饮食结构。
+如今，这款粉红包装的方便面几乎成了晋城的“特供版”，在外地难觅其踪。它不仅养活了河南的方便面厂，更深深铭刻进了晋城人的DNA里。对于在外漂泊的游子而言，这碗热气腾腾的肉丸方便面是乡愁的寄托；对于本地人来说，它见证了晋城从煤炭时代到现代都市的发展变迁，是一条维系着城市情感与记忆的文化纽带。
+
+值得一提的是，由于晋城方言中“吃甚饭”（什么饭）的发音，这道早餐在网络上曾被外地网友误听为“吃剩饭”，这一充满趣味的谐音梗也让这碗极具烟火气的地方美食火遍全国。
+
+要不要帮你查一下晋城附近评价好的肉丸方便面老店？
+</code></pre></div></details><details class="doc"><summary>📖 晋城长治与泉州：信仰深厚与当代观念 <i>全文 13453 字</i></summary><p class="doc-desc">主题研究笔记：信仰密度、保守与男女观念的真实面貌</p><div class="doc-body"><h1>晋城长治与泉州：信仰深厚、保守与男女观念的真实面貌</h1>
+<h2>一、问题的重新校准：不是"是否迷信"，而是"信仰密度为何如此高"</h2>
+<p>晋城长治（古上党）与泉州常被外界贴上"迷信"标签——前者庙宇密布、社赛不绝，后者"一城多教、诸神并立"。但这个判断框架本身就是错位的。</p>
+<h3>1.1 "迷信"是一个已被学界废弃的污名化标签</h3>
+<p>中国学界"约100年前开始用'迷信'指代民间信仰"，直到20世纪30年代"民间信仰"才作为中立学术术语独立。这个标签源自<strong>明末清初来华传教士输入的"西方一神论宗教观"</strong>——用一神教标准衡量中国多神信仰，凡不符合的统统打成"迷信"。华中师大、人大社会学的共识是："许多研究者忽视了民间信仰的弥漫性特质，时而忽略了中国社会制度中的宗教性要素，<strong>时而将民间信仰误读为迷信而忽略了它的宗教本质</strong>"。</p>
+<p>2003年《保护非物质文化遗产公约》后，民间信仰借"非遗"话语获得合法性，<strong>国家层面不再视其为"迷信"</strong>。两地的核心信仰载体均已进入国家级非遗或全国重点文保（迎神赛社、上党八音会、上党梆子；妈祖信俗2009年入选UNESCO代表作名录）。</p>
+<h3>1.2 准确的问题：两地的民间信仰密度与形态如何</h3>
+<p>"迷信"与"民间信仰"的分野在于：民间信仰是有体系、有组织、嵌入日常社会功能的——庙宇是社区中心、神诞对应农事节律、酬神戏承担公共文化职能；迷信（在贬义/社会学意义上）指脱离社会功能、纯趋利性的占卜巫术。两地的庙宇密度、戏台制度、社赛非遗，属于前者。</p>
+<p>更准确的问题不是"是否迷信"，而是"<strong>为何信仰密度如此之高、且延续如此之久</strong>"。</p>
+<hr />
+<h2>二、晋城长治：农耕防灾型乡土多神信仰</h2>
+<h3>2.1 信仰构成：一神管一事的御灾体系</h3>
+<p>晋东南的信仰是一个<strong>高度功能化、与生存焦虑一一对应</strong>的神谱：</p>
+<table>
+<thead>
+<tr>
+<th>信仰对象</th>
+<th>功能</th>
+<th>典型载体</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>玉皇</td>
+<td>国家祭天合流、全村最高神</td>
+<td>府城玉皇庙、长春玉皇庙</td>
+</tr>
+<tr>
+<td>后羿（灵贶王/三嵕神）</td>
+<td>致雨、司雹、防旱</td>
+<td>三嵕庙、下霍灵贶王庙（四五十座，全国之最）</td>
+</tr>
+<tr>
+<td>二仙（乐氏姐妹）</td>
+<td>祛病、送子</td>
+<td>小南村二仙庙、西溪二仙庙（晋东南独有）</td>
+</tr>
+<tr>
+<td>九天圣母（玄女）</td>
+<td>战神兼送子保育</td>
+<td>九天圣母庙</td>
+</tr>
+<tr>
+<td>炎帝（神农）</td>
+<td>农业始祖、尝百草</td>
+<td>羊头山、关村炎帝庙</td>
+</tr>
+<tr>
+<td>大禹</td>
+<td>治水、镇漳</td>
+<td>夏禹神祠、北社大禹庙</td>
+</tr>
+<tr>
+<td>关帝</td>
+<td>忠义、财神（晋商）</td>
+<td>府城关帝庙</td>
+</tr>
+<tr>
+<td>城隍</td>
+<td>阴司监察、官方治理</td>
+<td>潞安府城隍庙</td>
+</tr>
+</tbody>
+</table>
+<p>特征是：<strong>每个神都"管一件具体的生存的事"</strong>——旱了求后羿、雹了求三嵕、病了求二仙、无子求九天圣母、水患求大禹。这不是抽象的神学，是"防灾设施式的信仰"。</p>
+<h3>2.2 成因：五因咬合 + 一个引擎</h3>
+<p>晋东南信仰深厚，是<strong>"靠天吃饭的生存焦虑（需求）× 煤铁财富（资金）× 国家崇道赐封（名分引擎）× 太行封闭（保鲜）× 社赛活态（传承）"</strong>五者咬合的结果。</p>
+<p><strong>第一因：生存环境触发</strong>。上党居太行山巅，"旱涝雹灾频发"——"哪里灾害最狠，哪里英雄神话越多"。后羿射日、精卫填海本质是大旱与水患的集体记忆神话化。山西大学郝平的华北"灾害信仰"研究直接命中：浊漳河流域的神话因子"深深植根于流域文化"，明清华北灾荒频仍催生防灾御灾信仰。</p>
+<p><strong>第二因：经济基础（煤铁财富）</strong>。《潞安府志》"所产无几，独铁与绸"，明清荫城铁货"日进斗金"——白银两大去向就是"修宅院、修庙宇"。</p>
+<p><strong>第三因：国家崇道国策（关键引擎）</strong>。宋真宗澶渊之盟后搞"天命对冲"——上天书、封禅、给玉皇上尊号，把道教玉皇与国家祭天合流；宋徽宗再加"昊天"。<strong>皇帝给名分，民间出银子</strong>——这是"上下同频"的真正机制。后羿被徽宗封"灵贶王"、二仙被赐"真泽"额，民间神升格为"国家认证正神"，建庙热情随之释放。</p>
+<p><strong>第四因：地理封闭（保鲜剂）</strong>。太行腹地躲过战火与城市化，干燥少雨木构不朽，"只落架重修、不推倒重来"——信仰载体（庙）得以千年叠压存活。</p>
+<p><strong>第五因：仪式活态维系</strong>。迎神赛社（明代抄本《礼节传簿》为实据，国家级非遗）、上党八音会、上党梆子、打铁花——"村村有庙，庙庙有台"，神诞＝农事节律＝庙会唱戏，<strong>年年演的神戏让信仰不散</strong>。</p>
+<p><mark>晋东南信仰的本质，是农耕社会面对山区灾害时，以功能性信仰组织社会、对冲风险的弥漫性宗教形态。</mark></p>
+<hr />
+<h2>三、泉州：贸易驱动下的跨文明多教并存</h2>
+<h3>3.1 信仰构成：世界宗教博物馆 + 海洋信仰三代谱系</h3>
+<p>泉州的信仰结构截然不同，是<strong>跨文明、多教并存 + 本土海神谱系</strong>：</p>
+<ul>
+<li><strong>外来宗教并立</strong>：伊斯兰教（清净寺1009、灵山圣墓）、印度教（番佛寺1281、近300方石刻，中国唯一本土印度教寺遗存）、景教/天主教（元代刺桐教区）、摩尼教（草庵，世界唯一摩尼光佛造像1339）、犹太教（抱鼓石遗存）。</li>
+<li><strong>本土三教</strong>：佛教（开元寺等三大丛林、800多座佛寺）、道教（元妙观、老君岩）、儒（府文庙）。</li>
+<li><strong>海洋信仰三代更迭</strong>：通远王（第一代海神）→ 真武大帝（第二代，法石真武庙"八闽玄天第一行宫"）→ 妈祖（第三代，天后宫1196建，1281元廷敕封天妃、1684施琅奏封天后，信俗2009入UNESCO）。</li>
+</ul>
+<p>特征是：<strong>信仰随贸易而来、随族群落地、随海洋风险专业化</strong>——每条航线的风浪、每个侨居族群的神，都在一座城里各占其位。</p>
+<h3>3.2 成因：贸易驱动下的制度性开放</h3>
+<p>泉州信仰深厚，是<strong>"海洋贸易的风险与利润（动力）× 外来族群聚居（载体）× 唐宋市舶/化外人制度的法律容忍（制度）× 闽南重商传统与泛神土壤（文化底色）"</strong>共同作用的结果。</p>
+<p><strong>第一因：族群聚居（蕃坊）</strong>。外来商人留居形成聚落，宗教随人落地。唐代城南设蕃坊，宋设蕃学、来远驿（1115），"市井十洲人"。</p>
+<p><strong>第二因：制度性法律容忍</strong>（⚠️ 宜称"官方对外来信仰的容忍与保护"，<strong>勿拔高为"信仰自由"</strong>）。《唐律疏议》"化外人"条允许外侨按本国俗法自治；唐太和八年（834）诏令对蕃客"常加存问、不得重征"；允许外侨按本俗火葬。这是<strong>制度供给</strong>，不是现代意义上的信仰自由。</p>
+<p><strong>第三因：港城空间并列</strong>。各族群各建宗教场所并立同一条街——涂门街清净寺＋府文庙＋关岳庙"多元宗教一条街"即物质证据。</p>
+<p><strong>第四因：本土海神的功能逻辑</strong>。海洋贸易风险高，催生专业海神信仰，且海神随海贸播迁东南亚、台湾（分灵"温陵妈"）。</p>
+<p>学者两派并陈：林华东/苏黎明主<strong>"开放政策＋重商传统＋泛神崇拜"三因说</strong>（经济论）；林振礼/吴鸿丽主<strong>"儒家兼容"文化论</strong>。</p>
+<p><mark>泉州信仰的本质，是商业社会面对海洋风险与跨文明共处时，以功利实用、灵验本位的多教并存对冲不确定性的弥漫性宗教形态。</mark></p>
+<hr />
+<h2>四、是否"比全国各地方都迷信"？——第一梯队，但各有并列者</h2>
+<h3>4.1 密度上：两地确属全国第一梯队</h3>
+<table>
+<thead>
+<tr>
+<th>地区</th>
+<th>密度证据</th>
+<th>学术/官方定性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>晋东南</strong></td>
+<td>"民间庞杂的鬼神崇拜传统非常强大，<strong>非山西其他地区可比拟</strong>"；二仙/三嵕/崔府君/骷髅大王庙"除了晋东南，山西再无他例"</td>
+<td>"保留着原始的、与本地区相关的宗教信仰和礼俗文化"</td>
+</tr>
+<tr>
+<td><strong>泉州</strong></td>
+<td>1.1万平方公里历史上<strong>6000多座宫庙、500多位神祇</strong></td>
+<td>"世界宗教博物馆"（世遗官方）</td>
+</tr>
+<tr>
+<td><strong>福建全省</strong></td>
+<td>祖先崇拜等民间信仰文献覆盖福建最多；妈祖信俗全球信徒2亿+、"世界三大民间信仰之一"</td>
+<td>重商传统＋泛神崇拜</td>
+</tr>
+<tr>
+<td><strong>广东</strong></td>
+<td>"广东堪称民间信仰大省"，分广府/客家/潮汕/粤西四大板块</td>
+<td>受福建、江西影响</td>
+</tr>
+</tbody>
+</table>
+<p>晋东南是<strong>山西省内极值</strong>（非山西其他地区可比拟），泉州是<strong>福建省内极值 + 跨文明多元度全国唯一</strong>。两者都是各自省内信仰密度最高的区域之一，但都不是"全国之最"的孤峰，而是<strong>一个高密度信仰带（华北山地+东南沿海）的两个制高点</strong>。</p>
+<h3>4.2 深度上：并非"最迷信"，而是"最制度化、最功能化"</h3>
+<p>真正区分两地的不是"信不信得更多"，而是<strong>信仰被制度化的程度</strong>。杨庆堃的<strong>"弥漫性宗教（diffused religion）"</strong>理论是理解两地的核心钥匙：民间信仰"通过世俗性的组织、功能性的仪式和多元化的崇拜，与外部社会结构和政治制度<strong>互相嵌入、高度整合</strong>，在传统中国的信仰系统中维持<strong>主导性地位</strong>"。</p>
+<ul>
+<li><strong>晋东南 = 弥漫性宗教嵌入"农耕防灾 + 乡村治理"</strong>：民间信仰是"地方社会整合的重要方式"，昭泽王信仰让"各村游散民众得以有效组织、结社立规"。</li>
+<li><strong>泉州 = 弥漫性宗教嵌入"海洋贸易 + 国家意志"</strong>：泉州市政府官方表述——天后宫等世遗点"体现出<strong>民间信仰与国家意志相结合</strong>对海洋贸易发展的共同推动"。</li>
+</ul>
+<p><mark>两地恰好是"弥漫性宗教"两种极端形态的活样本：晋东南把农耕社会的防灾信仰做到最高密度，泉州把商业社会的跨文明信仰做到最高多元度。</mark></p>
+<p>相比之下，许多地区的"迷信"（巫术、占卜、功利求财求官的临时性拜神）反而是<strong>信仰体系解体后</strong>的碎片化表现——<strong>恰恰是信仰不够成体系，才更显"迷信"</strong>。两地的特点是相反的：信仰高度成体系、有组织、有载体、有传承。</p>
+<h3>4.3 横向比较：没有"最迷信"的单一冠军</h3>
+<p>如果硬要排序"信仰的厚重与成体系程度"，全国第一梯队大致是：<strong>晋东南（乡土多神，农耕防灾型）、闽南含泉州（海洋多神，贸易型）、潮汕（宗族＋多神，近闽南型）、客家地区（祖灵＋民俗）、藏区（藏传佛教，高原型）</strong>。这些地区<strong>各是一种生存方式催生的信仰形态</strong>，没有谁"更迷信"，只有"因何种生存逻辑而信得深"。</p>
+<hr />
+<h2>五、两地共性与差异：同一个底层逻辑的两种极致表达</h2>
+<h3>5.1 最大共性：功能性 + 实用主义</h3>
+<p>检索最有价值的补充，是给两地的"为何信仰厚"找到了<strong>同一个理论解释</strong>——<strong>"功能性 + 实用主义"</strong>。</p>
+<p>泉州市政府学习资料直接概括闽台民间信仰：<strong>"浓厚的实用性色彩……是否'灵验'就成为衡量神明神力的标准，神明之间也存在竞争关系"</strong>。这印证了"哪个神灵验就拜哪个"——民间信仰的核心逻辑是<strong>功利实用</strong>，神是"功能性工具"而非信仰对象本身。</p>
+<p>晋东南同理：后羿管雹、二仙祛病送子、九天圣母护佑，<strong>每个神对应一个具体生存需求</strong>，且神之间会因"灵验度"竞争（哪个庙灵验香火就旺）。</p>
+<p><strong>两地的差异不是"信不信"，而是"信什么以求生存"</strong>：
+- 晋东南人面对的是<strong>山区旱涝雹灾</strong> → 催生<strong>防灾型多神</strong>（农业神、治水神、御灾英雄神化）。
+- 泉州人面对的是<strong>海洋风浪+贸易风险+移民社会的医疗/械斗问题</strong> → 催生<strong>护航型多神 + 移民随身神</strong>（海神谱系、保境安民神、商人财神关帝）。</p>
+<h3>5.2 最大差异：单一文明内部的内卷 vs 跨文明的汇聚</h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>晋城长治</th>
+<th>泉州</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>信仰性质</strong></td>
+<td>乡土多神、农耕防灾型</td>
+<td>跨文明多教并存＋海洋信仰</td>
+</tr>
+<tr>
+<td><strong>核心驱动力</strong></td>
+<td>旱涝雹灾的生存焦虑</td>
+<td>海洋贸易的风险与利润</td>
+</tr>
+<tr>
+<td><strong>神的功能</strong></td>
+<td>一神管一事（御灾）</td>
+<td>一神护一业（护海/护商/护族群）</td>
+</tr>
+<tr>
+<td><strong>资金来源</strong></td>
+<td>煤铁财富（荫城铁货）</td>
+<td>海贸利润（市舶收入约占全国一半）</td>
+</tr>
+<tr>
+<td><strong>制度引擎</strong></td>
+<td>国家崇道赐额封号（宋真宗/徽宗）</td>
+<td>市舶/化外人制度的法律容忍</td>
+</tr>
+<tr>
+<td><strong>地理因素</strong></td>
+<td>太行封闭＝信仰载体保鲜</td>
+<td>海港开放＝外来宗教落地</td>
+</tr>
+<tr>
+<td><strong>传承机制</strong></td>
+<td>迎神赛社/八音会/梆子/打铁花</td>
+<td>妈祖信俗/南音/木偶/分灵网络</td>
+</tr>
+<tr>
+<td><strong>多元度</strong></td>
+<td>单一文明内部的多神</td>
+<td>跨文明的诸教并存（全国唯一）</td>
+</tr>
+</tbody>
+</table>
+<p><mark>晋东南是"把自己人的神拜到极致"，泉州是"把所有人的神都请进来"。</mark></p>
+<h3>5.3 共有底色：动荡社会需信仰填补秩序真空</h3>
+<p>两地都因"<strong>动荡/高风险社会需信仰填补秩序真空</strong>"而信得深。人大研究指出闽台民间信仰实用性强是因为"移民社会自然环境恶劣、医疗水平低、地域人群械斗"；晋东南二仙信仰研究则指出沙陀、女真、蒙古等<strong>族群更迭</strong>也推动信仰传播——<strong>越是动荡、风险高的社会，越需要功能性信仰来填补秩序真空</strong>。晋东南（兵家必争的拉锯地）和泉州（族群杂处的移民港城）恰好都满足这个条件。</p>
+<hr />
+<h2>六、当代观念：形式古老 ≠ 观念保守</h2>
+<h3>6.1 核心判断：不能把"信仰深厚"直接等同于"当代人保守"</h3>
+<p>检索证据指向一个反直觉但重要的结论：<strong>两地呈现的是"礼仪形式高度保留，但内核已现代化、且因经济分化而割裂"的形态，而非整体保守。</strong> 尤其晋东南在"重男轻女"这个最硬的指标上，反属全国表现正常的少数地区之一。</p>
+<h3>6.2 晋城长治：形式古老 ≠ 观念保守</h3>
+<p><strong>事实层</strong>：</p>
+<ol>
+<li><strong>婚俗形式确实保留"六礼"框架</strong>：长治婚俗至今保留议婚→合八字→定亲→送礼→迎亲的流程，晋城婚礼有鼓乐、石榴糕、双头鱼/大猪蹄等古老程序——这是"形式传统"的一面，与信仰深厚的土壤一致。</li>
+<li><strong>但彩礼问题不突出、不畸形</strong>：晋城彩礼城市约10万、农村约10万，女方多添钱陪嫁车或原封陪嫁回小家庭。对比全国"彩礼重灾省"（江西122.7性别比），晋城彩礼处于中等、且普遍有"陪嫁回流"机制——<strong>没有"卖女儿"色彩</strong>。</li>
+<li><strong>最关键的硬数据——山西出生性别比102，全国仅7个正常省份之一</strong>（2020七普）。出生性别比是"重男轻女"最不可掩饰的客观指标。全国24个省市畸高，山西（102）、西藏（101）等<strong>经济相对不发达省份反属正常</strong>——这<strong>直接证伪</strong>了"经济落后→更保守→更重男轻女"的线性推论。</li>
+</ol>
+<p><strong>解读层</strong>：</p>
+<p>晋东南的"保守"是<strong>表象性的、仪式层面的</strong>，不是价值观层面的。原因可能在于：
+- <strong>"靠天吃饭"的农业风险催生的是防灾信仰，不是父权压迫</strong>。后羿管雹、二仙祛病、九天圣母送子——这些神的功能是"抵御灾害风险"，而非"规训女性"。防灾型多神信仰与性别压迫之间没有必然因果关系。
+- <strong>太行山的封闭保存了古老"形式"，但形式不等于内核</strong>。村社社赛、迎神赛社、合八字这些是"古老的壳"，但壳里装的已是现代生活——长治上党区是<strong>全国婚俗改革试点区</strong>，推行集体婚礼、零彩礼。
+- <strong>山西性别比正常的一个解释</strong>：传统资源型经济（煤铁）下，男性劳动力虽重要，但山西没有华南那种<strong>强宗族+男丁争夺公共资源</strong>的压力——华北宗族本就弱于华南，缺乏"必须生男孩继承宗族产业/争夺械斗资源"的结构性压力，故性别偏好不强。</p>
+<p><mark>晋东南的准确画像："古建古俗多、信仰仪式浓，但男女观念在全国属中性偏正常，不是儒家礼教桎梏型地区"。把"古庙多"等同于"人保守"是错配。</mark></p>
+<h3>6.3 泉州：割裂感最强——宗族强、仪式重，但商业开放、嫁妆倒贴</h3>
+<p>泉州是这个问题最复杂的案例，因为它<strong>同时存在"保守迹象"与"开放迹象"</strong>，必须讲清割裂。</p>
+<p><strong>"保守/传统"的迹象（确实存在）</strong>：</p>
+<ol>
+<li><strong>宗族与祭祖强度全国顶级</strong>：闽南"中国祭祖拜神第一大省"，祠堂"修得比皇宫还华丽"，族祭"挑选主祭、宣读祭文、顺序一点不能马虎"。田野调查实录：永春李氏、林氏<strong>"女性不记入族谱、男女不合葬、祭祖只祭拜男性祖先"</strong>——这是硬性的父权宗族遗存。</li>
+<li><strong>知乎闽南本地人自述</strong>："思想上封建残存较多，观念保守、重男轻女、宗族观念重"；"每个姓氏有2个宗祠，其中一个不轻易开门，<strong>女人不能进</strong>"。</li>
+<li><strong>福建被列入"重男轻女"相关讨论</strong>：网易文章把福建与江西、广东、海南并列为宗族势力强、女孩难自立的地区。</li>
+<li><strong>高嫁妆攀比</strong>：晋江农村嫁妆显著高于彩礼（人大李永萍研究），"打肿脸嫁妆多于彩礼，怕婆家看不起自家女儿"——表面是女方受重视，实质是<strong>宗族面子竞争与女性处境的捆绑</strong>。</li>
+</ol>
+<p><strong>"开放/不保守"的迹象（同样确实存在，且需同等权重）</strong>：</p>
+<ol>
+<li><strong>商业文化主导，女性经济参与度高</strong>：闽南诞生安踏、特步等民企，<strong>"敬祖、酬神、爱拼"</strong>——爱拼敢赢的商业精神压过了礼教规训。知乎自述"一个家男人当得，女人也当得"——女性在商业中并非从属。</li>
+<li><strong>嫁妆机制实际保护了女方</strong>：闽南"没听过卖女儿，基本有彩礼就有嫁妆，嫁妆常多于彩礼"——这<strong>不是男权单向索取</strong>，而是双方家庭共同注资小家庭，与江西式"男付女家、女家留存"的高彩礼性质不同。</li>
+<li><strong>泉州是移风易俗全国试点市</strong>：2016年起中宣部试点，3年简办省下的钱捐公益5.3亿元；南安省新镇专项治理天价彩礼——<strong>官方与民间都在主动去保守化</strong>。</li>
+<li><strong>婚姻实质是自由恋爱</strong>：安溪文史"目前现代青年都是自由恋爱"；网络反映年轻一代"婚礼不再是向家族交代的任务，而是自我表达"。</li>
+</ol>
+<p><strong>关键的割裂点：宗族强 ≠ 男尊女卑</strong></p>
+<p>泉州的复杂在于：<strong>宗族组织强度与性别观念传统，是两件事，且可以并存甚至背离</strong>。
+- 宗族强（祠堂、族祭、族谱规矩严）是真的；
+- 但宗族强的<strong>目的</strong>在闽南是<strong>商业互助与海外网络维系</strong>（"宗族与同乡相互帮衬，共同托起商业帝国"），而非压制女性——当女性是商业伙伴时，宗族会调整（"解放后女性也可以参加祭祀""女儿也能捧父亲遗像了"）。
+- 而且福建的"重男轻女"<strong>有结构性补偿</strong>：泉州/晋江是经济发达地区，<strong>高嫁妆+女性继承参与</strong>使女性并非"泼出去的水"，这与纯农业宗族区的女性处境不同。</p>
+<h3>6.4 两地共有的底层机制</h3>
+<p>把信仰分析与当代观念结合，能看出一个统一逻辑——<strong>两地都因"高风险生存"催生强功能信仰与强宗族/社赛组织，但"强组织"不必然导向"男尊女卑"</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>晋东南</th>
+<th>泉州</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>风险来源</strong></td>
+<td>山区旱涝雹灾</td>
+<td>海洋风险+移民社会</td>
+</tr>
+<tr>
+<td><strong>应对组织</strong></td>
+<td>村社社赛（"社"字村名）</td>
+<td>宗族+同乡商业网络</td>
+</tr>
+<tr>
+<td><strong>组织功能</strong></td>
+<td>防灾互济、修庙演戏</td>
+<td>护航经商、海外互助</td>
+</tr>
+<tr>
+<td><strong>女性地位</strong></td>
+<td>无强宗族压迫，性别比正常</td>
+<td>宗族强但商业补偿，割裂中改善</td>
+</tr>
+<tr>
+<td><strong>当代走向</strong></td>
+<td>婚俗改革试点，去功利化</td>
+<td>移风易俗试点，去天价彩礼</td>
+</tr>
+</tbody>
+</table>
+<p><strong>真正的规律</strong>（学界有支撑）：是否"保守重男轻女"，<strong>取决于该地是否需要男性争夺稀缺资源</strong>（宗族械斗、农业劳力、宗族产业继承），而非取决于"信仰是否浓厚"。华南宗族区（潮汕、客家部分）因历史上<strong>宗族间争夺资源激烈</strong>，才形成强男丁偏好；晋东南无强宗族、泉州虽宗族强但资源（海贸利润）可共享，故性别偏好都没有走到江西那种极端（122.7）。</p>
+<p>UNFPA研究也佐证：当代性别偏好<strong>"80、90后生育决策更理性，男孩偏好减弱，但父辈偏好仍强"</strong>——这是代际更替问题，不是地域宿命。</p>
+<hr />
+<h2>七、直接回答：三个问法的校准结论</h2>
+<h3>7.1 "是否比较保守？"</h3>
+<p><strong>形式上保守（仪式、婚俗程序、祭祖规矩保留多），价值观上中性偏现代</strong>。两地都保留大量古老"壳"，但壳内是现代生活与商业逻辑，不是儒家礼教规训型社会。</p>
+<h3>7.2 "是否非常恪守儒家礼教？"</h3>
+<p><strong>不是"恪守"，而是"选择性保留礼的仪式"</strong>。检索明确：礼的"财"的特性在凸显、"礼"的本质在退化，官方民间都在推动"让彩礼回归礼"——恰恰说明<strong>礼教正在被去内核化、保留仪式壳</strong>。真正的儒家礼教（父权、三从四德）在当代两地都已瓦解，只是祭祖/婚仪的形式还在。</p>
+<h3>7.3 "对男女要求偏传统？"</h3>
+<p><strong>泉州比晋东南更"传统"一些，但都在松动，且都不是全国最传统那一档</strong>。泉州因宗族强，女性在族谱/祠堂/祭祖上仍有传统区隔（这是最硬的"传统"证据）；晋东南则连出生性别比都正常，男女要求谈不上传统。<strong>但两地共同点是"代际割裂"</strong>：父辈保留传统偏好，8090后及更年轻一代已明显现代化（自由恋爱、移风易俗、低彩礼）。</p>
+<hr />
+<h2>八、一个重要的方法论提醒</h2>
+<p>这个问题隐含一个常见推论链：<strong>"信仰深厚 → 礼教保守 → 男女传统"</strong>。这三步在检索证据下都<strong>不成立或不必然</strong>：</p>
+<ol>
+<li><strong>信仰深厚 ≠ 礼教保守</strong>（信仰可能是防灾/护海的功能性信仰，与礼教无关）；</li>
+<li><strong>礼教保守 ≠ 男女传统</strong>（礼教的形式可保留而内核瓦解）；</li>
+<li><strong>男女传统 ≠ 重男轻女</strong>（性别比数据是最硬的反证，山西102）。</li>
+</ol>
+<p><mark>两地真正的共性是"高风险催生强功能信仰"，而这个信仰体系对性别规训是中性的——它管灾害与海洋，不管男女。</mark></p>
+<p>把"庙多神多"读成"人保守"是错配了因果。真正决定男女传统的，是<strong>宗族是否需要男丁争夺资源</strong>，这一点上泉州有（故略传统）、晋东南无（故不传统），与信仰密度无关。</p>
+<hr />
+<h2>九、总结：两种极致，同一个逻辑</h2>
+<p>两地不是"最迷信"，而是"<strong>把弥漫性宗教的两种形态做到了极致</strong>"——晋东南把农耕社会的防灾信仰做到最高密度，泉州把商业社会的跨文明信仰做到最高多元度；两者深厚的根子，都是中国人面对生存不确定性时"以功能性信仰组织社会、对冲风险"这一普遍机制的<strong>地域极致表达</strong>。</p>
+<p><mark>信仰深厚的根子，都是中国人面对生存不确定性时"以功能性信仰组织社会、对冲风险"这一普遍机制的地域极致表达。</mark></p>
+<p>: 陈勤建、衣晓龙《当代民间信仰研究的现状和走向思考》，华东师范大学。
+: 张志刚《中国民间信仰的研究潜力及其学术意义》，北京外国语大学《国际汉学》。
+: 人民大学社会学《人类学、社会学民间信仰研究的结构范式与视角创新》，引述杨庆堃"弥漫性宗教"范式。
+: 薄荷茶社《通过事例看民间信仰与封建迷信的区别》。
+: 本地背调文档《20260815-晋城长治-历史背景解读-V01》总纲三、总纲五及各Day条目。
+: 同上，总纲三"古建之密"及"上下同频"机制。
+: 郝平《庙宇空间下的明清华北灾害信仰和乡村社会整合》，山西大学。
+: 本地背调文档《20260719-泉州3天-文化背调》7.4"多元宗教共存的成因"。
+: 同上。
+: 林华东、苏黎明《泉州成为"世界宗教博物馆"的历史原因》，《光明日报》2014；林振礼、吴鸿丽《泉州多元文化和谐共处探微》，厦门大学出版社2017。
+: 澎湃新闻《诵读·地名背后山西史 | 上党：与天为党，自然不同》。
+: 八闽之家《百位神仙、千座庙宇，难道这是泉州发家致富的原因？》。
+: 张志刚同上，引述贺璋瑢广东民间信仰四大板块研究。
+: 泉州市政府《泉州天后宫：一部海洋文化对外传播史》。
+: 泉州市政府学习资料《闽台民间信仰特点》。
+: 厦漳泉同城化背景下闽南民间信仰文化的调研与建议。
+: 易素梅《道教与民间宗教的角力与融合：宋元时期晋东南地区二仙信仰之研究》，维普/道音文化。
+: 中国婚博会官网《山西结婚风俗》。
+: 网易《晋城彩礼现状透视》。
+: 2020第七次全国人口普查，观察者网/腾讯新闻引述。
+: 长治市政府《我市两地试点婚丧习俗改革》。
+: 澎湃新闻《中国祭祖拜神第一大省，祠堂修得比皇宫还华丽》。
+: 澎湃新闻《泉州田野调查日记：村民为什么要修祠堂、拜神灵》。
+: 知乎《在你眼中，闽南人是一个怎样的群体？》。
+: 网易《江浙沪独生女童话破灭，江西广东福建坐实"重男轻女"》。
+: 李永萍《高嫁妆现象的家庭动力与社会生成》，人大社会学（晋江田野）。
+: 泉州市政府《彩礼移风：遏制天价彩礼 卸下甜蜜负担》。
+: 闽南文化生态保护区《安溪婚嫁礼俗》。
+: 晋城文明网引江西省社科院杨舸观点。
+: 澎湃新闻同上，引述闽南商业文化。
+: UNFPA《部分出生人口性别比偏高地区的生育性别偏好研究》。
+: 泉港法院《助力整治婚嫁陋习》、山西文明网《高额彩礼换不来幸福人生》。</p></div></details>
   </section>
 
   <footer>
@@ -1302,6 +2486,16 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
   </footer>
 
 </main>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title" id="modal-title">景点介绍</span>
+      <button class="modal-close" aria-label="关闭">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
 
 <div id="top">↑</div>
 <script>
@@ -1324,6 +2518,30 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
 
   var h=(location.hash||'').replace('#','');
   if(h&&document.querySelector('.tab[data-tab="'+h+'"]')){show(h);}
+
+  // 景点介绍模态框
+  var INTROS = {"d1_bwg": "<div class='f'>年代</div>现代博物馆（2002 年开馆），非古建。<div class='f'>看点</div>常设展《太行自古天下脊》；镇馆之宝时大彬紫砂壶；古建展按《营造法式》拆解斗拱榫卯；馆藏与行程直接相关：府城玉皇庙二十八星宿琉璃构件原件、天宫楼阁小木作、开化寺壁画复制品。<div class='f'>理解</div>先看博物馆再进庙——把分散在太行山里的 72 处国保的“木构+彩塑+琉璃”先集中读懂。", "d1_xnc": "<div class='f'>年代</div>北宋绍圣四年（1097）始建，政和七年（1117）竣工；现存正殿为宋代遗构。<div class='f'>看点（三宝）</div>①宋代木构大殿（减柱造、梭柱，具断代标准）；②天宫楼阁小木作——全国现存宋金三座之一；③宋代二仙彩塑——晋东南现存年代最早、全国唯一宋塑乐氏二仙像（原装 16 尊 90 年代遭盗仅余 6 尊）。<div class='f'>典故</div>供奉晋东南特有的二仙——乐氏姐妹孝感动天、黄龙携升仙，是严格的地方性女神。<div class='f'>理解</div>“小而满”——建筑、小木作、彩塑三样同代真迹齐全的宋代殿堂孤例。", "d1_yhm": "<div class='f'>年代</div>北宋熙宁九年（1076）始建，元至元初大规模重修（现有格局基本保持元大修时样貌）。<div class='f'>看点</div>二十八星宿彩塑（后院西庑）——二十八尊人像+动物化身组合，“海内孤品”、中国道教艺术巅峰；创作年代主流元代说，像高约 1.8 米。<div class='f'>典故</div>玉皇信仰+二十八星宿道教全国最高级别实物；亢金龙即《西游记》角钻破黄铙、《黑神话·悟空》“亢金星君”原型；“室火猪”的猪被雕在房梁上（庙里最著名细节）。<div class='f'>理解</div>全国唯一完整保存二十八星宿彩塑群的道教庙宇——“把整个星空搬进庙里”的巅峰。", "d1_gdm": "<div class='f'>年代</div>相传南宋庆元元年（1195）始建；现存关帝殿、三义殿均为清代建筑。<div class='f'>看点</div>以石雕取胜——关帝殿前廊四根滚龙柱（十余条盘龙+八仙风伯电母雷公雨师）、三义殿前廊四根人物故事石柱（浓缩周至唐三百多个历史人物）；三义殿四图皆归结于一个“义”字。<div class='f'>典故</div>关羽信仰是中国覆盖最广的民间-官方合流信仰；神格升格链：宋徽宗封“崇宁真君”→清顺治“忠义神武关圣大帝”，与孔子并称武圣；晋商奉其为财神。<div class='f'>理解</div>紧邻玉皇庙的“石雕艺术博物馆”，清代顶级盘龙柱+人物柱的立体连环画。", "d1_xx": "<div class='f'>年代</div>始建两说（唐乾元年间或北宋中晚期）；金皇统二年（1142）扩建形成今日格局；现存正殿、东梳妆楼为金代。<div class='f'>看点</div>东西梳妆楼——两座二层三重檐歇山顶楼阁，一层副阶周匝、二层平座斗栱挑出回廊、琴面真昂，专家称“中国古代楼阁式建筑的代表作”。<div class='f'>典故</div>二仙信仰“总本山”之一；宋徽宗崇宁四年（1105）赐“真泽”额、政和元年（1111）封冲惠冲淑真人；元好问青少年在陵川求学多游西溪留诗，其诗碑为庙内人文核心；金正隆状元赵安时撰《重修真泽二仙庙碑》（1165）。<div class='f'>理解</div>金代楼阁+帝王敕封+状元碑+元好问诗碑，“建筑+文学”双绝。", "d2_khs": "<div class='f'>年代</div>北齐武平二年（571）始建；大雄宝殿为北宋原构（熙宁六年 1073 重建），壁画 1092-1096 绘，观音阁金元遗构。<div class='f'>看点（三绝）</div>建筑、彩绘、壁画三件北宋原物同室共存的全国孤例；殿内梁枋彩绘与《营造法式》“彩画作”高度一致；壁画东、西、北三壁约 88㎡，为现存规模最大、艺术水平最高的北宋寺观壁画真迹——900 余人物含宫殿市井织机耕牛，被誉为“北宋社会风俗的画卷”，比《清明上河图》早约二十年。<div class='f'>典故</div>画匠郭发——题记“丙子六月十五日粉此西壁画匠郭发记”（1096），宋代壁画中罕见的“有名有姓”之作。<div class='f'>理解</div>一殿看尽《营造法式》真本。⚠️ 真迹通常仅门缝/复制品可看；午休 12-15 点。", "d2_dls": "<div class='f'>年代</div>原名永德寺，至迟唐代已著名（因“定林泉”更名）；现存山门与雷音殿为元代遗存，集金元明清历代建筑。<div class='f'>看点</div>山门二楼的元代莲花头垂花柱藻井——中央莲花头垂花假柱下垂、八组斗拱如花瓣向四周辐射，山西现存元代藻井中的孤例；明代壁画（地藏殿《地狱十王图》，嘉靖四年 1525）；金代“腾龙金松”。<div class='f'>典故</div>旁有大粮山七佛山石窟（北魏开凿）与瘟神洞（宋雍熙二年创建）；传说“丹娘化蝶”。<div class='f'>理解</div>“一寺看尽元明清”——元代藻井、明代壁画、金代古松同框。⚠️ 午休 12-14:30。", "d2_tfs": "<div class='f'>年代</div>现存为明代遗构——嘉靖元年（1522）塑主尊、嘉靖十五年（1536）彩塑完工开光；2019 年第八批国保。<div class='f'>看点</div>仅约 72㎡ 殿内，中央释迦一佛二菩萨+四周二十四诸天（两壁各十二尊，高 2-3 米）+四角天王共 30 余尊，密度全国罕见；塑像以铁线铁丝塑造须发飘带冠饰铠甲鳞片，形成“木骨铁魂”的立体线条美——上党冶铁重镇的地域产业智慧入彩塑，故称明代铁线彩塑。<div class='f'>典故</div>《黑神话·悟空》美术总监杨奇大学时被画册震撼，因殿窄无法实景扫描、手工逐笔还原；游戏“赤尻马猴”面具原型为西侧散脂大将、“四将”原型菩提树神等。铁佛寺 2024 年 8 月 24 日才因游戏热潮有限开放，每日预约限 500 人。<div class='f'>理解</div>72㎡ 里看中国彩塑“最张扬的一次爆发”，上党煤铁文明与佛教造像结合的孤品。", "d2_yxs": "<div class='f'>年代</div>始建北宋淳化元年（990）；现存毗卢殿为宋代原构。<div class='f'>看点</div>五铺作双抄偷心造、批竹式昂，梁架彻上露明造，是“小材大用”的北宋早期歇山小殿标本。<div class='f'>理解</div>高平宋寺环线最“顺路”一站，一殿毗卢即可读透北宋早期歇山小殿的营造法式。", "d2_cms": "<div class='f'>年代</div>始建北宋开宝年间（968-976）；现存中佛殿为宋代早期原物（开宝四年 971 建），是高平现存最早的宋代建筑；太平兴国年间得宋太宗敕赐寺名。<div class='f'>看点（断梁）</div>殿内不设内柱、仅靠斗栱层托屋顶；承重主梁由两根同径同长的短材对接而成，断缝正中下方以顺栿串承托——全国现存唯一“断梁”实例。<div class='f'>技术地位</div>双杪双下昂七铺作斗栱与佛光寺东大殿（唐）柱头斗栱一致，斗栱与柱高比近 1:1，学界视为唐、宋营造技艺的“活化石”。<div class='f'>理解</div>用两根短梁拼出一根大梁、千年不坠，是古代工匠最硬核的力学智慧。⚠️ 进寺路况较差，需慢行。", "d2_sz": "<div class='f'>年代</div>明中叶贾、杨二姓迁入后形成清中前期建筑为主的民居集群（明清古院落 24 座）；2010 年名村、2012 年传统村落。<div class='f'>看点</div>明清古院落 24 座、砖雕木构保存完好；夜游实景中式婚礼《小二黑结婚》是最大看点。<div class='f'>典故</div>据《高平县志》，北魏太武帝拓跋焘公元 445 年亲临泫氏县观赏连理树，苏庄村即连理树所在地，“喜镇苏庄”由此得名；当地保留“结婚于昏”（黄昏迎娶）礼俗；实景剧《小二黑结婚》改编自赵树理小说。<div class='f'>理解</div>夜游明清古院、看一场实景中式婚礼，把砖雕木构、上党民俗串成可体验的文化现场。", "alt_dls": "<div class='f'>年代</div>战国晚期（前 260 年长平之战期间），廉颇驻军屯粮处；古战场遗址为省保。<div class='f'>看点</div>登顶俯瞰丹河谷古战场全貌；廉颇“以沙代粮”假粮仓遗迹；周边谷口村（骷髅王庙）、围城村等战史地名。<div class='f'>典故·长平之战脉络</div>秦攻韩（前 262）→上党降赵；廉颇依托三道防线在大粮山屯兵积粮两载；范雎反间、赵括代廉颇、白起佯败诱敌；大粮山粮道一断，赵军“不得食四十六日”，四十万降卒被坑杀；永录村一号尸骨坑（1995 发掘）证实。<div class='f'>理解</div>站上廉颇屯粮的山顶俯瞰丹河谷，就是读懂长平之战最直观的方式。", "d3_xwm": "<div class='f'>年代</div>始建年代不详（碑记推定唐宋时已建）；现存正殿为明代遗构、梁架斗拱多存元代营造手法；2013 年第七批国保。<div class='f'>看点（壁画核心）</div>唐玄宗泰山封禅图——全国现存唯一以皇帝封禅为题材的壁画；“往”与“归”两大场面分列东西两壁，北壁道教朝元图，共绘约 125 位真人大小人物。<div class='f'>典故</div>主神八仙之一张果老；创修逻辑与唐玄宗直接相关——李隆基登基前以临淄王任潞州别驾（707-709），在上党居住约两年半，登基后三次重返潞州。这是明代画师为“纪念”一位唐代帝王而作的“历史画”。<div class='f'>理解</div>全国唯一帝王封禅题材壁画；因为它纪念的那位皇帝曾在潞州做过两年半的别驾。", "d3_wb": "<div class='f'>年代</div>金代戏台建于金大定二十三年（1183），全国现存最早有明确纪年的古戏台实物；2006 年第六批国保。<div class='f'>看点</div>面阔进深各一间（约 5 米）的方形亭式结构，单檐歇山顶山花向前（金代戏台标志性形制），不用梁架、纯以斗拱直接撑起屋面，三面厚墙围合形成天然扩音——至今庙会演上党梆子无需麦克风。<div class='f'>典故</div>断代铁证——戏台须弥座束腰石刻铭文「时大定二十三年岁次癸卯秋十有三日」，2002 年前后山西师大戏曲文物研究所从荒草中辨识出铭文，一举改写中国戏曲史“现存最早戏台”实物年表。<div class='f'>理解</div>中国戏曲“形成于宋、成熟于元”正是被这座 1183 年的亭式小台“钉死”的实物坐标。", "d3_fxs": "<div class='f'>年代</div>始建后凉神鼎元年（401），初名慈林寺；现存唐石舍利塔（咸亨四年 673）、唐燃灯塔（大历八年 773）、圆觉殿（北宋 1080-1081）、十二圆觉彩塑（北宋 1111-1112）。1988 年第三批国保。<div class='f'>看点</div>①唐石舍利塔——唐高祖第十三子郑惠王李元懿任潞州刺史时建，砂石“回”字形套筒结构，唐塔孤例；②唐燃灯塔——国内现存三座唐代燃灯塔中保存最完整、做工最精的一座；③十二圆觉（“宋塑之冠”落点）——塑于政和元年（1111），出资者 27 村 186 人，明确署名“塑匠人冯宗本”“画匠人陈道荣、吕荣”。<div class='f'>典故</div>“宋塑之冠”并非古人称谓，而是 20 世纪以钱绍武为代表的雕塑家建立的价值坐标；钱绍武盛赞一尊托腮沉思像为“东方维纳斯”；1970 年代末原址因煤矿采空下陷，1984-1996 年整寺原构件迁建翠云山现址。<div class='f'>理解</div>看唐代的塔、唐代的灯、北宋的菩萨——宗教造像世俗化人文化的最高峰。", "d3_cqs": "<div class='f'>年代</div>始建北宋大中祥符九年（1016）；现存千佛殿为北宋原构；1996 年第四批国保。<div class='f'>看点</div>①千佛殿——面宽三间、进深六椽、平面近方形，斗栱单杪单下昂五铺作偷心造，手法尚袭唐五代遗风，“北宋早期小型歇山顶木构建筑的典范之作”；②十八罗汉——出自北宋元丰二年（1079），目前已知最早有明确纪年的十八罗汉造像，“宋塑之冠”落点。<div class='f'>三嵕庙（联票“前寺”）</div>始建北宋宣和四年（1122），主神后羿+风伯雨师雷公电母；相传后羿射日余箭插在此山前坡化紫云山，故山名“紫云”；庙前白皮松数十株、树龄五百余年。<div class='f'>⚠️ 关键提示</div>三大士原塑 1991 年遭盗贼推倒粉碎，今像系依图像资料重塑；“宋塑之冠”的落点是罗汉，不是三大士。<div class='f'>理解</div>千佛殿（北宋木构）+十八罗汉（最早纪年宋塑罗汉）双璧——“一座宋构、两朝彩塑”。", "d3_xh": "<div class='f'>年代</div>始建无确证；现存正殿为金代遗构（大殿檐柱有金大定甲辰 1184 施柱题记、门枕石金明昌五年 1194 题记）；2013 年第七批国保。<div class='f'>看点</div>大殿梁架厅堂造、四椽栿对前乳栿用三柱，六铺作单杪双下昂、龙形耍头，形制近宋《营造法式》而具晋东南金代典型特征；殿内塑后羿嫦娥像，东西山墙绘《护国灵贶王行云布雨图》。<div class='f'>典故（灵贶王=后羿，重点）</div>《山西通志》明载：「宋崇宁间赐庙额，封羿神为灵贶王」——北宋徽宗崇宁年间（1102-1106）敕封射日之羿为“灵贶王”（主司防旱祈雨）。所谓“李靖”之误，当是把天王寺所祀毗沙门天王（与唐将李靖形象合流）错安到灵贶王头上。<div class='f'>理解</div>金代正殿（大定题记）是全庙价值核心；“灵贶王即后羿”把这座庙与三嵕山射日传说、宋代敕封制度串成完整信仰链。", "d3_tws": "<div class='f'>年代</div>始建唐永徽年间（650-655）；现存中殿、后殿均为金代遗构；2006 年第六批国保。<div class='f'>看点</div>金代减柱造——中殿、后殿均抽去部分前内柱、以梁栿通搭（中殿六椽栿通达前后檐），扩大殿内礼佛空间；中殿单杪单下昂五铺作计心造，被推为“现存金代建筑的典型之作”。<div class='f'>典故</div>主神唐宋“军神”北方毗沙门天王（多闻天王）——崇拜源自唐天宝元年（742）安西城被围、天王显圣解围的传说，唐玄宗遂命诸道州府设像供养；长治地区此类毗沙门寺观仅此一例。<div class='f'>理解</div>减柱造是金代晋东南木构的标志技术——“抽柱扩堂”换礼佛空间。", "alt_bc": "<div class='f'>年代</div>中殿为北宋晚期遗构（北大徐怡涛团队考定不晚于北宋宣和元年 1119；另有“唐中期或更早”说，主流折中为五代至北宋早期），后殿金代、东朵殿元代——一庙集宋金元三朝木构；2013 年第七批国保。<div class='f'>看点</div>中殿北宋晚期原构、后殿金代、东朵殿元代；1960 年代曾作粮站、白灰裹身，反使木构侥幸留存。<div class='f'>理解</div>一座“无字断代”的宋金玉皇庙——中殿断代争议（唐/五代/北宋）本身即是看点，代表晋东南乡村道教庙宇与宋金建筑断代学的前沿现场。", "d3_sdm": "<div class='f'>年代</div>始建隋开皇年间（581-600）；现存明洪武三年（1370）重建；2006 年第六批国保。<div class='f'>看点</div>现存大门、钟楼（匾“风驰”）、鼓楼（匾“云动”）、府二堂，重檐歇山、楼高门低，象征官署威严。<div class='f'>典故</div>隋代上党郡署大门，唐代为潞州治所正门；唐景龙元年（707）临淄王李隆基任潞州别驾即居此衙署，潞州是其“发迹之地”；开元十一年（723）玄宗北巡将旧宅改建“飞龙宫”、免潞州赋税五年；明嘉靖八年潞州升潞安府，遂为潞安府衙大门。<div class='f'>理解</div>一座门楼浓缩隋代建郡、李隆基发迹、明代升府三段上党史——“长治＝潞安府＝上党”千年沿革的物理原点。", "d4_cm": "<div class='f'>年代</div>始建元至元二十二年（1285）；现存中大殿（弘仁殿）与角殿为元代原构，寝宫/戏楼/玄鉴楼明代；2001 年第五批国保。<div class='f'>看点</div>占地 12229㎡、中轴线长 408 米（全国府城隍庙中最长者）；各殿黄蓝绿三色琉璃饰顶，寝宫正脊黑釉行龙为明代原物。<div class='f'>典故</div>明代城隍制度——城隍源于周代蜡祭“水庸”，明代极盛：朱元璋洪武元年大封天下城隍，府城隍封“监察司民城隍威灵公”（正二品），令城隍庙规制同官署正衙，形成“阴阳两衙门”制度，新官到任须先谒城隍立誓；明嘉靖八年（1529）潞州升潞安府，州庙升格为府城隍庙。<div class='f'>理解</div>明代国家借助城隍信仰实现“阴司监察、阳衙治民”双轨治理的实物标本。", "d4_czb": "<div class='f'>年代</div>1960 年成立；新馆 2026 年 1 月试运行开放，展陈约 1.7 万㎡；国家二级博物馆，馆藏 6 万余件。<div class='f'>看点</div>常设展“上党从来天下脊”四单元：光启漳水（史前）→王畿重郡（商周至秦汉）→盛世潞州（唐宋）→繁华潞安（明清）；代表文物：春秋兽面蟠螭纹铜鼎、唐三彩抱鸭壶女俑、南涅水石刻造像群（北魏至北宋）、辽千佛座铜鎏金卢舍那佛坐像、明代珐华罐。<div class='f'>理解</div>建立“上党/潞州/潞安”通史坐标再看古迹会更有纵深——“先总后分”的最佳起点。", "alt_gyt": "<div class='f'>年代</div>始建明万历十年（1582）；现存正殿为明代遗构、殿内悬塑为明代原物；2001 年第五批国保；是《黑神话·悟空》36 处取景地之一。<div class='f'>看点</div>明代悬塑——不足 40-60㎡ 的三间大殿内汇 500 余尊描金彩绘泥塑，“海内悬塑之冠”；分四层：十八罗汉→二十四诸天→十二元觉→道教群仙；殿顶祥云中释迦牟尼、老子、孔子三教祖师并坐——明末“三教合一”思潮的立体呈现。<div class='f'>⚠️ 开放状态</div>2026 年 6 月中旬起又因文物维护闭馆（截至 2026 年 8 月中未公告复开）。出发前务必通过“长治市观音堂”公众号确认，备选稳妥。<div class='f'>理解</div>不足 40-60㎡ 的殿内密布 500 余尊悬塑，长治悬塑艺术的天花板。", "alt_gc": "<div class='f'>年代</div>正殿为元代建筑、东耳殿明代、香亭清代；2013 年第七批国保。<div class='f'>看点</div>庙内东西山墙满绘炎帝故事壁画约 40㎡（沥粉贴金），在长治众多炎帝庙中大幅炎帝故事图极为少见；正殿屋顶明代琉璃（正脊大吻为明嘉靖三十八年 1559 烧造）。<div class='f'>典故</div>炎帝（神农氏）信仰庙宇；老顶山（百谷山）就在关村背后的市区东北，《太平寰宇记》载“昔神农尝百草于此”。<div class='f'>⚠️ 方向冲突</div>位于市区东北，与 D4 主线（西→南）方向相反，需折返约 8km，时间紧可砍。<div class='f'>理解</div>老顶山就在村后——炎帝“尝百草”的信仰地标与村庙在地理上直接相连。", "alt_zjs": "<div class='f'>年代</div>始建唐大和年间（827-835）；现存后殿为金代原构（亦有“宋金原构”说）、东西配殿元代；2001 年第五批国保。<div class='f'>看点</div>后殿面阔五间（约 20 米）、单檐悬山顶，梁架简洁规整、用材敦厚肥硕，被誉为现存宋金木构的典型代表作；上世纪曾改作粮库，反使木构完好保存。<div class='f'>⚠️ 位置</div>位于上党区苏店镇看寺村（“看寺”村名即因寺得名），非“北天河村东”（高德上同名非国保 POI 易误导）；村庙文保点可能锁门，需提前联系当地文保员。<div class='f'>理解</div>五间悬山后殿、梁架敦厚肥硕——现存宋金木构“教科书级”的代表作。", "d4_wfl": "<div class='f'>年代</div>玉皇观相传始建宋代；现存五凤楼为元代建筑（一说宋末元初）；2006 年第六批国保。<div class='f'>看点</div>五凤楼是玉皇观的山门——把道教宫观的山门做成皇宫正门的楼阁形制，正面五重飞檐、侧面四层，即“明五暗四”；楼内五大奇观：荆木大梁、桑木独梯、八卦藻井、一根断梁、七拱十三踩；凌霄宝殿前檐“七铺作十三踩”斗拱规制超过故宫太和殿的十一踩，民间称“天下第一玉皇观”。<div class='f'>典故</div>“五凤楼”名之源——隋唐洛阳宫城正门应天门（晚唐天祐二年改称五凤楼），北京故宫午门明代亦称“五凤楼”；荆木大梁长 7.39 米（荆木本为编筐灌木极难成材）、桑木独梯高 7.13 米由整棵桑木雕成树龄约 500 年；“世界仅存三座”为文旅宣传口径宜作参考。<div class='f'>理解</div>把皇宫大门的“五凤楼”搬到玉皇大帝的道观山门——上党民间把国家礼制“挪作神用”的巅峰之作。", "d4_ccy": "<div class='f'>年代</div>大殿为正殿（早期宋式做法，一说金代），前殿/过殿等明清，国保登记“北宋至清”；2019 年第八批国保。<div class='f'>看点</div>正殿梁架“六椽栿通达前后檐用三柱”、脊檩施叉手、蜀柱下用驼峰、金柱为石质方柱——研究晋东南早期厅堂构架的标本；2020 年前后修缮时殿内意外发现一座穹隆顶地宫，内出四块刻铭文砖，年代与价值有待专家进一步考证。<div class='f'>典故</div>玉皇信仰源流——源于上古“昊天上帝”崇拜，魏晋道教渐有“玉皇”之名；宋真宗为洗“澶渊之盟”之耻上玉皇尊号（1014/1015）、宋徽宗再加“昊天”二字，道教玉皇与国家祭天信仰合流，玉皇庙在宋代以后的北方乡村遍地开花。<div class='f'>理解</div>藏在荫城铁镇村庄里“不显山露水”的早期玉皇庙——宋式梁架+殿内地宫砖铭待考。", "d4_yc": "<div class='f'>年代</div>冶铁聚落可溯至春秋战国，汉代成上党冶铁中心、设铁官；2019 年第七批中国历史文化名镇。<div class='f'>看点（千年铁府）</div>明洪武六年（1373）全国 13 个铁冶所之一；明清鼎盛时“家家有铁炉、户户会打铁”，铁炉 1800 多座、工匠最多 1.3 万余人、铁货年销 2000 万斤、交易额达 1000 余万两白银，“万里荫城、日进斗金”，销往国内 20 余省并远销朝鲜、日本、俄国。<div class='f'>典故</div>铁与绸——《潞安府志》“独铁与绸耳”，滋养出泽潞商帮（晋商两大帮派之一）；元末明初“雄山三老”重振雄山书院，铁商“以儒经商”，门匾刻“日中而市”“里仁为美”。<div class='f'>理解</div>荫城不是靠运气的集市，而是“煤+铁+工匠+商路”咬合的千年铁府。", "d4_jt": "<div class='f'>年代</div>始建隋代（据元元统二年 1334 重修碑载“创建于隋”）；现存圣母殿为北宋遗构（建中靖国元年 1101 再修）、献殿元代（庑殿顶“佾舞亭”）、梳妆楼明代——宋元明清四朝木构集于一庙；2001 年第五批国保。<div class='f'>看点</div>圣母殿琴面插昂，是“铺作插昂造”最早实例之一，“宋代建筑向金代建筑转变的重要实物”；北宋建中靖国元年（1101）重修碑记“创建舞楼”——国内极罕见的宋代“庙里建戏台”记载。<div class='f'>典故（九天圣母是谁）</div>主流指向九天玄女——《云笈七签》“九天玄女者，黄帝之师、圣母元君弟子也”，助黄帝破蚩尤的兵法战神；与碧霞元君有关联但不是同一神；本庙东西院设“广生殿”“子孙殿”，实际承担送子保育功能。<div class='f'>理解</div>隋源北宋建殿、集四朝木构于一身的山村大庙——身兼战神（九天玄女）与送子娘娘两副面孔。", "d4_bs": "<div class='f'>年代</div>三嵕庙正殿为元代遗构（四椽栿对前剳牵通檐用三柱、单檐悬山顶、五铺作双下昂），其余清代；2013 年第七批国保。<div class='f'>看点</div>主祀后羿（羿神），庙中石碣刻“羿射九乌之神地”——三嵕山（今屯留老爷山）为“羿射九日”神话发源地；北宋徽宗崇宁二年（1103）敕封羿神为“护国灵贶王”；上党地区三嵕庙列入各级文保的四五十座，为全国之最。<div class='f'>村落看点</div>北社村内三嵕庙与大禹庙（同为第七批国保）相距仅百米、格局近似——一个祀射日英雄、一个祀治水英雄，都管风雨，反映本土水神信仰在同一村落中的并存与“竞争”。<div class='f'>理解</div>把“射落九日”的羿神请进元代大殿，配倒座戏楼和献殿，每年社赛演给神看——三嵕信仰是上党人对“天旱日烈”生存焦虑的古老应答。", "d5_tta": "<div class='f'>年代</div>始建五代后唐天成四年（929）建创立、长兴四年（933）创修大殿（依殿内墨书题记）；现存大佛殿为五代后唐原构，含零星盛唐、中唐旧木料；1988 年第三批国保。<div class='f'>⚠️ 断代更正</div>曾被定为唐代建筑（1956 年普查后列入“中国现存四座唐代木构”之列）→ 2014 年落架大修发现墨书题记后多数学者改断为五代后唐（929/933）；学界“唐代说”“五代说”并存，最稳妥表述：五代后唐遗构、保留浓厚唐风。<div class='f'>典故</div>寺名“天台庵”表明其属天台宗道场（智顗创于浙江天台山）；民间传说唐末灭佛时天台山僧人为保存法脉千里寻避祸之地，选中浊漳河谷。<div class='f'>理解</div>价值不在规模，而在它可能是中国现存最早天台宗建筑遗存之一。", "d5_yqs": "<div class='f'>年代</div>始建唐天宝六年（747），相传唐玄宗李隆基敕建（含传说成分）；现存大雄宝殿（宋代原构）、青龙宝塔（北宋元祐二年 1087）、唐天宝六年陀罗尼经幢；2001 年第五批国保。<div class='f'>看点</div>大雄宝殿与青龙宝塔两件宋代原构——宝塔为仿木构八角七层密檐砖塔高约 17 米，底层砖雕直棂窗，研究宋代砖塔形制的实物；“雾迷塔影烟迷寺，暮听钟声夜听潮”石柱楹联值得驻足。<div class='f'>典故</div>寺名“原起”民间解释取“重起大唐江山”之意（官方介绍未载，属民间说法）；相传凤凰山“凤脉主贵”，唐玄宗即位后为防“女主之祸”重演（武则天曾建武周）敕建此寺镇脉；宋代宋哲宗（赵煦）遂于元祐二年敕建青龙宝塔镇脉。<div class='f'>理解</div>小庙锁门看外观即值——“雾迷塔影烟迷寺”的河畔古刹。", "d5_dyy": "<div class='f'>年代</div>始建五代后晋天福三年（938），初名仙岩院；现存大佛殿（后晋天福五年 940，五代原构）、七宝塔（后周显德元年 954）；1988 年第三批国保。<div class='f'>看点（两张王牌）</div>①全国现存唯一的五代寺观壁画——大佛殿内五代壁画约 20 余㎡，东壁《维摩变相》、扇面墙背面西方净土变，承袭晚唐“焦墨薄彩”画风、施蓝绿赭三色、沥粉贴金，与莫高窟晚唐壁画同出一格；②中国现存木构建筑中在阑额上加施普拍枋的最早实例（大佛殿），驼峰种类多达 8 种。<div class='f'>⚠️ 壁画年代更正</div>壁画绘制于后晋天福年间（约 940 年前后），与大佛殿同期，而非后周显德年间——显德元年（954）对应的是寺外七宝塔年代，二者不可混淆。<div class='f'>理解</div>一寺集“五代木构+五代壁画+五代石塔”三宝于一身。", "d5_fts": "<div class='f'>年代</div>始建不详（一般认为唐末五代始创）；现存正殿一座，宋代遗构（形制属宋金过渡风格），殿内元代壁画；2006 年第六批国保。<div class='f'>看点</div>大殿柱头斗栱五铺作双下昂、当心间补间出 45°斜拱、柱侧角升起显著，完整保存宋式做法；殿内 2010 年修缮时从石灰覆盖层下剥离出元代“二十四诸天”壁画约 36㎡，沥粉堆金、工笔重彩，与大同善化寺、北京法海寺诸天像齐名——“宋构+元壁画”双宝。<div class='f'>趣味细节</div>四角塑韩信、周瑜、庞涓、罗成四位历史人物，寓意“才高命短”以警世人。<div class='f'>理解</div>一殿看两代——宋代木构+元代二十四诸天壁画，是浊漳河谷“小庙藏珍”的典型。⚠️ 非传统旅游景点，需联系文管员开门。", "d5_chs": "<div class='f'>年代</div>始建北齐天保年间（550-559），初名龙门禅院，为龙门寺下院；北宋淳化二年（991）以年号改额“淳化寺”；现存正殿为金代原构、北宋开宝三年（970）石经幢两通；2001 年第五批国保。<div class='f'>看点</div>金代正殿（四铺作单抄单下昂、批竹式昂、无补间斗栱、结构简练比例适度）+两通北宋经幢（楷书阴刻《尊胜陀罗尼经》《金刚般若波罗密经》，由住持僧道贞书写）——“金殿宋幢”组合。<div class='f'>典故</div>金大定己丑（1169）题诗碑作者李晏时任平顺县令；“下院”=附属于主寺的分支寺院，法脉同源但可自立——本质是“法统与香火上的从属”。<div class='f'>理解</div>把淳化寺放在龙门寺的传承脉络里看，才能理解浊漳河谷寺院网络的关系。⚠️ 寺门常年不开，多只能看外观。", "d5_lms": "<div class='f'>年代</div>始建北齐天保元年（550）前后，原名法华寺；现存五代西配殿、宋大雄宝殿、金天王殿、元燃灯佛殿、明东配殿、清建筑——六朝木构集于一寺，为中国现存古寺所仅见；1996 年第四批国保。<div class='f'>看点（“中国古建博物馆”）</div>西配殿（五代后唐 925-935）——面阔三间、单檐悬山顶，殿内无柱、四椽栿通达内外，柱头不施普拍枋、栌斗直接坐柱头，中国现存已知唯一的五代悬山式木构；大雄宝殿（北宋 1098，存工笔重彩壁画）；天王殿（金代山门）；燃灯佛殿（元代，西山墙三椽栿极度弯曲称“古建中最弯曲的大梁”）。<div class='f'>比较要点</div>前院东西配殿一对比，同时看到五代与明代两个时代——西配殿那不施普拍枋的栌斗直承柱头，是比大云院“最早普拍枋”更早一层的唐—宋过渡形态。<div class='f'>理解</div>六朝同框的意义，在于把中国木构千年的演变轨迹压缩在一座寺院里——逐殿比对，“中国古建博物馆”名副其实。", "d5_hls": "<div class='f'>年代</div>现存正殿一座，金代遗构（碳十四+树轮校正为北宋晚期至金初），单檐悬山顶；2006 年第六批国保。<div class='f'>看点</div>梁架三椽栿对前剳牵通檐用三柱，柱头不施普拍枋直接置栌斗、阑额至角柱不出头、前檐使用罕见的蝉肚实拍华拱与蝉肚实拍泥道拱——被北大专家称为“民间宋金木构孤本”；殿内存清代工笔淡彩壁画约 53.7㎡，内容为《西游记》人物与四大天王。<div class='f'>典故</div>“蝉肚实拍拱”等不合“标准宋式”的手法，是民间匠师因地制宜的自创；殿宇残破，2001 年由北京大学考古文博学院师生测绘实习时意外发现。<div class='f'>⚠️ 乡镇更正</div>回龙寺、夏禹神祠均在阳高乡侯壁村（非“石城镇”；石城镇是源头村龙门寺所在地）。<div class='f'>理解</div>与同村夏禹神祠并称“一村两金元国保”。", "d5_xysc": "<div class='f'>年代</div>始建元代“至元二年”（月台角柱题记；元代前后两度“至元”，学界多推定后至元 1336）；现存正殿（元代原构）、须弥座月台（元代）、山门兼倒座戏台与廊庑（清代）；2006 年第六批国保。<div class='f'>看点</div>正殿柱头与补间斗栱均四铺作单下昂、具典型元代特征；殿前青石须弥座月台高约 1.3 米，束腰浮雕飞龙舞凤卷草力士——“元代木构+元代石雕”双珍。<div class='f'>典故</div>鲧禹治漳传说地理链——侯壁村西约 5 公里奥治村存“错凿沟”（鲧误凿的废渠遗迹）；据《潞安府志》：“土人传鲧治水欲浚漳河南流，凿山势逆水不下，被殛；禹乃改渠东流，始通。”当地因此建禹王庙镇水祈安澜。<div class='f'>理解</div>浊漳河谷“大禹治水传说”最集中的物质载体；山门兼倒座戏台说明祭祀活动常年有戏剧酬神。", "d5_hnc": "<div class='f'>年代</div>村落可溯至五代（村内明惠大师塔建于后唐长兴三年 932）；现存明惠大师塔（五代石塔）、清代关帝庙、虹梯古关（民国二年 1913 重修）、明清古民居 54 处；2013 年传统村落+第七批中国历史文化名村。<div class='f'>看点</div>明惠大师塔——五代方形单层亭阁式石塔通高约 6.5 米，我国五代现存石塔中的孤例；东侧虹霓瀑布落差 80 余米，夏秋水盛时水雾升腾成彩虹之景。<div class='f'>典故</div>虹梯关为山西八大古关之一——明嘉靖八年（1529）凭险设关，起因是镇压陈卿起义后升潞州为潞安府、新设平顺县并设虹梯、玉峡二关；古道“五十四盘”之字形人工石梯，是明清晋豫商旅要道，乾隆五十五年（1790）由潞安、彰德两府商号捐资大修。<div class='f'>理解</div>看瀑布、走古关、观石村——一条完整的“古道+传统村落”景观带，补足河谷走廊的“古道”维度。"};
+  var mOverlay=document.getElementById('modal');
+  var mTitle=document.getElementById('modal-title');
+  var mBody=document.getElementById('modal-body');
+  function openIntro(k){
+    if(!INTROS[k])return;
+    var btn=document.querySelector('.btn-intro[data-poi="'+k+'"]');
+    mTitle.textContent=btn?btn.getAttribute('data-name'):'景点介绍';
+    mBody.innerHTML=INTROS[k];
+    mOverlay.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeIntro(){
+    mOverlay.classList.remove('open');
+    document.body.style.overflow='';
+  }
+  mOverlay.addEventListener('click',function(e){if(e.target===mOverlay)closeIntro();});
+  document.querySelector('.modal-close').addEventListener('click',closeIntro);
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('.btn-intro');
+    if(b)openIntro(b.getAttribute('data-poi'));
+  });
 })();
 </script>
 </body>
