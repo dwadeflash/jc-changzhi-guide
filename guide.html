@@ -2524,8 +2524,8 @@ footer .rule:before,footer .rule:after{content:"";height:1px;width:60px;backgrou
   var isIOS=/iphone|ipad|ipod/i.test(ua);
   var isAndroid=/android/i.test(ua);
   document.querySelectorAll('.btn-nav').forEach(function(a){
-    if(isIOS)a.setAttribute('href',a.getAttribute('data-ios'));
-    else if(isAndroid)a.setAttribute('href',a.getAttribute('data-android'));
+    if(isIOS){a.setAttribute('href',a.getAttribute('data-ios'));a.removeAttribute('target');}
+    else if(isAndroid){a.setAttribute('href',a.getAttribute('data-android'));a.removeAttribute('target');}
   });
 
   // 景点介绍模态框
